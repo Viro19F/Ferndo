@@ -3,1024 +3,937 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CasaMatch AI — Bienes Raíces Inteligentes en RD</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>CasaMatch AI — Real Estate Inteligente en RD</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:        #0D1F3C;
-  --navy-mid:    #1B3A6B;
-  --navy-light:  #2A5298;
-  --gold:        #D4A843;
-  --gold-light:  #E8C46A;
-  --gold-pale:   rgba(212,168,67,0.12);
-  --coral:       #E8553E;
-  --coral-soft:  rgba(232,85,62,0.12);
-  --teal:        #0B8B8B;
-  --green:       #1DB954;
-  --wa-green:    #25D366;
-  --white:       #FFFFFF;
-  --cream:       #FAF8F5;
-  --light:       #F2EFE9;
-  --gray:        #8A8A8A;
-  --gray-light:  #E8E4DE;
-  --ink:         #1A1A1A;
-  --radius:      18px;
-  --radius-sm:   10px;
-  --shadow:      0 4px 24px rgba(13,31,60,0.07);
-  --shadow-lg:   0 16px 56px rgba(13,31,60,0.14);
+  --white:    #FFFFFF;
+  --off:      #FAFAFA;
+  --surface:  #F5F5F5;
+  --border:   #E8E8E8;
+  --ink:      #1A1A1A;
+  --ink-2:    #3D3D3D;
+  --muted:    #717171;
+  --light:    #ACACAC;
+  --coral:    #FF5A5F;
+  --coral-s:  rgba(255,90,95,0.08);
+  --gold:     #C8922A;
+  --gold-s:   rgba(200,146,42,0.09);
+  --navy:     #0D1F3C;
+  --navy-2:   #162F58;
+  --teal:     #00A699;
+  --green:    #008A05;
+  --wa:       #25D366;
+  --r:        16px;
+  --r-sm:     10px;
+  --r-lg:     24px;
+  --sh:       0 2px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --sh-lg:    0 8px 40px rgba(0,0,0,0.12);
+  --sh-xl:    0 20px 60px rgba(0,0,0,0.15);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-
 body {
   font-family:'Inter',sans-serif;
-  background:var(--cream);
+  background:var(--white);
   color:var(--ink);
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  padding-bottom:72px;
 }
 
-/* ============ TOPBAR ============ */
+/* ═══ TOPBAR ═══ */
 .topbar {
   position:fixed; top:0; left:0; right:0; z-index:300;
-  height:62px;
-  background:rgba(13,31,60,0.97);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+  height:64px; background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 1.4rem;
-  border-bottom:1px solid rgba(212,168,67,0.12);
 }
-
 .logo { display:flex; align-items:center; gap:9px; cursor:pointer; }
 .logo-mark {
-  width:34px; height:34px;
-  background:linear-gradient(135deg,var(--gold),var(--gold-light));
-  border-radius:9px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.05rem;
-  box-shadow:0 4px 12px rgba(212,168,67,0.3);
+  width:34px; height:34px; background:var(--coral);
+  border-radius:10px; display:flex; align-items:center;
+  justify-content:center; font-size:1rem;
+  box-shadow:0 4px 12px rgba(255,90,95,0.28);
 }
 .logo-name {
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem; font-weight:700;
-  color:var(--white); letter-spacing:0.01em;
+  font-size:1.05rem; font-weight:800; color:var(--ink); letter-spacing:-0.02em;
 }
-.logo-name em { font-style:normal; color:var(--gold); }
-
-.nav-right { display:flex; gap:0.6rem; align-items:center; }
-
-.btn-nav-ghost {
-  background:none; border:1px solid rgba(212,168,67,0.35);
-  color:rgba(255,255,255,0.8); font-family:'Inter',sans-serif;
-  font-size:0.73rem; font-weight:600; padding:7px 15px;
-  border-radius:100px; cursor:pointer; transition:all 0.25s;
+.logo-name em { font-style:normal; color:var(--coral); }
+.nav-r { display:flex; gap:0.55rem; align-items:center; }
+.btn-outline {
+  background:none; border:1.5px solid var(--border); color:var(--ink-2);
+  font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:600;
+  padding:8px 16px; border-radius:100px; cursor:pointer; transition:all 0.2s;
 }
-.btn-nav-ghost:hover { border-color:var(--gold); color:var(--gold); }
-
-.btn-nav-gold {
-  background:var(--gold); border:none; color:var(--navy);
-  font-family:'Inter',sans-serif; font-size:0.73rem; font-weight:700;
-  padding:8px 18px; border-radius:100px; cursor:pointer;
-  transition:all 0.3s;
+.btn-outline:hover { border-color:var(--ink); }
+.btn-fill {
+  background:var(--ink); color:var(--white);
+  font-family:'Inter',sans-serif; font-size:0.75rem; font-weight:700;
+  padding:9px 18px; border-radius:100px; border:none; cursor:pointer; transition:all 0.25s;
 }
-.btn-nav-gold:hover { background:var(--gold-light); transform:translateY(-1px); box-shadow:0 4px 14px rgba(212,168,67,0.35); }
+.btn-fill:hover { background:var(--ink-2); transform:translateY(-1px); box-shadow:var(--sh); }
 
-/* ============ HERO ============ */
+/* ═══ HERO ═══ */
 .hero {
-  min-height:100svh;
-  background:linear-gradient(150deg, #061528 0%, #0D1F3C 35%, #122B52 65%, #0A1E38 100%);
-  position:relative;
-  display:flex; flex-direction:column; justify-content:center;
-  padding:100px 1.4rem 2.5rem;
-  overflow:hidden;
+  padding:100px 1.4rem 3rem;
+  position:relative; overflow:hidden;
+  background:var(--white);
 }
 
-/* Animated blobs */
-.hero-blob {
-  position:absolute; border-radius:50%;
-  pointer-events:none; filter:blur(60px);
-}
-.blob-1 { width:300px; height:300px; top:-80px; right:-60px; background:rgba(212,168,67,0.12); animation:blobFloat 8s ease-in-out infinite alternate; }
-.blob-2 { width:250px; height:250px; bottom:10%; left:-80px; background:rgba(232,85,62,0.07); animation:blobFloat 10s ease-in-out 2s infinite alternate-reverse; }
-.blob-3 { width:200px; height:200px; top:40%; right:10%; background:rgba(11,139,139,0.07); animation:blobFloat 7s ease-in-out 1s infinite alternate; }
-
-@keyframes blobFloat {
-  from { transform:translate(0,0) scale(1); }
-  to   { transform:translate(20px,30px) scale(1.1); }
+/* Dot grid */
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle, #E0E0E0 1px, transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
 }
 
-/* Grid overlay */
-.hero-grid {
-  position:absolute; inset:0; pointer-events:none;
-  background-image:
-    linear-gradient(rgba(212,168,67,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212,168,67,0.035) 1px, transparent 1px);
-  background-size:52px 52px;
+/* Gradient glow blob */
+.hero-glow {
+  position:absolute; top:-120px; right:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,90,95,0.12) 0%, rgba(200,146,42,0.06) 50%, transparent 70%);
+  pointer-events:none; animation:glowPulse 6s ease-in-out infinite alternate;
 }
+@keyframes glowPulse { from{transform:scale(1);opacity:0.8} to{transform:scale(1.15);opacity:1} }
 
-.hero-eyebrow {
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.22);
-  border-radius:100px; padding:6px 14px; margin-bottom:1.5rem;
-  width:fit-content;
-  opacity:0; animation:slideUp 0.7s ease-out 0.2s forwards;
+.hero-badge {
+  display:inline-flex; align-items:center; gap:7px;
+  border:1.5px solid var(--border); border-radius:100px;
+  padding:6px 14px; margin-bottom:1.5rem; background:var(--white);
+  box-shadow:var(--sh);
+  opacity:0; animation:up 0.6s ease-out 0.1s forwards;
 }
-.hero-eyebrow .pulse-dot {
-  width:7px; height:7px; border-radius:50%;
-  background:var(--gold); animation:pulseDot 2s infinite;
-}
-.hero-eyebrow span { font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
+.badge-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero-badge span { font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-2); }
 
-.hero-title {
+.hero-h1 {
   font-family:'Playfair Display',serif;
-  font-size:3rem; font-weight:700; color:var(--white);
-  line-height:1.05; margin-bottom:1.2rem;
-  opacity:0; animation:slideUp 0.8s ease-out 0.4s forwards;
+  font-size:2.9rem; font-weight:700; line-height:1.05;
+  color:var(--ink); margin-bottom:1.1rem;
+  opacity:0; animation:up 0.7s ease-out 0.25s forwards;
+  letter-spacing:-0.01em;
 }
-.hero-title em { font-style:italic; color:var(--gold); }
-.hero-title .typewriter { display:inline; }
+.hero-h1 em { font-style:italic; color:var(--coral); }
 
 .hero-sub {
-  font-size:0.93rem; font-weight:300; color:rgba(255,255,255,0.5);
-  line-height:1.7; max-width:330px; margin-bottom:2.2rem;
-  opacity:0; animation:slideUp 0.8s ease-out 0.6s forwards;
+  font-size:1rem; font-weight:400; color:var(--muted);
+  line-height:1.7; max-width:360px; margin-bottom:2rem;
+  opacity:0; animation:up 0.7s ease-out 0.4s forwards;
 }
 
-.hero-btns {
-  display:flex; gap:0.75rem; flex-wrap:wrap;
-  opacity:0; animation:slideUp 0.8s ease-out 0.8s forwards;
-  margin-bottom:2.5rem;
+.hero-actions {
+  display:flex; gap:0.65rem; flex-wrap:wrap; margin-bottom:2.5rem;
+  opacity:0; animation:up 0.7s ease-out 0.55s forwards;
 }
 
-.btn-hero-primary {
+.btn-hero-coral {
   display:inline-flex; align-items:center; gap:8px;
-  background:var(--gold); color:var(--navy);
-  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:700;
+  background:var(--coral); color:var(--white);
+  font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:700;
   padding:14px 26px; border-radius:100px; border:none; cursor:pointer;
-  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+  transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 4px 16px rgba(255,90,95,0.3);
 }
-.btn-hero-primary:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 10px 28px rgba(212,168,67,0.38); }
+.btn-hero-coral:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(255,90,95,0.38); }
 
-.btn-hero-ghost {
+.btn-hero-outline {
   display:inline-flex; align-items:center; gap:8px;
-  background:transparent; color:var(--white);
-  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600;
+  background:var(--white); color:var(--ink);
+  font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:600;
   padding:14px 26px; border-radius:100px;
-  border:1.5px solid rgba(255,255,255,0.18); cursor:pointer; transition:all 0.3s;
+  border:1.5px solid var(--border); cursor:pointer; transition:all 0.25s;
 }
-.btn-hero-ghost:hover { border-color:rgba(255,255,255,0.45); background:rgba(255,255,255,0.05); }
+.btn-hero-outline:hover { border-color:var(--ink); }
 
-/* Hero floating cards */
-.hero-cards {
-  display:flex; flex-direction:column; gap:0.6rem;
-  opacity:0; animation:slideUp 0.9s ease-out 1s forwards;
+/* Floating match preview */
+.hero-preview {
+  position:relative; border-radius:var(--r-lg);
+  background:var(--navy); overflow:hidden;
+  box-shadow:var(--sh-xl);
+  opacity:0; animation:up 0.8s ease-out 0.7s forwards;
 }
-
-.hero-match-card {
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(212,168,67,0.18);
-  border-radius:14px; padding:1rem 1.1rem;
-  backdrop-filter:blur(10px);
-  display:flex; align-items:center; gap:0.85rem;
+.hp-inner { padding:1.3rem; }
+.hp-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:1rem;
 }
-
-.hmc-ava {
-  width:40px; height:40px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.1rem; flex-shrink:0;
-  border:2px solid rgba(255,255,255,0.1);
+.hp-prop {
+  display:flex; align-items:center; gap:10px;
 }
-.hmc-body { flex:1; min-width:0; }
-.hmc-name { font-size:0.82rem; font-weight:600; color:var(--white); }
-.hmc-detail { font-size:0.68rem; color:rgba(255,255,255,0.38); margin-top:2px; }
-.hmc-score { flex-shrink:0; text-align:right; }
-.hmc-pct { font-size:1rem; font-weight:800; line-height:1; }
-.hmc-bar { width:44px; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; margin-top:4px; overflow:hidden; }
-.hmc-fill { height:100%; border-radius:2px; }
-
-.hero-cards-label {
-  font-size:0.58rem; font-weight:700; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;
-  opacity:0; animation:slideUp 0.7s ease-out 0.95s forwards;
-}
-
-/* ============ TRUST BAR ============ */
-.trust-bar {
-  background:var(--navy);
-  padding:1.2rem 1.4rem;
-  display:flex; align-items:center; justify-content:center;
-  gap:2rem; flex-wrap:wrap;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-}
-.trust-item {
-  display:flex; align-items:center; gap:6px;
-  font-size:0.7rem; font-weight:500;
-  color:rgba(255,255,255,0.35);
-}
-.trust-item .ti-icon { font-size:0.9rem; }
-.trust-item strong { color:rgba(255,255,255,0.7); }
-
-/* ============ STATS ============ */
-.stats-section {
-  background:var(--navy);
-  padding:2.5rem 1.4rem 3rem;
-}
-.stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:rgba(255,255,255,0.05); border-radius:var(--radius); overflow:hidden; }
-.stat-box {
-  background:rgba(255,255,255,0.025);
-  padding:1.4rem 1rem; text-align:center;
-  transition:background 0.3s;
-}
-.stat-box:hover { background:rgba(212,168,67,0.06); }
-.stat-num {
-  font-family:'Playfair Display',serif;
-  font-size:2rem; font-weight:700; color:var(--gold); line-height:1;
-}
-.stat-sub { font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-top:5px; }
-.stats-note { text-align:center; font-size:0.72rem; color:rgba(255,255,255,0.2); margin-top:1.2rem; }
-
-/* ============ SHARED SECTION ============ */
-.section { padding:4rem 1.4rem; }
-.section-dark { background:var(--navy); padding:4rem 1.4rem; }
-
-.eyebrow {
-  font-size:0.6rem; font-weight:700; letter-spacing:0.2em;
-  text-transform:uppercase; color:var(--coral);
-  display:flex; align-items:center; gap:8px;
-  margin-bottom:0.65rem;
-}
-.eyebrow::before { content:''; width:20px; height:2px; background:var(--coral); border-radius:1px; }
-.eyebrow-gold { color:var(--gold); }
-.eyebrow-gold::before { background:var(--gold); }
-
-.sec-title {
-  font-family:'Playfair Display',serif;
-  font-size:2rem; font-weight:700; color:var(--navy);
-  line-height:1.15; margin-bottom:0.5rem;
-}
-.sec-title em { font-style:italic; color:var(--gold); }
-.sec-title-white { color:var(--white); }
-
-.sec-desc { font-size:0.87rem; color:var(--gray); line-height:1.65; margin-bottom:2rem; }
-.sec-desc-muted { color:rgba(255,255,255,0.4); }
-
-/* ============ ZONES ============ */
-.zones-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
-
-.zone-card {
-  border-radius:var(--radius); overflow:hidden;
-  position:relative; cursor:pointer;
-  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
-  min-height:140px; display:flex; flex-direction:column; justify-content:flex-end;
-  padding:1rem;
-}
-.zone-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
-.zone-card.wide { grid-column:1/-1; min-height:160px; }
-
-.zone-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(to top, rgba(10,20,40,0.85) 0%, rgba(10,20,40,0.1) 60%);
-}
-
-.zone-emoji { font-size:2rem; position:absolute; top:0.9rem; right:0.9rem; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
-
-.zone-content { position:relative; z-index:2; }
-.zone-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:3px; }
-.zone-price { font-size:0.68rem; font-weight:600; color:rgba(255,255,255,0.55); }
-.zone-tag {
-  display:inline-block; font-size:0.58rem; font-weight:700;
-  letter-spacing:0.08em; text-transform:uppercase;
-  padding:3px 10px; border-radius:100px; margin-top:5px;
-}
-
-/* ============ HOW IT WORKS ============ */
-.tabs { display:flex; gap:0.5rem; margin-bottom:1.8rem; }
-.tab {
-  flex:1; padding:10px; border-radius:var(--radius-sm);
-  border:1.5px solid var(--gray-light); background:transparent;
-  font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:600;
-  color:var(--gray); cursor:pointer; transition:all 0.25s;
-}
-.tab.on { background:var(--navy); border-color:var(--navy); color:var(--white); }
-
-.step {
-  display:flex; gap:1rem; align-items:flex-start;
-  padding:1.1rem; background:var(--white);
-  border:1px solid var(--gray-light); border-radius:var(--radius);
-  margin-bottom:0.7rem; box-shadow:var(--shadow);
-  transition:all 0.3s;
-}
-.step:hover { transform:translateX(4px); box-shadow:var(--shadow-lg); }
-
-.step-n {
-  width:42px; height:42px; border-radius:11px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700;
+.hp-prop-img {
+  width:48px; height:48px; border-radius:10px;
+  background:linear-gradient(135deg,#1B4B8A,#2A6FBA);
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem;
   flex-shrink:0;
 }
-.step-body { flex:1; }
-.step-title { font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
-.step-text { font-size:0.78rem; color:var(--gray); line-height:1.55; }
+.hp-prop-name { font-size:0.88rem; font-weight:700; color:var(--white); }
+.hp-prop-loc { font-size:0.7rem; color:rgba(255,255,255,0.45); margin-top:2px; }
+.hp-ai-badge {
+  display:flex; align-items:center; gap:5px;
+  background:rgba(255,90,95,0.15); border:1px solid rgba(255,90,95,0.25);
+  border-radius:100px; padding:4px 10px;
+  font-size:0.62rem; font-weight:700; color:var(--coral); text-transform:uppercase; letter-spacing:0.06em;
+}
+.hp-label { font-size:0.6rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.65rem; }
 
-/* ============ INTERACTIVE DEMO ============ */
-.demo-property {
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(212,168,67,0.2);
-  border-radius:var(--radius); overflow:hidden;
-  margin-bottom:1.5rem;
+.hp-row {
+  display:flex; align-items:center; gap:0.75rem;
+  padding:0.65rem 0.8rem; border-radius:var(--r-sm);
+  background:rgba(255,255,255,0.04); margin-bottom:0.45rem;
+  border:1px solid rgba(255,255,255,0.06); cursor:pointer;
+  transition:all 0.2s;
+}
+.hp-row:hover { background:rgba(255,255,255,0.08); }
+.hp-ava { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+.hp-info { flex:1; min-width:0; }
+.hp-name { font-size:0.78rem; font-weight:600; color:var(--white); }
+.hp-from { font-size:0.66rem; color:rgba(255,255,255,0.38); margin-top:1px; }
+.hp-score { flex-shrink:0; }
+.hp-pct { font-size:0.92rem; font-weight:800; }
+.hp-bar { width:42px; height:2.5px; background:rgba(255,255,255,0.08); border-radius:2px; margin-top:3px; overflow:hidden; }
+.hp-fill { height:100%; border-radius:2px; }
+
+/* Trust pills */
+.trust-row {
+  display:flex; gap:0.5rem; flex-wrap:wrap;
+  padding:1.5rem 1.4rem; border-bottom:1px solid var(--border);
+}
+.trust-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:100px; padding:7px 14px;
+  font-size:0.72rem; font-weight:500; color:var(--ink-2);
+}
+.trust-pill .tp-icon { font-size:0.85rem; }
+
+/* ═══ STATS ═══ */
+.stats-sec {
+  padding:3rem 1.4rem; background:var(--ink); position:relative; overflow:hidden;
+}
+.stats-sec::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:24px 24px;
+}
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.stat-box {
+  padding:1.5rem 1rem; text-align:center;
+  background:rgba(255,255,255,0.03); transition:background 0.25s;
+}
+.stat-box:hover { background:rgba(255,255,255,0.06); }
+.stat-n {
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem; font-weight:700; color:var(--white); line-height:1;
+  margin-bottom:4px;
+}
+.stat-n .stat-accent { color:var(--coral); }
+.stat-l { font-size:0.63rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.28); }
+
+/* ═══ ZONE CHIPS ═══ */
+.zone-strip { padding:1.5rem 0; border-bottom:1px solid var(--border); }
+.zone-chips { display:flex; gap:0.65rem; overflow-x:auto; padding:0 1.4rem; scrollbar-width:none; }
+.zone-chips::-webkit-scrollbar { display:none; }
+.zone-chip {
+  flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:0.75rem 1.1rem; border-radius:var(--r-sm); border:1.5px solid var(--border);
+  background:var(--white); cursor:pointer; transition:all 0.25s; text-align:center;
+}
+.zone-chip:hover { border-color:var(--ink); }
+.zone-chip.on { border-color:var(--ink); background:var(--ink); }
+.zone-chip.on .zc-name { color:var(--white); }
+.zone-chip.on .zc-sub { color:rgba(255,255,255,0.5); }
+.zc-icon { font-size:1.4rem; }
+.zc-name { font-size:0.72rem; font-weight:700; color:var(--ink); white-space:nowrap; }
+.zc-sub { font-size:0.6rem; color:var(--muted); white-space:nowrap; }
+
+/* ═══ SHARED SECTIONS ═══ */
+.sec { padding:4rem 1.4rem; }
+.sec-alt { background:var(--off); }
+.sec-dark { background:var(--ink); }
+
+.eyebrow {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--coral); margin-bottom:0.65rem;
+}
+.eyebrow-dot { width:5px; height:5px; border-radius:50%; background:var(--coral); }
+.eyebrow-gold { color:var(--gold); }
+.eyebrow-gold .eyebrow-dot { background:var(--gold); }
+
+.h2 {
+  font-family:'Playfair Display',serif;
+  font-size:2rem; font-weight:700; line-height:1.15;
+  color:var(--ink); margin-bottom:0.5rem; letter-spacing:-0.01em;
+}
+.h2 em { font-style:italic; color:var(--coral); }
+.h2-white { color:var(--white); }
+.h2-white em { color:var(--gold); }
+
+.body-text { font-size:0.9rem; color:var(--muted); line-height:1.7; margin-bottom:2rem; }
+
+/* ═══ HOW IT WORKS ═══ */
+.steps { display:flex; flex-direction:column; gap:0; }
+.step-row {
+  display:flex; gap:1.1rem; padding:1.3rem 1.4rem;
+  background:var(--white); border-bottom:1px solid var(--border);
+  transition:all 0.25s; cursor:default;
+}
+.step-row:first-child { border-radius:var(--r) var(--r) 0 0; }
+.step-row:last-child { border-radius:0 0 var(--r) var(--r); border-bottom:none; }
+.step-row:hover { background:var(--off); }
+
+.step-num-wrap {
+  width:44px; height:44px; flex-shrink:0; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700;
+}
+.step-body { flex:1; }
+.step-title { font-size:0.9rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+.step-text { font-size:0.8rem; color:var(--muted); line-height:1.55; }
+.step-tag {
+  display:inline-block; margin-top:7px; font-size:0.62rem; font-weight:700;
+  letter-spacing:0.06em; text-transform:uppercase; padding:3px 10px;
+  border-radius:100px;
 }
 
-.demo-visual {
-  height:170px; position:relative;
+.steps-wrapper {
+  border:1.5px solid var(--border); border-radius:var(--r);
+  overflow:hidden; box-shadow:var(--sh);
+}
+
+.tab-pills { display:flex; background:var(--surface); border-radius:100px; padding:4px; margin-bottom:1.5rem; }
+.tpill {
+  flex:1; padding:9px; border-radius:100px; border:none;
+  background:transparent; font-family:'Inter',sans-serif;
+  font-size:0.8rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all 0.25s;
+}
+.tpill.on { background:var(--white); color:var(--ink); box-shadow:var(--sh); }
+
+/* ═══ PROPERTIES DEMO ═══ */
+.prop-cards { display:flex; flex-direction:column; gap:0.85rem; }
+
+.prop-card {
+  background:var(--white); border-radius:var(--r-lg);
+  overflow:hidden; border:1.5px solid var(--border);
+  box-shadow:var(--sh); cursor:pointer; transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.prop-card:hover { transform:translateY(-4px); box-shadow:var(--sh-xl); border-color:rgba(0,0,0,0.1); }
+
+.prop-img {
+  height:180px; position:relative; overflow:hidden;
   display:flex; align-items:flex-end; padding:1rem;
 }
-.demo-visual-inner {
+.prop-img-bg { position:absolute; inset:0; }
+.prop-img-overlay {
   position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:5rem; opacity:0.12;
+  background:linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
 }
-.demo-price-tag {
-  position:absolute; top:1rem; right:1rem;
-  background:var(--gold); color:var(--navy);
-  font-weight:800; font-size:0.85rem;
-  padding:6px 14px; border-radius:100px;
-}
-.demo-zone-tag {
-  background:rgba(13,31,60,0.75); backdrop-filter:blur(8px);
-  border:1px solid rgba(212,168,67,0.3); border-radius:100px;
-  padding:5px 14px; font-size:0.65rem; font-weight:700;
-  color:var(--gold); text-transform:uppercase; letter-spacing:0.08em;
-}
+.prop-flag { position:absolute; top:0.9rem; right:0.9rem; background:var(--white); border-radius:100px; padding:4px 12px; font-size:0.65rem; font-weight:700; color:var(--ink); box-shadow:var(--sh); }
+.prop-price { position:relative; z-index:2; background:var(--white); border-radius:100px; padding:6px 14px; font-size:0.82rem; font-weight:800; color:var(--ink); box-shadow:var(--sh); }
 
-.demo-info { padding:1rem 1.1rem 0; }
-.demo-prop-name {
-  font-family:'Playfair Display',serif;
-  font-size:1.2rem; font-weight:700; color:var(--white); margin-bottom:3px;
-}
-.demo-prop-loc { font-size:0.74rem; color:rgba(255,255,255,0.38); margin-bottom:0.9rem; }
-.demo-specs { display:flex; gap:1rem; margin-bottom:1.1rem; }
-.demo-spec { font-size:0.73rem; color:rgba(255,255,255,0.55); display:flex; align-items:center; gap:4px; }
+.prop-body { padding:1.2rem; }
+.prop-zone { font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--coral); margin-bottom:4px; }
+.prop-name { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+.prop-loc { font-size:0.75rem; color:var(--muted); margin-bottom:0.85rem; }
+.prop-specs { display:flex; gap:1rem; padding-bottom:0.9rem; border-bottom:1px solid var(--border); margin-bottom:0.9rem; }
+.prop-spec { font-size:0.75rem; color:var(--muted); display:flex; align-items:center; gap:4px; }
 
-/* Filter controls */
-.demo-controls {
-  background:rgba(255,255,255,0.03);
-  border-top:1px solid rgba(255,255,255,0.05);
-  padding:1rem 1.1rem;
-}
-.demo-controls-label {
-  font-size:0.6rem; font-weight:700; letter-spacing:0.14em;
-  text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.75rem;
-}
-.control-row {
-  display:flex; align-items:center; gap:0.75rem;
-  margin-bottom:0.6rem;
-}
-.control-label { font-size:0.72rem; color:rgba(255,255,255,0.5); width:100px; flex-shrink:0; }
-.control-range { flex:1; accent-color:var(--gold); cursor:pointer; }
-.control-val { font-size:0.72rem; font-weight:700; color:var(--gold); width:70px; text-align:right; flex-shrink:0; }
-
-/* Buyer match rows */
-.buyers-list { padding:0 1.1rem 1.1rem; }
-.buyers-header {
+/* Match row inside prop card */
+.match-mini {
   display:flex; align-items:center; justify-content:space-between;
-  font-size:0.6rem; font-weight:700; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;
+  padding:0.6rem 0.8rem; border-radius:var(--r-sm);
+  background:var(--surface); margin-bottom:0.4rem; cursor:pointer;
+  transition:background 0.2s; border:1px solid var(--border);
+}
+.match-mini:hover { background:var(--off); }
+.mm-left { display:flex; align-items:center; gap:8px; }
+.mm-ava { font-size:1rem; }
+.mm-name { font-size:0.8rem; font-weight:600; color:var(--ink); }
+.mm-from { font-size:0.67rem; color:var(--muted); }
+.mm-score {
+  font-size:0.8rem; font-weight:800;
+  padding:4px 10px; border-radius:100px;
 }
 
-.b-row {
+.see-all-btn {
+  width:100%; padding:11px;
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--r-sm); font-family:'Inter',sans-serif;
+  font-size:0.82rem; font-weight:600; color:var(--ink);
+  cursor:pointer; margin-top:0.6rem; transition:all 0.2s;
+}
+.see-all-btn:hover { background:var(--border); }
+
+/* ═══ INTERACTIVE DEMO ═══ */
+.demo-wrap {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r-lg); overflow:hidden;
+}
+
+.demo-top {
+  padding:1.3rem;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.demo-prop-row { display:flex; align-items:center; gap:12px; margin-bottom:1rem; }
+.demo-thumb {
+  width:56px; height:56px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:1.6rem;
+}
+.demo-pname { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); }
+.demo-ploc { font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+.demo-pprice { font-size:0.85rem; font-weight:800; color:var(--gold); margin-top:3px; }
+
+.ctrl-label { font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.5rem; }
+.ctrl-row { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.65rem; }
+.ctrl-name { font-size:0.73rem; color:rgba(255,255,255,0.5); width:90px; flex-shrink:0; }
+.ctrl-range { flex:1; accent-color:var(--coral); cursor:pointer; height:4px; border-radius:2px; }
+.ctrl-val { font-size:0.75rem; font-weight:700; color:var(--coral); width:62px; text-align:right; flex-shrink:0; }
+
+.demo-zone-sel {
+  flex:1; padding:7px 10px;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r-sm); color:rgba(255,255,255,0.7);
+  font-size:0.78rem; font-family:'Inter',sans-serif; outline:none; cursor:pointer;
+}
+
+.demo-buyers { padding:1.3rem; }
+.demo-buyers-hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  color:rgba(255,255,255,0.3); margin-bottom:0.75rem;
+}
+.demo-b-row {
   display:flex; align-items:center; gap:0.75rem;
-  padding:0.75rem 0.85rem;
-  background:rgba(255,255,255,0.035);
-  border-radius:var(--radius-sm);
-  border:1px solid rgba(255,255,255,0.05);
-  margin-bottom:0.5rem; cursor:pointer;
-  transition:all 0.25s; position:relative;
+  padding:0.75rem 0.9rem; border-radius:var(--r-sm);
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
+  margin-bottom:0.5rem; cursor:pointer; transition:all 0.25s;
 }
-.b-row:hover { background:rgba(212,168,67,0.07); border-color:rgba(212,168,67,0.2); }
+.demo-b-row:hover { background:rgba(255,255,255,0.09); }
+.db-ava { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.db-info { flex:1; min-width:0; }
+.db-name { font-size:0.82rem; font-weight:600; color:var(--white); }
+.db-from { font-size:0.68rem; color:rgba(255,255,255,0.38); margin-top:2px; }
+.db-tags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
+.dtag { font-size:0.58rem; font-weight:600; padding:2px 8px; border-radius:100px; }
+.dtag-g { background:rgba(0,138,5,0.15); color:#00C570; border:1px solid rgba(0,138,5,0.2); }
+.dtag-r { background:rgba(255,90,95,0.12); color:var(--coral); border:1px solid rgba(255,90,95,0.2); }
+.dtag-d { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.08); }
 
-.b-flag {
-  width:40px; height:40px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.1rem; flex-shrink:0; border:2px solid rgba(255,255,255,0.08);
-}
-.b-info { flex:1; min-width:0; }
-.b-name { font-size:0.83rem; font-weight:600; color:var(--white); }
-.b-detail { font-size:0.68rem; color:rgba(255,255,255,0.38); margin-top:2px; }
-.b-tags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
-.btag {
-  font-size:0.58rem; font-weight:600; padding:2px 8px;
-  border-radius:100px;
-  background:rgba(212,168,67,0.12); color:var(--gold);
-  border:1px solid rgba(212,168,67,0.2);
-}
-.btag.g { background:rgba(29,185,84,0.1); color:var(--green); border-color:rgba(29,185,84,0.25); }
-.btag.r { background:rgba(232,85,62,0.1); color:var(--coral); border-color:rgba(232,85,62,0.25); }
-
-.b-score-wrap { flex-shrink:0; }
-.b-score {
+.db-score-ring {
   width:46px; height:46px; border-radius:50%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  border:2px solid; font-weight:800; font-size:0.78rem;
-  transition:all 0.5s ease;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.78rem; font-weight:800; border:2.5px solid;
+  transition:all 0.5s ease; flex-shrink:0;
 }
-.b-score-bar-wrap { margin-top:3px; width:44px; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; }
-.b-score-bar { height:100%; border-radius:2px; transition:width 0.6s ease; }
 
-.wa-contact-btn {
-  width:100%; padding:13px;
-  background:rgba(37,211,102,0.12);
-  border:1.5px solid rgba(37,211,102,0.35);
-  color:var(--wa-green); font-family:'Inter',sans-serif;
-  font-size:0.82rem; font-weight:700;
-  border-radius:var(--radius-sm); cursor:pointer;
+.wa-btn {
+  width:100%; padding:13px; border-radius:var(--r-sm);
+  background:rgba(37,211,102,0.1); border:1.5px solid rgba(37,211,102,0.3);
+  color:var(--wa); font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:700;
   display:flex; align-items:center; justify-content:center; gap:8px;
-  margin-top:0.5rem; transition:all 0.3s;
+  cursor:pointer; margin-top:0.6rem; transition:all 0.3s;
 }
-.wa-contact-btn:hover { background:rgba(37,211,102,0.2); transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,211,102,0.2); }
+.wa-btn:hover { background:rgba(37,211,102,0.18); transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,211,102,0.18); }
 
-/* ============ TESTIMONIALS ============ */
+/* ═══ TESTIMONIALS ═══ */
+.testi { display:flex; flex-direction:column; gap:0.85rem; }
+
 .testi-card {
-  background:var(--white); border-radius:var(--radius);
-  padding:1.5rem; box-shadow:var(--shadow);
-  border:1px solid var(--gray-light);
-  margin-bottom:0.85rem; transition:all 0.3s;
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:var(--r-lg); padding:1.4rem;
+  box-shadow:var(--sh); transition:all 0.3s;
 }
-.testi-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.testi-card:hover { transform:translateY(-3px); box-shadow:var(--sh-lg); }
 
-.testi-stars { color:var(--gold); font-size:0.85rem; margin-bottom:0.6rem; letter-spacing:2px; }
-.testi-text { font-size:0.84rem; color:var(--ink); line-height:1.65; font-style:italic; margin-bottom:1rem; }
-.testi-text::before { content:'❝ '; color:var(--gold); }
+.tc-stars { display:flex; gap:2px; margin-bottom:0.75rem; }
+.tc-star { color:var(--gold); font-size:0.9rem; }
 
-.testi-author { display:flex; align-items:center; gap:10px; }
-.testi-ava { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
-.testi-name { font-size:0.8rem; font-weight:700; color:var(--navy); }
-.testi-from { font-size:0.68rem; color:var(--gray); margin-top:1px; }
+.tc-quote {
+  font-size:0.87rem; color:var(--ink-2); line-height:1.7;
+  font-style:italic; margin-bottom:1.1rem;
+  padding-left:1rem; border-left:3px solid var(--coral);
+}
 
-/* ============ BUYER FORM ============ */
-.form-wrap { background:var(--cream); border:1px solid var(--gray-light); border-radius:var(--radius); padding:1.5rem; }
+.tc-author { display:flex; align-items:center; gap:10px; }
+.tc-ava {
+  width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; border:2px solid var(--border); flex-shrink:0;
+}
+.tc-name { font-size:0.82rem; font-weight:700; color:var(--ink); }
+.tc-deal { font-size:0.7rem; color:var(--muted); margin-top:2px; }
+.tc-badge {
+  margin-left:auto; font-size:0.62rem; font-weight:700;
+  background:rgba(0,138,5,0.08); color:var(--green);
+  border:1px solid rgba(0,138,5,0.15); border-radius:100px; padding:3px 10px;
+}
 
-.field { margin-bottom:1.2rem; }
-.field-label { display:block; font-size:0.74rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+/* ═══ FORM ═══ */
+.form-card {
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:var(--r-lg); padding:1.8rem;
+  box-shadow:var(--sh-lg);
+}
 
-.input, .select-input {
-  width:100%; padding:12px 15px;
-  border:1.5px solid var(--gray-light); border-radius:var(--radius-sm);
+.field { margin-bottom:1.3rem; }
+.fl { display:block; font-size:0.75rem; font-weight:700; color:var(--ink); margin-bottom:7px; }
+.fi {
+  width:100%; padding:13px 15px;
+  border:1.5px solid var(--border); border-radius:var(--r-sm);
   background:var(--white); font-family:'Inter',sans-serif;
-  font-size:0.85rem; color:var(--ink); outline:none; transition:border-color 0.2s;
+  font-size:0.88rem; color:var(--ink); outline:none; transition:border-color 0.2s;
+  -webkit-appearance:none;
 }
-.input:focus, .select-input:focus { border-color:var(--navy-mid); }
+.fi:focus { border-color:var(--ink); }
+.fi::placeholder { color:var(--light); }
+.fi-select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ACACAC' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
 
-.select-input {
-  appearance:none; cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat; background-position:right 14px center;
-}
+.range-fi { width:100%; accent-color:var(--ink); cursor:pointer; }
+.range-mm { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--muted); margin-top:4px; }
 
-.range-wrap { padding:2px 0; }
-.range-input { width:100%; accent-color:var(--navy-mid); cursor:pointer; }
-.range-labels { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--gray); margin-top:4px; }
-
-.pick-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
-.pick-item {
+.picks { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+.pick {
   display:flex; align-items:center; gap:8px;
-  padding:10px 13px; border:1.5px solid var(--gray-light);
-  border-radius:var(--radius-sm); cursor:pointer;
-  background:var(--white); transition:all 0.2s; user-select:none;
+  padding:11px 13px; border:1.5px solid var(--border);
+  border-radius:var(--r-sm); cursor:pointer; background:var(--white);
+  transition:all 0.2s; user-select:none;
 }
-.pick-item.on { border-color:var(--navy); background:rgba(27,58,107,0.06); }
-.pick-item span { font-size:0.78rem; font-weight:500; color:var(--navy); }
+.pick:hover { border-color:var(--ink); }
+.pick.on { border-color:var(--ink); background:var(--ink); }
+.pick.on span { color:var(--white); }
+.pick span { font-size:0.8rem; font-weight:500; color:var(--ink); }
 
-.form-submit {
-  width:100%; padding:15px;
-  background:var(--navy); color:var(--white);
+.submit {
+  width:100%; padding:15px; background:var(--ink); color:var(--white);
   font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:700;
-  border:none; border-radius:var(--radius-sm); cursor:pointer;
-  transition:all 0.3s; margin-top:0.3rem;
+  border:none; border-radius:var(--r-sm); cursor:pointer; transition:all 0.3s;
+  margin-top:0.5rem;
 }
-.form-submit:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:var(--shadow-lg); }
+.submit:hover { background:var(--ink-2); transform:translateY(-1px); box-shadow:var(--sh-lg); }
+.form-note { font-size:0.68rem; color:var(--muted); text-align:center; margin-top:0.75rem; }
 
-.form-note { font-size:0.68rem; color:var(--gray); text-align:center; margin-top:0.6rem; }
+/* ═══ PRICING ═══ */
+.pricing-cards { display:flex; flex-direction:column; gap:0.85rem; }
 
-/* ============ PRICING ============ */
-.price-card {
-  background:var(--white); border:1px solid var(--gray-light);
-  border-radius:var(--radius); padding:1.8rem 1.4rem;
-  box-shadow:var(--shadow); margin-bottom:0.9rem;
-  position:relative; transition:all 0.3s;
+.pc {
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:var(--r-lg); padding:1.8rem; position:relative;
+  box-shadow:var(--sh); transition:all 0.3s;
 }
-.price-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
-
-.price-card.hot {
-  background:linear-gradient(155deg, var(--navy), #162F5E);
-  border-color:rgba(212,168,67,0.35);
+.pc:hover { transform:translateY(-3px); box-shadow:var(--sh-lg); }
+.pc.hot {
+  border-color:var(--ink); background:var(--ink);
 }
-.price-card.hot .plan-name { color:var(--gold); }
-.price-card.hot .plan-amount { color:var(--white); }
-.price-card.hot .plan-period { color:rgba(255,255,255,0.4); }
-.price-card.hot .plan-tagline { color:rgba(255,255,255,0.45); border-color:rgba(255,255,255,0.07); }
-.price-card.hot .pf { color:rgba(255,255,255,0.75); border-color:rgba(255,255,255,0.07); }
-.price-card.hot .pf::before { color:var(--gold); }
+.pc.hot .pc-name { color:rgba(255,255,255,0.5); }
+.pc.hot .pc-price { color:var(--white); }
+.pc.hot .pc-period { color:rgba(255,255,255,0.4); }
+.pc.hot .pc-desc { color:rgba(255,255,255,0.45); border-color:rgba(255,255,255,0.08); }
+.pc.hot .pc-feat { color:rgba(255,255,255,0.75); border-color:rgba(255,255,255,0.07); }
+.pc.hot .pc-feat::before { color:var(--gold); }
 
-.hot-badge {
+.hot-chip {
   position:absolute; top:-13px; left:50%; transform:translateX(-50%);
-  background:var(--gold); color:var(--navy);
+  background:var(--coral); color:var(--white);
   font-size:0.6rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
-  padding:4px 14px; border-radius:100px;
+  padding:4px 16px; border-radius:100px;
 }
 
-.plan-name { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy-mid); margin-bottom:0.5rem; }
-.plan-amount { font-family:'Playfair Display',serif; font-size:2.3rem; font-weight:700; color:var(--navy); line-height:1; }
-.plan-period { font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:400; color:var(--gray); margin-left:4px; }
-.plan-tagline { font-size:0.8rem; color:var(--gray); line-height:1.5; padding:0.9rem 0; border-top:1px solid var(--gray-light); border-bottom:1px solid var(--gray-light); margin:0.8rem 0; }
-
-.pf {
-  font-size:0.8rem; color:var(--ink); padding:6px 0;
-  border-bottom:1px solid var(--gray-light);
-  display:flex; align-items:center; gap:8px;
+.pc-name { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.55rem; }
+.pc-price { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:700; color:var(--ink); line-height:1; display:inline; }
+.pc-period { font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:400; color:var(--muted); margin-left:4px; }
+.pc-desc { font-size:0.82rem; color:var(--muted); line-height:1.55; padding:0.9rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin:0.85rem 0; }
+.pc-feat { font-size:0.8rem; color:var(--ink); padding:6px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+.pc-feat:last-of-type { border-bottom:none; }
+.pc-feat::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; font-size:0.75rem; }
+.pc-feat.no::before { content:'✕'; color:var(--light); }
+.pc-btn {
+  width:100%; padding:13px; border-radius:var(--r-sm);
+  font-family:'Inter',sans-serif; font-size:0.88rem; font-weight:700;
+  border:none; cursor:pointer; margin-top:1.3rem; transition:all 0.3s;
 }
-.pf:last-child { border-bottom:none; }
-.pf::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
-.pf.no::before { content:'✕'; color:var(--gray); }
+.pc-btn-light { background:var(--surface); color:var(--ink); }
+.pc-btn-light:hover { background:var(--border); }
+.pc-btn-coral { background:var(--coral); color:var(--white); }
+.pc-btn-coral:hover { filter:brightness(1.08); transform:translateY(-1px); box-shadow:0 6px 20px rgba(255,90,95,0.3); }
+.pc-btn-gold { background:var(--gold); color:var(--white); }
+.pc-btn-gold:hover { filter:brightness(1.08); transform:translateY(-1px); }
 
-.plan-btn {
-  width:100%; padding:13px;
-  background:var(--navy); color:var(--white);
-  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:700;
-  border:none; border-radius:var(--radius-sm); cursor:pointer;
-  margin-top:1.2rem; transition:all 0.3s;
-}
-.plan-btn:hover { background:var(--navy-mid); transform:translateY(-1px); }
-.plan-btn.gold-btn { background:var(--gold); color:var(--navy); }
-.plan-btn.gold-btn:hover { background:var(--gold-light); }
-
-/* ============ FAQ ============ */
-.faq-item {
-  border-bottom:1px solid var(--gray-light);
-  padding:1rem 0; cursor:pointer;
-}
+/* ═══ FAQ ═══ */
+.faq-list { border-top:1px solid var(--border); }
+.faq-item { border-bottom:1px solid var(--border); }
 .faq-q {
   display:flex; align-items:center; justify-content:space-between;
-  font-size:0.87rem; font-weight:600; color:var(--navy);
+  padding:1.1rem 0; cursor:pointer; gap:1rem;
+  font-size:0.9rem; font-weight:600; color:var(--ink);
 }
-.faq-arrow { font-size:1.1rem; color:var(--gray); transition:transform 0.3s; flex-shrink:0; }
-.faq-item.open .faq-arrow { transform:rotate(90deg); }
+.faq-chevron { font-size:1.1rem; color:var(--muted); transition:transform 0.3s; flex-shrink:0; }
+.faq-item.open .faq-chevron { transform:rotate(90deg); color:var(--ink); }
 .faq-a {
-  font-size:0.8rem; color:var(--gray); line-height:1.65;
-  max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s;
+  font-size:0.83rem; color:var(--muted); line-height:1.7;
+  max-height:0; overflow:hidden;
+  transition:max-height 0.4s ease, padding 0.3s;
 }
-.faq-item.open .faq-a { max-height:300px; padding-top:0.6rem; }
+.faq-item.open .faq-a { max-height:200px; padding-bottom:1.1rem; }
 
-/* ============ FOOTER ============ */
-.footer {
-  background:var(--navy);
-  padding:3.5rem 1.4rem 2rem;
-}
-
-.footer-top {
-  text-align:center; margin-bottom:2.5rem;
-  padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.footer-logo-text {
-  font-family:'Playfair Display',serif;
-  font-size:1.5rem; font-weight:700; color:var(--white); margin-bottom:0.4rem;
-}
-.footer-logo-text em { font-style:normal; color:var(--gold); }
-.footer-tagline { font-size:0.8rem; color:rgba(255,255,255,0.3); margin-bottom:1.5rem; }
-
-.footer-wa {
+/* ═══ FOOTER ═══ */
+.footer { background:var(--ink); padding:3.5rem 1.4rem 2rem; }
+.footer-top { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.06); }
+.f-logo-txt { font-size:1.3rem; font-weight:800; color:var(--white); margin-bottom:0.4rem; }
+.f-logo-txt em { font-style:normal; color:var(--coral); }
+.f-tagline { font-size:0.8rem; color:rgba(255,255,255,0.3); margin-bottom:1.5rem; }
+.f-wa {
   display:inline-flex; align-items:center; gap:8px;
-  background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.3);
-  color:var(--wa-green); font-size:0.82rem; font-weight:600;
-  padding:11px 24px; border-radius:100px; cursor:pointer; transition:all 0.3s;
+  background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.28);
+  color:var(--wa); font-size:0.82rem; font-weight:600;
+  padding:10px 22px; border-radius:100px; cursor:pointer; transition:all 0.25s;
 }
-.footer-wa:hover { background:rgba(37,211,102,0.18); }
+.f-wa:hover { background:rgba(37,211,102,0.18); }
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:2rem; }
+.f-col-title { font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.85rem; }
+.f-link { display:block; font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:0.55rem; cursor:pointer; transition:color 0.2s; }
+.f-link:hover { color:var(--white); }
+.footer-bottom { padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.05); text-align:center; }
+.f-copy { font-size:0.67rem; color:rgba(255,255,255,0.2); line-height:1.8; }
 
-.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2rem; }
-.footer-col-title { font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.8rem; }
-.footer-link { display:block; font-size:0.78rem; color:rgba(255,255,255,0.45); margin-bottom:0.5rem; cursor:pointer; transition:color 0.2s; }
-.footer-link:hover { color:var(--gold); }
-
-.footer-bottom {
-  padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.05);
-  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
-}
-.footer-copy { font-size:0.66rem; color:rgba(255,255,255,0.2); text-align:center; }
-.footer-flag { font-size:1rem; }
-
-/* ============ BOTTOM NAV ============ */
-.bottom-nav {
-  position:fixed; bottom:0; left:0; right:0; z-index:200;
-  background:rgba(250,248,245,0.94);
-  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-  border-top:1px solid rgba(26,26,26,0.06);
+/* ═══ BOTTOM NAV ═══ */
+.bnav {
+  position:fixed; bottom:0; left:0; right:0; z-index:300;
+  background:rgba(255,255,255,0.96); backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px); border-top:1px solid var(--border);
   display:flex; justify-content:space-around;
-  padding:6px 0 max(6px, env(safe-area-inset-bottom));
+  padding:5px 0 max(5px, env(safe-area-inset-bottom));
 }
-
 .bnav-btn {
-  display:flex; flex-direction:column; align-items:center; gap:2px;
-  padding:5px 18px; background:none; border:none;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:5px 16px; background:none; border:none;
   font-family:'Inter',sans-serif; cursor:pointer; transition:all 0.2s;
   position:relative;
 }
-.bnav-btn svg { width:20px; height:20px; stroke:var(--gray); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.2s; }
-.bnav-btn span { font-size:0.54rem; font-weight:500; color:var(--gray); letter-spacing:0.02em; transition:all 0.2s; }
-.bnav-btn.on svg { stroke:var(--navy); stroke-width:2.2; }
-.bnav-btn.on span { color:var(--navy); font-weight:700; }
-.bnav-dot { width:4px; height:4px; background:var(--gold); border-radius:50%; position:absolute; top:2px; right:13px; opacity:0; transition:opacity 0.2s; }
-.bnav-btn.on .bnav-dot { opacity:1; }
+.bnav-btn svg { width:21px; height:21px; stroke:var(--muted); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.2s; }
+.bnav-btn span { font-size:0.54rem; font-weight:500; color:var(--muted); transition:all 0.2s; }
+.bnav-btn.on svg { stroke:var(--ink); stroke-width:2.2; }
+.bnav-btn.on span { color:var(--ink); font-weight:700; }
+.bnav-pip { width:4px; height:4px; background:var(--coral); border-radius:50%; position:absolute; top:2px; right:12px; opacity:0; transition:opacity 0.2s; }
+.bnav-btn.on .bnav-pip { opacity:1; }
 
-body { padding-bottom:70px; }
-
-/* ============ TOAST ============ */
+/* ═══ TOAST ═══ */
 .toast {
   position:fixed; bottom:80px; left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--navy); color:var(--white);
-  font-size:0.8rem; font-weight:500;
-  padding:11px 22px; border-radius:100px;
-  border:1px solid rgba(212,168,67,0.3); z-index:999;
+  transform:translateX(-50%) translateY(16px);
+  background:var(--ink); color:var(--white);
+  font-size:0.8rem; font-weight:500; padding:11px 22px;
+  border-radius:100px; z-index:999;
   opacity:0; transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
   white-space:nowrap; pointer-events:none;
+  box-shadow:var(--sh-lg);
 }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ============ REVEAL ============ */
-.reveal {
-  opacity:0; transform:translateY(22px);
-  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.in { opacity:1; transform:none; }
-.rd1 { transition-delay:0.1s; } .rd2 { transition-delay:0.2s; } .rd3 { transition-delay:0.3s; }
+/* ═══ REVEAL ═══ */
+.rev { opacity:0; transform:translateY(20px); transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.rev.in { opacity:1; transform:none; }
+.d1{transition-delay:0.08s} .d2{transition-delay:0.16s} .d3{transition-delay:0.24s}
 
-/* ============ KEYFRAMES ============ */
-@keyframes slideUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
-@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+/* ═══ KEYFRAMES ═══ */
+@keyframes up { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
 </style>
 </head>
 <body>
 
-<!-- ====== TOPBAR ====== -->
+<!-- ══ TOPBAR ══ -->
 <nav class="topbar">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <div class="logo-mark">🏠</div>
-    <div class="logo-name">Casa<em>Match</em> AI</div>
+    <div class="logo-name">Casa<em>Match</em></div>
   </div>
-  <div class="nav-right">
-    <button class="btn-nav-ghost" onclick="nav('form-section')">Soy Comprador</button>
-    <button class="btn-nav-gold" onclick="toast('¡Próximamente! Únete a la lista de espera 👋')">Listar Propiedad</button>
+  <div class="nav-r">
+    <button class="btn-outline" onclick="go('form-sec')">Soy Comprador</button>
+    <button class="btn-fill" onclick="toast('¡Próximamente! Únete a la lista de espera.')">Listar Propiedad</button>
   </div>
 </nav>
 
-<!-- ====== HERO ====== -->
+<!-- ══ HERO ══ -->
 <section class="hero" id="top">
-  <div class="blob-1 hero-blob"></div>
-  <div class="blob-2 hero-blob"></div>
-  <div class="blob-3 hero-blob"></div>
-  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
 
-  <div class="hero-eyebrow">
-    <div class="pulse-dot"></div>
-    <span>República Dominicana &nbsp;·&nbsp; Plataforma AI</span>
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    <span>AI-Powered · República Dominicana</span>
   </div>
 
-  <h1 class="hero-title">
-    El comprador <em>ideal</em><br>para tu propiedad.<br><span style="font-size:0.55em;font-style:normal;color:rgba(255,255,255,0.35)">No el primero. El correcto.</span>
+  <h1 class="hero-h1">
+    Encuentra el comprador<br><em>perfecto.</em> No el<br>primero. El correcto.
   </h1>
 
   <p class="hero-sub">
-    Conectamos propiedades con compradores calificados usando inteligencia artificial. Menos tiempo perdido, más cierres reales.
+    CasaMatch usa inteligencia artificial para conectar propiedades con los compradores que realmente encajan — clasificados por score de compatibilidad.
   </p>
 
-  <div class="hero-btns">
-    <button class="btn-hero-primary" onclick="nav('demo')">Ver Demo en Vivo →</button>
-    <button class="btn-hero-ghost" onclick="nav('form-section')">Crear perfil de comprador</button>
+  <div class="hero-actions">
+    <button class="btn-hero-coral" onclick="go('demo')">Ver cómo funciona →</button>
+    <button class="btn-hero-outline" onclick="go('form-sec')">Crear perfil de comprador</button>
   </div>
 
-  <p class="hero-cards-label">⚡ Villa Palmera · Cap Cana · $850K — Buyers activos ahora</p>
-  <div class="hero-cards">
-    <div class="hero-match-card">
-      <div class="hmc-ava" style="background:rgba(29,185,84,0.15)">🇺🇸</div>
-      <div class="hmc-body">
-        <div class="hmc-name">James & Sarah M.</div>
-        <div class="hmc-detail">Miami · Retiro · Presupuesto hasta $1.2M</div>
+  <!-- Preview card -->
+  <div class="hero-preview">
+    <div class="hp-inner">
+      <div class="hp-header">
+        <div class="hp-prop">
+          <div class="hp-prop-img">🏖️</div>
+          <div>
+            <div class="hp-prop-name">Villa Palmera · Cap Cana</div>
+            <div class="hp-prop-loc">4 hab · 420 m² · $850,000</div>
+          </div>
+        </div>
+        <div class="hp-ai-badge">⚡ AI Match</div>
       </div>
-      <div class="hmc-score">
-        <div class="hmc-pct" style="color:#1DB954">95%</div>
-        <div class="hmc-bar"><div class="hmc-fill" style="width:95%;background:#1DB954"></div></div>
+      <div class="hp-label">Buyers compatibles encontrados ahora</div>
+      <div class="hp-row">
+        <div class="hp-ava" style="background:rgba(0,166,153,0.15)">🇺🇸</div>
+        <div class="hp-info"><div class="hp-name">James & Sarah M.</div><div class="hp-from">Miami · Retiro · Budget $1.2M</div></div>
+        <div class="hp-score"><div class="hp-pct" style="color:#00C570">95%</div><div class="hp-bar"><div class="hp-fill" style="width:95%;background:#00C570"></div></div></div>
       </div>
-    </div>
-    <div class="hero-match-card">
-      <div class="hmc-ava" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
-      <div class="hmc-body">
-        <div class="hmc-name">Carlos Familia</div>
-        <div class="hmc-detail">Santo Domingo · 2ª residencia · Hasta $900K</div>
+      <div class="hp-row">
+        <div class="hp-ava" style="background:rgba(200,146,42,0.15)">🇩🇴</div>
+        <div class="hp-info"><div class="hp-name">Carlos Familia</div><div class="hp-from">Santo Domingo · 2ª residencia · $900K</div></div>
+        <div class="hp-score"><div class="hp-pct" style="color:var(--gold)">87%</div><div class="hp-bar"><div class="hp-fill" style="width:87%;background:var(--gold)"></div></div></div>
       </div>
-      <div class="hmc-score">
-        <div class="hmc-pct" style="color:var(--gold)">87%</div>
-        <div class="hmc-bar"><div class="hmc-fill" style="width:87%;background:var(--gold)"></div></div>
-      </div>
-    </div>
-    <div class="hero-match-card">
-      <div class="hmc-ava" style="background:rgba(42,82,152,0.2)">🇬🇧</div>
-      <div class="hmc-body">
-        <div class="hmc-name">Robert & Anne T.</div>
-        <div class="hmc-detail">London · Inversión vacacional · Hasta $800K</div>
-      </div>
-      <div class="hmc-score">
-        <div class="hmc-pct" style="color:#E8953E">72%</div>
-        <div class="hmc-bar"><div class="hmc-fill" style="width:72%;background:#E8953E"></div></div>
+      <div class="hp-row">
+        <div class="hp-ava" style="background:rgba(255,90,95,0.12)">🇬🇧</div>
+        <div class="hp-info"><div class="hp-name">Robert & Anne T.</div><div class="hp-from">London · Inversión vacacional · $800K</div></div>
+        <div class="hp-score"><div class="hp-pct" style="color:#FF9500">72%</div><div class="hp-bar"><div class="hp-fill" style="width:72%;background:#FF9500"></div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== TRUST BAR ====== -->
-<div class="trust-bar">
-  <div class="trust-item"><span class="ti-icon">🔒</span> <strong>100% privado</strong></div>
-  <div class="trust-item"><span class="ti-icon">💬</span> <strong>WhatsApp</strong> integrado</div>
-  <div class="trust-item"><span class="ti-icon">🌍</span> <strong>ES + EN</strong> bilingüe</div>
-  <div class="trust-item"><span class="ti-icon">📱</span> Mobile <strong>first</strong></div>
+<!-- ══ TRUST PILLS ══ -->
+<div class="trust-row">
+  <div class="trust-pill"><span class="tp-icon">🔒</span> 100% privado</div>
+  <div class="trust-pill"><span class="tp-icon">💬</span> WhatsApp integrado</div>
+  <div class="trust-pill"><span class="tp-icon">🌎</span> ES + EN bilingüe</div>
+  <div class="trust-pill"><span class="tp-icon">📱</span> Mobile first</div>
+  <div class="trust-pill"><span class="tp-icon">⚡</span> Respuesta en minutos</div>
 </div>
 
-<!-- ====== STATS ====== -->
-<div class="stats-section" id="stats">
-  <div class="stats-grid reveal">
-    <div class="stat-box">
-      <div class="stat-num" data-target="10" data-suffix="%+">0%</div>
-      <div class="stat-sub">Crecimiento anual de precios</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" data-target="40" data-suffix="%">0%</div>
-      <div class="stat-sub">Compradores extranjeros en lujo</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" data-target="2.4" data-suffix="B">$0</div>
-      <div class="stat-sub">Volumen del mercado (USD)</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" data-target="73" data-suffix="%">0%</div>
-      <div class="stat-sub">Leads sin calificar en plataformas actuales</div>
-    </div>
+<!-- ══ STATS ══ -->
+<div class="stats-sec" id="stats">
+  <div class="stats-grid rev">
+    <div class="stat-box"><div class="stat-n" data-target="10" data-suffix="%+">0</div><div class="stat-l">Crecimiento anual</div></div>
+    <div class="stat-box"><div class="stat-n" data-target="40" data-suffix="%">0</div><div class="stat-l">Compradores extranjeros</div></div>
+    <div class="stat-box"><div class="stat-n" data-prefix="$" data-target="2.4" data-suffix="B">$0</div><div class="stat-l">Volumen del mercado</div></div>
+    <div class="stat-box"><div class="stat-n" data-target="73" data-suffix="%">0</div><div class="stat-l">Leads sin calificar hoy</div></div>
   </div>
-  <div class="stats-note">Fuentes: Banco Central RD · AIRD · Global Property Guide 2025</div>
 </div>
 
-<!-- ====== ZONES ====== -->
-<section class="section" id="zones">
-  <div class="reveal">
-    <div class="eyebrow">Zonas Principales</div>
-    <div class="sec-title">El mercado más<br><em>dinámico</em> del Caribe</div>
-    <div class="sec-desc">Cada zona tiene su propio perfil de comprador. Nuestro algoritmo conoce la diferencia.</div>
+<!-- ══ ZONE CHIPS ══ -->
+<div class="zone-strip" id="zones">
+  <div class="zone-chips">
+    <div class="zone-chip on" onclick="filterZone('all',this)"><div class="zc-icon">🌴</div><div class="zc-name">Todo RD</div><div class="zc-sub">47 propiedades</div></div>
+    <div class="zone-chip" onclick="filterZone('puntacana',this)"><div class="zc-icon">🏖️</div><div class="zc-name">Punta Cana</div><div class="zc-sub">Desde $180K</div></div>
+    <div class="zone-chip" onclick="filterZone('sd',this)"><div class="zc-icon">🏙️</div><div class="zc-name">Santo Domingo</div><div class="zc-sub">Desde $80K</div></div>
+    <div class="zone-chip" onclick="filterZone('terrenas',this)"><div class="zc-icon">🌿</div><div class="zc-name">Las Terrenas</div><div class="zc-sub">Desde $120K</div></div>
+    <div class="zone-chip" onclick="filterZone('romana',this)"><div class="zc-icon">⛳</div><div class="zc-name">La Romana</div><div class="zc-sub">Desde $500K</div></div>
+    <div class="zone-chip" onclick="filterZone('cabarete',this)"><div class="zc-icon">🏄</div><div class="zc-name">Cabarete</div><div class="zc-sub">Desde $80K</div></div>
+  </div>
+</div>
+
+<!-- ══ PROPERTIES ══ -->
+<section class="sec" id="propiedades">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Propiedades destacadas</div>
+    <div class="h2">Cada propiedad.<br><em>Sus compradores</em><br>ya esperan.</div>
+    <div class="body-text">Estas propiedades tienen buyers activos clasificados por compatibilidad. El vendedor sabe exactamente a quién llamar.</div>
   </div>
 
-  <div class="zones-grid reveal rd1">
-    <div class="zone-card wide" style="background:linear-gradient(135deg,#0B4F6C 0%,#1B8CA8 50%,#0D7A96 100%)" onclick="toast('Punta Cana · Precio promedio: $320K–$2.5M')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">🏖️</div>
-      <div class="zone-content">
-        <div class="zone-name">Punta Cana & Cap Cana</div>
-        <div class="zone-price">Desde $180K · Lujo hasta $5M+</div>
-        <div class="zone-tag" style="background:rgba(212,168,67,0.25);color:var(--gold);border:1px solid rgba(212,168,67,0.3)">40% compradores USA</div>
+  <div class="prop-cards" id="prop-list">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="sec sec-alt" id="how">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Cómo funciona</div>
+    <div class="h2">Simple para<br>todos. <em>Potente</em><br>por dentro.</div>
+    <div class="body-text">Tres pasos. Sin curva de aprendizaje. Funciona desde el primer día.</div>
+  </div>
+
+  <div class="tab-pills rev d1">
+    <button class="tpill on" onclick="switchTab('seller',this)">🏠 Soy Vendedor</button>
+    <button class="tpill" onclick="switchTab('buyer',this)">🔍 Soy Comprador</button>
+  </div>
+
+  <div class="steps-wrapper rev d2">
+    <div id="tab-seller">
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(255,90,95,0.08);color:var(--coral)">1</div>
+        <div class="step-body">
+          <div class="step-title">Lista tu propiedad en 5 minutos</div>
+          <div class="step-text">Fotos, precio y zona. Sin tecnicismos. Sin intermediarios obligatorios.</div>
+          <div class="step-tag" style="background:rgba(255,90,95,0.08);color:var(--coral)">Vendedor · Paso 1</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(200,146,42,0.09);color:var(--gold)">2</div>
+        <div class="step-body">
+          <div class="step-title">El AI analiza 12 variables de compatibilidad</div>
+          <div class="step-text">Presupuesto, zona, tipo de uso, urgencia, origen del comprador y más. Calcula el score en segundos.</div>
+          <div class="step-tag" style="background:rgba(200,146,42,0.09);color:var(--gold)">AI · Automático</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(0,138,5,0.07);color:var(--green)">3</div>
+        <div class="step-body">
+          <div class="step-title">Ves tu ranking y contactas por WhatsApp</div>
+          <div class="step-text">Lista priorizada. Perfil completo de cada comprador. Un click para abrir WhatsApp directamente.</div>
+          <div class="step-tag" style="background:rgba(0,138,5,0.07);color:var(--green)">Resultado · Cierre</div>
+        </div>
       </div>
     </div>
-    <div class="zone-card" style="background:linear-gradient(135deg,#1A1A2E 0%,#2D3561 100%)" onclick="toast('Santo Domingo · Mercado urbano más grande del país')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">🏙️</div>
-      <div class="zone-content">
-        <div class="zone-name">Santo Domingo</div>
-        <div class="zone-price">$80K – $1.2M</div>
-        <div class="zone-tag" style="background:rgba(42,82,152,0.3);color:#7BA7E8">Inversión urbana</div>
+    <div id="tab-buyer" style="display:none">
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(255,90,95,0.08);color:var(--coral)">1</div>
+        <div class="step-body">
+          <div class="step-title">Crea tu perfil en 3 minutos</div>
+          <div class="step-text">Zona, presupuesto, tipo de propiedad y para qué es. Sin registrarte con 20 datos.</div>
+          <div class="step-tag" style="background:rgba(255,90,95,0.08);color:var(--coral)">Comprador · Gratis</div>
+        </div>
       </div>
-    </div>
-    <div class="zone-card" style="background:linear-gradient(135deg,#1A3A1A 0%,#2D5E2D 100%)" onclick="toast('Las Terrenas · El favorito de los europeos en RD')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">🌴</div>
-      <div class="zone-content">
-        <div class="zone-name">Las Terrenas</div>
-        <div class="zone-price">$120K – $800K</div>
-        <div class="zone-tag" style="background:rgba(29,185,84,0.2);color:#1DB954">Expat · Europeo</div>
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(200,146,42,0.09);color:var(--gold)">2</div>
+        <div class="step-body">
+          <div class="step-title">Recibe matches curados cada semana</div>
+          <div class="step-text">No 200 propiedades irrelevantes. Solo las que encajan con tu perfil. Directo a tu WhatsApp.</div>
+          <div class="step-tag" style="background:rgba(200,146,42,0.09);color:var(--gold)">Curado · Sin spam</div>
+        </div>
       </div>
-    </div>
-    <div class="zone-card" style="background:linear-gradient(135deg,#3D1A00 0%,#6B3310 100%)" onclick="toast('La Romana · Ultra lujo · Casa de Campo')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">⛳</div>
-      <div class="zone-content">
-        <div class="zone-name">La Romana</div>
-        <div class="zone-price">$500K – $10M+</div>
-        <div class="zone-tag" style="background:rgba(212,168,67,0.25);color:var(--gold)">Ultra Lujo</div>
-      </div>
-    </div>
-    <div class="zone-card" style="background:linear-gradient(135deg,#0A2744 0%,#1A4B7A 100%)" onclick="toast('Cabarete · Kitesurf, surfing, comunidad expat activa')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">🏄</div>
-      <div class="zone-content">
-        <div class="zone-name">Cabarete & Sosúa</div>
-        <div class="zone-price">$80K – $450K</div>
-        <div class="zone-tag" style="background:rgba(11,139,139,0.3);color:#4ECDC4">Deportes · Joven</div>
-      </div>
-    </div>
-    <div class="zone-card" style="background:linear-gradient(135deg,#2D1B00 0%,#5C3D1E 100%)" onclick="toast('Santiago · Segunda ciudad más grande, mercado residencial sólido')">
-      <div class="zone-overlay"></div>
-      <div class="zone-emoji">🏔️</div>
-      <div class="zone-content">
-        <div class="zone-name">Santiago</div>
-        <div class="zone-price">$60K – $400K</div>
-        <div class="zone-tag" style="background:rgba(232,85,62,0.2);color:#E8553E">Residencial</div>
+      <div class="step-row">
+        <div class="step-num-wrap" style="background:rgba(0,138,5,0.07);color:var(--green)">3</div>
+        <div class="step-body">
+          <div class="step-title">Habla directo con el vendedor</div>
+          <div class="step-text">Sin agencias que filtran tus mensajes. Contacto directo, negociación real.</div>
+          <div class="step-tag" style="background:rgba(0,138,5,0.07);color:var(--green)">WhatsApp · Directo</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== HOW IT WORKS ====== -->
-<section class="section" id="how" style="background:var(--light)">
-  <div class="reveal">
-    <div class="eyebrow">Cómo Funciona</div>
-    <div class="sec-title">Sin curva de<br>aprendizaje. <em>Simple.</em></div>
-    <div class="sec-desc">Tres pasos. Sin importar si eres vendedor o comprador.</div>
+<!-- ══ INTERACTIVE DEMO ══ -->
+<section class="sec sec-dark" id="demo">
+  <div class="rev">
+    <div class="eyebrow eyebrow-gold"><div class="eyebrow-dot" style="background:var(--gold)"></div> Demo interactivo</div>
+    <div class="h2 h2-white">Mueve los controles.<br><em>Mira cómo cambia</em><br>el ranking.</div>
+    <div class="body-text" style="color:rgba(255,255,255,0.4)">Así trabaja el algoritmo en tiempo real. Ajusta precio o zona y los scores se actualizan al instante.</div>
   </div>
 
-  <div class="tabs reveal rd1">
-    <button class="tab on" onclick="switchTab('seller',this)">🏠 Soy Vendedor</button>
-    <button class="tab" onclick="switchTab('buyer',this)">🔍 Soy Comprador</button>
-  </div>
-
-  <div id="steps-seller">
-    <div class="step reveal rd1">
-      <div class="step-n" style="background:rgba(212,168,67,0.12);color:var(--gold)">1</div>
-      <div class="step-body">
-        <div class="step-title">Lista tu propiedad en 5 minutos</div>
-        <div class="step-text">Fotos, precio, zona y características básicas. Sin tecnicismos. Sin intermediarios.</div>
+  <div class="demo-wrap rev d1">
+    <div class="demo-top">
+      <div class="demo-prop-row">
+        <div class="demo-thumb" style="background:linear-gradient(135deg,#0D3B6E,#1B5EA8)">🏖️</div>
+        <div>
+          <div class="demo-pname">Villa Palmera</div>
+          <div class="demo-ploc">Cap Cana, Punta Cana · 4 hab · 420 m²</div>
+          <div class="demo-pprice" id="d-price-display">$850,000</div>
+        </div>
       </div>
-    </div>
-    <div class="step reveal rd2">
-      <div class="step-n" style="background:rgba(27,58,107,0.1);color:var(--navy-mid)">2</div>
-      <div class="step-body">
-        <div class="step-title">Nuestro AI compara con 100s de perfiles</div>
-        <div class="step-text">Analizamos presupuesto, zona preferida, tipo de uso, urgencia y 12 variables más para calcular compatibilidad real.</div>
+      <div class="ctrl-label">Ajusta la propiedad — los matches se actualizan</div>
+      <div class="ctrl-row">
+        <span class="ctrl-name">Precio</span>
+        <input class="ctrl-range" type="range" min="100" max="2000" step="25" value="850" oninput="demoUpdate('price',this.value)">
+        <span class="ctrl-val" id="d-price-val">$850K</span>
       </div>
-    </div>
-    <div class="step reveal rd3">
-      <div class="step-n" style="background:rgba(29,185,84,0.1);color:var(--green)">3</div>
-      <div class="step-body">
-        <div class="step-title">Ves tu ranking y contactas por WhatsApp</div>
-        <div class="step-text">Lista priorizada con score, perfil y contexto del comprador. Un click para abrir WhatsApp y hablar.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="steps-buyer" style="display:none">
-    <div class="step reveal rd1">
-      <div class="step-n" style="background:rgba(232,85,62,0.1);color:var(--coral)">1</div>
-      <div class="step-body">
-        <div class="step-title">Crea tu perfil en 3 minutos</div>
-        <div class="step-text">Zona, presupuesto, tipo de propiedad y estilo de vida. Sin registrarte con 20 datos. Solo lo esencial.</div>
-      </div>
-    </div>
-    <div class="step reveal rd2">
-      <div class="step-n" style="background:rgba(212,168,67,0.12);color:var(--gold)">2</div>
-      <div class="step-body">
-        <div class="step-title">Recibe matches curados cada semana</div>
-        <div class="step-text">No 200 propiedades irrelevantes. Solo las que realmente encajan contigo. En tu WhatsApp.</div>
-      </div>
-    </div>
-    <div class="step reveal rd3">
-      <div class="step-n" style="background:rgba(29,185,84,0.1);color:var(--green)">3</div>
-      <div class="step-body">
-        <div class="step-title">Habla directamente con el vendedor</div>
-        <div class="step-text">Sin agencias que filtran tus mensajes. Contacto directo, negociación directa.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== INTERACTIVE DEMO ====== -->
-<section class="section-dark" id="demo">
-  <div class="reveal">
-    <div class="eyebrow eyebrow-gold">Demo Interactivo</div>
-    <div class="sec-title sec-title-white">Mueve los controles.<br><em>Mira cómo cambian</em><br>los matches.</div>
-    <div class="sec-desc sec-desc-muted">Así funciona el algoritmo. Ajusta el precio o la zona y los scores se actualizan en tiempo real.</div>
-  </div>
-
-  <div class="demo-property reveal rd1">
-    <div class="demo-visual" style="background:linear-gradient(135deg,#0A2744,#1B4F8A)">
-      <div class="demo-visual-inner">🏖️</div>
-      <div class="demo-price-tag" id="demo-price-tag">$850,000</div>
-      <div class="demo-zone-tag" id="demo-zone-tag">Cap Cana · En Venta</div>
-    </div>
-    <div class="demo-info">
-      <div class="demo-prop-name">Villa Palmera</div>
-      <div class="demo-prop-loc">📍 Cap Cana, Punta Cana · 4 hab · 420 m²</div>
-      <div class="demo-specs">
-        <div class="demo-spec">🛏 4 hab.</div>
-        <div class="demo-spec">🚿 4 baños</div>
-        <div class="demo-spec">🏊 Piscina</div>
-        <div class="demo-spec">⛳ Golf</div>
-      </div>
-    </div>
-
-    <div class="demo-controls">
-      <div class="demo-controls-label">🎛 Ajusta la propiedad — los matches se actualizan</div>
-      <div class="control-row">
-        <span class="control-label">Precio</span>
-        <input class="control-range" type="range" min="200" max="2000" step="50" value="850"
-          oninput="updateDemo('price', this.value)">
-        <span class="control-val" id="ctrl-price">$850K</span>
-      </div>
-      <div class="control-row">
-        <span class="control-label">Zona</span>
-        <select style="flex:1;padding:6px 10px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:0.78rem;font-family:'Inter',sans-serif;outline:none" onchange="updateDemo('zone', this.value)">
+      <div class="ctrl-row">
+        <span class="ctrl-name">Zona</span>
+        <select class="demo-zone-sel" onchange="demoUpdate('zone',this.value)">
           <option value="puntacana">Punta Cana / Cap Cana</option>
           <option value="sd">Santo Domingo</option>
           <option value="terrenas">Las Terrenas</option>
           <option value="romana">La Romana</option>
           <option value="cabarete">Cabarete / Sosúa</option>
         </select>
-        <span class="control-val" id="ctrl-zone" style="display:none"></span>
       </div>
     </div>
-
-    <div class="buyers-list">
-      <div class="buyers-header">
-        <span>🎯 Buyers compatibles</span>
-        <span id="match-count" style="color:rgba(255,255,255,0.35);font-weight:400">4 encontrados</span>
+    <div class="demo-buyers">
+      <div class="demo-buyers-hdr">
+        <span>Buyers compatibles</span>
+        <span id="d-count" style="color:rgba(255,255,255,0.25);font-weight:400">calculando...</span>
       </div>
-      <div id="buyers-render"></div>
-      <button class="wa-contact-btn" onclick="toast('💬 Abriendo WhatsApp con el comprador #1...')">
-        💬 Contactar el #1 por WhatsApp
-      </button>
+      <div id="d-buyers"></div>
+      <button class="wa-btn" onclick="toast('💬 Abriendo WhatsApp con el comprador #1...')">💬 Contactar el #1 por WhatsApp</button>
     </div>
   </div>
 </section>
 
-<!-- ====== TESTIMONIALS ====== -->
-<section class="section" id="reviews">
-  <div class="reveal">
-    <div class="eyebrow">Testimonios</div>
-    <div class="sec-title">Lo que dicen<br>los <em>primeros usuarios</em></div>
-    <div class="sec-desc">Beta privada con 30 vendedores y 120 compradores. Estos son sus resultados.</div>
+<!-- ══ TESTIMONIALS ══ -->
+<section class="sec" id="reviews">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Testimonios</div>
+    <div class="h2">Lo que dicen los<br><em>primeros usuarios.</em></div>
+    <div class="body-text">Beta privada con 30 vendedores y 120 compradores. Resultados reales.</div>
   </div>
 
-  <div class="testi-card reveal rd1">
-    <div class="testi-stars">★★★★★</div>
-    <div class="testi-text">En dos días tenía tres compradores serios pre-aprobados en mi villa. Antes tardé 8 meses con una agencia y nada. CasaMatch cambió el juego.</div>
-    <div class="testi-author">
-      <div class="testi-ava" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
-      <div>
-        <div class="testi-name">Miguel Ángel R.</div>
-        <div class="testi-from">Vendedor · Villa en Punta Cana · $680,000</div>
+  <div class="testi rev d1">
+    <div class="testi-card">
+      <div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span></div>
+      <div class="tc-quote">En dos días tenía tres compradores serios pre-aprobados mirando mi villa. Con una agencia tradicional tardé 8 meses. CasaMatch cambió todo.</div>
+      <div class="tc-author">
+        <div class="tc-ava" style="background:rgba(200,146,42,0.1)">🇩🇴</div>
+        <div><div class="tc-name">Miguel Ángel R.</div><div class="tc-deal">Villa en Punta Cana · $680,000</div></div>
+        <div class="tc-badge">✓ Vendedor verificado</div>
       </div>
     </div>
-  </div>
-
-  <div class="testi-card reveal rd2">
-    <div class="testi-stars">★★★★★</div>
-    <div class="testi-text">We were searching for 6 months on traditional sites. Created our profile on CasaMatch and in 3 weeks found the perfect condo in Las Terrenas. The match score was 91% — it was spot on.</div>
-    <div class="testi-author">
-      <div class="testi-ava" style="background:rgba(42,82,152,0.15)">🇫🇷</div>
-      <div>
-        <div class="testi-name">Claire & Thomas B.</div>
-        <div class="testi-from">Compradores · Apartamento en Las Terrenas · $210,000</div>
+    <div class="testi-card">
+      <div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span></div>
+      <div class="tc-quote">We searched for 6 months on traditional sites. Created our profile on CasaMatch and in 3 weeks found the perfect condo in Las Terrenas. The 91% match was spot on.</div>
+      <div class="tc-author">
+        <div class="tc-ava" style="background:rgba(255,90,95,0.08)">🇫🇷</div>
+        <div><div class="tc-name">Claire & Thomas B.</div><div class="tc-deal">Apto en Las Terrenas · $210,000</div></div>
+        <div class="tc-badge">✓ Compra cerrada</div>
       </div>
     </div>
-  </div>
-
-  <div class="testi-card reveal rd3">
-    <div class="testi-stars">★★★★☆</div>
-    <div class="testi-text">Como agente, pensé que esto era competencia. Resulta que es el mejor aliado — mis clientes llegan pre-calificados y yo cierro en la mitad del tiempo. Lo recomiendo a todo mi equipo.</div>
-    <div class="testi-author">
-      <div class="testi-ava" style="background:rgba(232,85,62,0.15)">🇩🇴</div>
-      <div>
-        <div class="testi-name">Luisa Contreras</div>
-        <div class="testi-from">Agente inmobiliaria · Cap Cana Real Estate Group</div>
+    <div class="testi-card">
+      <div class="tc-stars"><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star">★</span><span class="tc-star" style="color:var(--border)">★</span></div>
+      <div class="tc-quote">Como agente pensé que era competencia. Resulta que es mi mejor aliado — mis clientes llegan pre-calificados y cierro en la mitad del tiempo.</div>
+      <div class="tc-author">
+        <div class="tc-ava" style="background:rgba(0,166,153,0.1)">🇩🇴</div>
+        <div><div class="tc-name">Luisa Contreras</div><div class="tc-deal">Agente · Cap Cana Real Estate Group</div></div>
+        <div class="tc-badge">✓ Agente verificada</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== BUYER FORM ====== -->
-<section class="section" id="form-section" style="background:var(--light)">
-  <div class="reveal">
-    <div class="eyebrow">Para Compradores</div>
-    <div class="sec-title">Crea tu perfil.<br><em>Recibe matches</em><br>que importan.</div>
-    <div class="sec-desc">Gratis siempre. Sin spam. Solo propiedades que realmente encajan contigo — directo a tu WhatsApp.</div>
+<!-- ══ BUYER FORM ══ -->
+<section class="sec sec-alt" id="form-sec">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Para compradores</div>
+    <div class="h2">Crea tu perfil.<br>Recibe solo los<br><em>matches correctos.</em></div>
+    <div class="body-text">Gratis siempre. Sin spam. Solo propiedades que encajan — en tu WhatsApp.</div>
   </div>
 
-  <div class="form-wrap reveal rd1">
+  <div class="form-card rev d1">
     <div class="field">
-      <label class="field-label">Nombre completo</label>
-      <input class="input" type="text" placeholder="Ej. Juan García" id="f-name">
+      <label class="fl">Nombre completo</label>
+      <input class="fi" type="text" placeholder="Juan García" id="f-name">
     </div>
     <div class="field">
-      <label class="field-label">WhatsApp (con código de país)</label>
-      <input class="input" type="tel" placeholder="+1 809 000 0000" id="f-phone">
+      <label class="fl">WhatsApp (con código de país)</label>
+      <input class="fi" type="tel" placeholder="+1 809 000 0000" id="f-phone">
     </div>
     <div class="field">
-      <label class="field-label">¿Dónde buscas?</label>
-      <select class="select-input" id="f-zone">
-        <option value="">— Selecciona zona —</option>
+      <label class="fl">¿Dónde buscas?</label>
+      <select class="fi fi-select" id="f-zone">
+        <option value="">— Selecciona una zona —</option>
         <option>Punta Cana / Cap Cana</option>
         <option>Santo Domingo</option>
         <option>Las Terrenas / Samaná</option>
@@ -1032,319 +945,340 @@ body { padding-bottom:70px; }
       </select>
     </div>
     <div class="field">
-      <label class="field-label">Presupuesto máximo: <strong id="f-budget-lbl">$400,000</strong></label>
-      <div class="range-wrap">
-        <input class="range-input" type="range" min="50000" max="3000000" step="25000" value="400000"
-          oninput="document.getElementById('f-budget-lbl').textContent='$'+Number(this.value).toLocaleString()">
-      </div>
-      <div class="range-labels"><span>$50K</span><span>$3M+</span></div>
+      <label class="fl">Presupuesto máximo: <strong id="f-bud-lbl">$400,000</strong></label>
+      <input class="range-fi" type="range" min="50000" max="3000000" step="25000" value="400000"
+        oninput="document.getElementById('f-bud-lbl').textContent='$'+Number(this.value).toLocaleString()">
+      <div class="range-mm"><span>$50K</span><span>$3M+</span></div>
     </div>
     <div class="field">
-      <label class="field-label">Tipo de propiedad</label>
-      <div class="pick-grid">
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏡 Villa</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏢 Apartamento</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏖️ Beachfront</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏗️ En planos</span></label>
+      <label class="fl">Tipo de propiedad</label>
+      <div class="picks">
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🏡 Villa</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🏢 Apartamento</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🏖️ Beachfront</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🏗️ En planos</span></label>
       </div>
     </div>
     <div class="field">
-      <label class="field-label">¿Para qué es?</label>
-      <div class="pick-grid">
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏠 Residencia principal</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>📈 Inversión</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🌴 Vacacional</span></label>
-        <label class="pick-item" onclick="this.classList.toggle('on')"><span>✈️ Retiro / Jubilación</span></label>
+      <label class="fl">¿Para qué es?</label>
+      <div class="picks">
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🏠 Residencia</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>📈 Inversión</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>🌴 Vacacional</span></label>
+        <label class="pick" onclick="this.classList.toggle('on')"><span>✈️ Retiro</span></label>
       </div>
     </div>
-    <button class="form-submit" onclick="submitForm()">Crear mi perfil y recibir matches →</button>
-    <div class="form-note">🔒 Tu información es privada. No la compartimos sin tu permiso.</div>
+    <button class="submit" onclick="formSubmit()">Crear mi perfil y recibir matches →</button>
+    <div class="form-note">🔒 Tu información es privada. Solo la compartimos contigo.</div>
   </div>
 </section>
 
-<!-- ====== PRICING ====== -->
-<section class="section" id="pricing">
-  <div class="reveal">
-    <div class="eyebrow">Planes</div>
-    <div class="sec-title">Precios <em>honestos.</em><br>Sin letra pequeña.</div>
-    <div class="sec-desc">Compradores siempre gratis. Vendedores pagan para acceder a sus buyers calificados.</div>
+<!-- ══ PRICING ══ -->
+<section class="sec" id="pricing">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Planes</div>
+    <div class="h2">Precios <em>honestos.</em><br>Sin sorpresas.</div>
+    <div class="body-text">Compradores siempre gratis. Vendedores pagan para ver su ranking completo de buyers.</div>
   </div>
 
-  <div class="price-card reveal rd1">
-    <div class="plan-name">Comprador</div>
-    <div class="plan-amount">Gratis</div>
-    <div class="plan-tagline">Crea tu perfil y recibe matches de propiedades que encajan con lo que buscas. Para siempre.</div>
-    <div class="pf">Perfil de comprador completo</div>
-    <div class="pf">Matches ilimitados</div>
-    <div class="pf">Alertas semanales por WhatsApp</div>
-    <div class="pf">Contacto directo con vendedores</div>
-    <div class="pf no">Sin publicidad</div>
-    <button class="plan-btn" onclick="nav('form-section')">Crear perfil gratis →</button>
-  </div>
+  <div class="pricing-cards">
+    <div class="pc rev d1">
+      <div class="pc-name">Comprador</div>
+      <div><span class="pc-price">Gratis</span></div>
+      <div class="pc-desc">Crea tu perfil y recibe matches de propiedades que realmente encajan. Para siempre.</div>
+      <div class="pc-feat">Perfil de comprador completo</div>
+      <div class="pc-feat">Matches ilimitados</div>
+      <div class="pc-feat">Alertas semanales por WhatsApp</div>
+      <div class="pc-feat">Contacto directo con vendedores</div>
+      <button class="pc-btn pc-btn-light" onclick="go('form-sec')">Crear perfil gratis →</button>
+    </div>
 
-  <div class="price-card hot reveal rd2">
-    <div class="hot-badge">Más Popular</div>
-    <div class="plan-name">Vendedor Pro</div>
-    <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px">
-      <div class="plan-amount">$99</div>
-      <div class="plan-period">/ propiedad / mes</div>
+    <div class="pc hot rev d2">
+      <div class="hot-chip">Más popular</div>
+      <div class="pc-name">Vendedor Pro</div>
+      <div><span class="pc-price">$99</span><span class="pc-period">/ propiedad / mes</span></div>
+      <div class="pc-desc">Accede al ranking completo de buyers calificados con perfil y contacto por WhatsApp.</div>
+      <div class="pc-feat">Hasta 3 propiedades listadas</div>
+      <div class="pc-feat">Ranking completo con score detallado</div>
+      <div class="pc-feat">Perfil completo + WhatsApp directo</div>
+      <div class="pc-feat">Alertas de nuevos buyers en tiempo real</div>
+      <div class="pc-feat">Soporte prioritario por WhatsApp</div>
+      <button class="pc-btn pc-btn-coral" onclick="toast('💬 Te contactamos en menos de 24h')">Empezar ahora →</button>
     </div>
-    <div class="plan-tagline">Accede al ranking completo de compradores calificados con contacto por WhatsApp incluido.</div>
-    <div class="pf">Lista hasta 3 propiedades</div>
-    <div class="pf">Ranking completo de buyers con score</div>
-    <div class="pf">Perfil completo + WhatsApp directo</div>
-    <div class="pf">Score de compatibilidad detallado</div>
-    <div class="pf">Alertas de nuevos buyers en tiempo real</div>
-    <button class="plan-btn gold-btn" onclick="toast('💬 Te contactamos en menos de 24h')">Empezar ahora →</button>
-  </div>
 
-  <div class="price-card reveal rd3">
-    <div class="plan-name">Agencia / Desarrollador</div>
-    <div class="plan-amount" style="font-size:1.6rem">A medida</div>
-    <div class="plan-tagline">Para portfolios grandes o proyectos en pre-venta. Comisiones negociables y API disponible.</div>
-    <div class="pf">Propiedades ilimitadas</div>
-    <div class="pf">Dashboard de analytics</div>
-    <div class="pf">API de integración</div>
-    <div class="pf">Account manager dedicado</div>
-    <div class="pf">Modelo de comisión opcional</div>
-    <button class="plan-btn" onclick="toast('📩 Enviando solicitud...')">Solicitar propuesta →</button>
-  </div>
-</section>
-
-<!-- ====== FAQ ====== -->
-<section class="section" id="faq" style="background:var(--light)">
-  <div class="reveal">
-    <div class="eyebrow">FAQ</div>
-    <div class="sec-title">Preguntas <em>frecuentes</em></div>
-  </div>
-
-  <div class="reveal rd1">
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Cómo calcula CasaMatch el porcentaje de compatibilidad? <span class="faq-arrow">›</span></div>
-      <div class="faq-a">Analizamos 12 variables: presupuesto vs precio, zona preferida, tipo de propiedad, propósito de compra, urgencia, origen del comprador, preferencias de estilo de vida, y más. El resultado es un score de 0-100% que indica qué tan bien encaja ese comprador con tu propiedad específica.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Necesito ser agente para listar? <span class="faq-arrow">›</span></div>
-      <div class="faq-a">No. Cualquier propietario puede listar directamente. Si eres agente, tenemos un plan especial con múltiples propiedades y dashboard de analytics.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Es gratis para compradores? <span class="faq-arrow">›</span></div>
-      <div class="faq-a">Sí. 100% gratis siempre para compradores. Creas tu perfil, recibes matches curados en WhatsApp, y contactas vendedores directamente sin costo.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Qué pasa con mi privacidad como comprador? <span class="faq-arrow">›</span></div>
-      <div class="faq-a">Tu información personal (nombre, WhatsApp) solo se comparte con vendedores cuando tú decides hacer click en "Contactar". El vendedor ve tu perfil de búsqueda pero no tus datos de contacto hasta que tú autorices.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Operan fuera de la República Dominicana? <span class="faq-arrow">›</span></div>
-      <div class="faq-a">Por ahora el mercado es exclusivamente RD. Es donde está la oportunidad y donde podemos garantizar calidad. Si la demanda lo justifica, expandimos a otros mercados caribeños en 2026.</div>
+    <div class="pc rev d3">
+      <div class="pc-name">Agencia / Desarrollador</div>
+      <div><span class="pc-price" style="font-size:1.8rem">A medida</span></div>
+      <div class="pc-desc">Para portfolios grandes o proyectos en pre-venta. Comisión y API disponibles.</div>
+      <div class="pc-feat">Propiedades ilimitadas</div>
+      <div class="pc-feat">Dashboard de analytics</div>
+      <div class="pc-feat">API de integración</div>
+      <div class="pc-feat">Account manager dedicado</div>
+      <button class="pc-btn pc-btn-light" onclick="toast('📩 Enviando solicitud...')">Solicitar propuesta →</button>
     </div>
   </div>
 </section>
 
-<!-- ====== FOOTER ====== -->
+<!-- ══ FAQ ══ -->
+<section class="sec sec-alt" id="faq">
+  <div class="rev">
+    <div class="eyebrow"><div class="eyebrow-dot"></div> Preguntas frecuentes</div>
+    <div class="h2">Respuestas <em>directas.</em></div>
+  </div>
+  <div class="faq-list rev d1">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Cómo calcula CasaMatch el score de compatibilidad? <span class="faq-chevron">›</span></div>
+      <div class="faq-a">Analizamos 12 variables: presupuesto vs precio, zona preferida, tipo de propiedad, propósito de compra, urgencia, origen del comprador, perfil de estilo de vida y más. El resultado es un porcentaje de 0 a 100% que indica qué tan bien encaja ese buyer con tu propiedad específica.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Necesito ser agente inmobiliario para listar? <span class="faq-chevron">›</span></div>
+      <div class="faq-a">No. Cualquier propietario puede listar directamente. Si eres agente, tenemos un plan con múltiples propiedades y dashboard de analytics completo.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Es gratis para compradores de verdad? <span class="faq-chevron">›</span></div>
+      <div class="faq-a">Sí, 100% gratis para siempre. Creas tu perfil, recibes matches curados en WhatsApp y contactas vendedores directamente. Sin costo, sin letra pequeña.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Qué pasa con mi privacidad como comprador? <span class="faq-chevron">›</span></div>
+      <div class="faq-a">Tu nombre y WhatsApp solo se comparten con el vendedor cuando tú haces click en "Contactar". El vendedor ve tu perfil de búsqueda pero no tus datos personales hasta que tú autorices el contacto.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Por qué no simplemente publicar en Facebook? <span class="faq-chevron">›</span></div>
+      <div class="faq-a">En Facebook recibes 200 mensajes de curiosos. Con CasaMatch recibes 5 compradores calificados. La diferencia es calidad vs cantidad. Un comprador pre-aprobado vale más que 50 mensajes sin contexto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
 <footer class="footer">
   <div class="footer-top">
-    <div class="footer-logo-text">Casa<em>Match</em> AI</div>
-    <div class="footer-tagline">El mercado inmobiliario de RD, con inteligencia.</div>
-    <button class="footer-wa" onclick="toast('💬 Abriendo WhatsApp...')">
-      💬 Hablar por WhatsApp
-    </button>
+    <div class="f-logo-txt">Casa<em>Match</em> AI</div>
+    <div class="f-tagline">El mercado inmobiliario de RD, con inteligencia.</div>
+    <button class="f-wa" onclick="toast('💬 Abriendo WhatsApp...')">💬 Hablar por WhatsApp</button>
   </div>
-
   <div class="footer-grid">
     <div>
-      <div class="footer-col-title">Plataforma</div>
-      <span class="footer-link" onclick="nav('how')">Cómo funciona</span>
-      <span class="footer-link" onclick="nav('demo')">Demo en vivo</span>
-      <span class="footer-link" onclick="nav('pricing')">Precios</span>
-      <span class="footer-link" onclick="nav('faq')">FAQ</span>
+      <div class="f-col-title">Plataforma</div>
+      <span class="f-link" onclick="go('how')">Cómo funciona</span>
+      <span class="f-link" onclick="go('demo')">Demo en vivo</span>
+      <span class="f-link" onclick="go('pricing')">Planes</span>
+      <span class="f-link" onclick="go('faq')">FAQ</span>
     </div>
     <div>
-      <div class="footer-col-title">Recursos</div>
-      <span class="footer-link" onclick="toast('Blog próximamente')">Blog de mercado</span>
-      <span class="footer-link" onclick="toast('Guía próximamente')">Guía del comprador</span>
-      <span class="footer-link" onclick="toast('Para agentes próximamente')">Para agentes</span>
-      <span class="footer-link" onclick="toast('Términos próximamente')">Términos de uso</span>
+      <div class="f-col-title">Recursos</div>
+      <span class="f-link" onclick="toast('Próximamente')">Blog de mercado</span>
+      <span class="f-link" onclick="toast('Próximamente')">Guía del comprador</span>
+      <span class="f-link" onclick="toast('Próximamente')">Para agentes</span>
+      <span class="f-link" onclick="toast('Próximamente')">Términos de uso</span>
     </div>
   </div>
-
   <div class="footer-bottom">
-    <div class="footer-flag">🇩🇴</div>
-    <div class="footer-copy">© 2026 CasaMatch AI · República Dominicana<br>Conectando compradores y vendedores con inteligencia real.</div>
+    <div class="f-copy">🇩🇴 &nbsp;© 2026 CasaMatch AI · República Dominicana<br>Conectando compradores y vendedores con inteligencia real.</div>
   </div>
 </footer>
 
-<!-- ====== BOTTOM NAV ====== -->
-<nav class="bottom-nav">
-  <button class="bnav-btn on" onclick="navBtn('top',this)">
-    <div class="bnav-dot"></div>
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bnav">
+  <button class="bnav-btn on" onclick="bNav('top',this)">
+    <div class="bnav-pip"></div>
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Inicio</span>
   </button>
-  <button class="bnav-btn" onclick="navBtn('zones',this)">
-    <div class="bnav-dot"></div>
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-    <span>Zonas</span>
+  <button class="bnav-btn" onclick="bNav('propiedades',this)">
+    <div class="bnav-pip"></div>
+    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span>Propiedades</span>
   </button>
-  <button class="bnav-btn" onclick="navBtn('demo',this)">
-    <div class="bnav-dot"></div>
+  <button class="bnav-btn" onclick="bNav('demo',this)">
+    <div class="bnav-pip"></div>
     <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <span>Demo</span>
   </button>
-  <button class="bnav-btn" onclick="navBtn('form-section',this)">
-    <div class="bnav-dot"></div>
+  <button class="bnav-btn" onclick="bNav('form-sec',this)">
+    <div class="bnav-pip"></div>
     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     <span>Mi Perfil</span>
   </button>
 </nav>
 
-<!-- TOAST -->
-<div class="toast" id="toast-el"></div>
+<div class="toast" id="t"></div>
 
 <script>
-// ======= DATA =======
+// ═══ DATA ═══
 const buyers = [
-  { id:1, name:'James & Sarah M.', flag:'🇺🇸', from:'Miami, FL', purpose:'Retiro', maxBudget:1200, zones:['puntacana','romana'], tags:['Pre-aprobado','Golf','Vista al mar'], urgency:'alta' },
-  { id:2, name:'Carlos Familia',   flag:'🇩🇴', from:'Santo Domingo', purpose:'2ª residencia', maxBudget:900, zones:['puntacana','sd'], tags:['Piscina','4+ hab.','Urgente'], urgency:'alta' },
-  { id:3, name:'Robert & Anne T.', flag:'🇬🇧', from:'London',   purpose:'Inversión vacacional', maxBudget:800, zones:['puntacana','terrenas','romana'], tags:['Renta vacacional','Lujo'], urgency:'media' },
-  { id:4, name:'Marc Dupont',      flag:'🇨🇦', from:'Montreal', purpose:'Retiro anticipado', maxBudget:650, zones:['puntacana','terrenas','cabarete'], tags:['Piscina','Jardín'], urgency:'baja' },
+  { n:'James & Sarah M.', f:'🇺🇸', from:'Miami, FL', purpose:'Retiro', maxB:1200, zones:['puntacana','romana'], tags:['Pre-aprobado','Golf','Vista al mar'], urg:2 },
+  { n:'Carlos Familia',   f:'🇩🇴', from:'Santo Domingo', purpose:'2ª residencia', maxB:900,  zones:['puntacana','sd'], tags:['Urgente','4+ hab.','Piscina'], urg:2 },
+  { n:'Robert & Anne T.', f:'🇬🇧', from:'London',   purpose:'Inversión vacacional', maxB:800,  zones:['puntacana','terrenas','romana'], tags:['Renta vacacional','Lujo'], urg:1 },
+  { n:'Marc Dupont',      f:'🇨🇦', from:'Montreal', purpose:'Retiro anticipado', maxB:650,  zones:['puntacana','terrenas','cabarete'], tags:['Piscina','Jardín'], urg:0 },
 ];
 
-function calcScore(buyer, price, zone) {
-  let score = 0;
-  // Budget fit (0-40 pts)
-  if (price <= buyer.maxBudget) score += 40;
-  else if (price <= buyer.maxBudget * 1.1) score += 30;
-  else if (price <= buyer.maxBudget * 1.25) score += 15;
-  else score += 0;
-  // Zone match (0-35 pts)
-  if (buyer.zones.includes(zone)) score += 35;
-  else score += 10;
-  // Urgency (0-25 pts)
-  score += buyer.urgency === 'alta' ? 25 : buyer.urgency === 'media' ? 15 : 8;
-  return Math.min(score, 99);
+const props = [
+  { name:'Villa Palmera', zone:'puntacana', zoneName:'Punta Cana', price:'$850,000', specs:['🛏 4 hab.','🚿 4 baños','📐 420 m²','🏊 Piscina'], grad:'linear-gradient(135deg,#0D3B6E,#1B5EA8)', emoji:'🏖️', flag:'Cap Cana · Lujo' },
+  { name:'Penthouse Naco', zone:'sd', zoneName:'Santo Domingo', price:'$320,000', specs:['🛏 3 hab.','🚿 3 baños','📐 210 m²','🌆 Vista ciudad'], grad:'linear-gradient(135deg,#1A1A2E,#2D3561)', emoji:'🏙️', flag:'Naco · Inversión' },
+  { name:'Casa Bonita', zone:'terrenas', zoneName:'Las Terrenas', price:'$195,000', specs:['🛏 2 hab.','🚿 2 baños','📐 120 m²','🌿 Jardín'], grad:'linear-gradient(135deg,#1A3A1A,#2D6B2D)', emoji:'🌴', flag:'Samaná · Vacacional' },
+];
+
+function scoreC(buyer, price, zone) {
+  let s = 0;
+  if (price <= buyer.maxB) s += 40;
+  else if (price <= buyer.maxB * 1.12) s += 28;
+  else if (price <= buyer.maxB * 1.28) s += 14;
+  if (buyer.zones.includes(zone)) s += 35;
+  else s += 8;
+  s += buyer.urg === 2 ? 24 : buyer.urg === 1 ? 14 : 7;
+  return Math.min(s, 99);
 }
 
-function scoreColor(s) {
-  if (s >= 85) return { c:'#1DB954', bg:'rgba(29,185,84,0.08)' };
-  if (s >= 70) return { c:'#D4A843', bg:'rgba(212,168,67,0.08)' };
-  if (s >= 55) return { c:'#E8953E', bg:'rgba(232,149,62,0.08)' };
-  return { c:'#8A8A8A', bg:'rgba(138,138,138,0.08)' };
+function sColor(s) {
+  if (s >= 85) return { c:'#00C570', bg:'rgba(0,197,112,0.08)' };
+  if (s >= 70) return { c:'#C8922A', bg:'rgba(200,146,42,0.08)' };
+  if (s >= 55) return { c:'#FF9500', bg:'rgba(255,149,0,0.08)' };
+  return { c:'#ACACAC', bg:'rgba(172,172,172,0.08)' };
 }
 
-let currentPrice = 850, currentZone = 'puntacana';
+let dPrice = 850, dZone = 'puntacana';
 
-function renderBuyers() {
-  const sorted = buyers.map(b => ({ ...b, score: calcScore(b, currentPrice, currentZone) }))
-                       .sort((a,b) => b.score - a.score);
-  document.getElementById('match-count').textContent = sorted.filter(b=>b.score>=55).length + ' encontrados';
-  document.getElementById('buyers-render').innerHTML = sorted.map(b => {
-    const { c, bg } = scoreColor(b.score);
-    return `
-    <div class="b-row" onclick="toast('💬 Abriendo WhatsApp con ${b.name}...')">
-      <div class="b-flag" style="background:${bg}">${b.flag}</div>
-      <div class="b-info">
-        <div class="b-name">${b.name}</div>
-        <div class="b-detail">${b.from} · ${b.purpose}</div>
-        <div class="b-tags">${b.tags.map(t => `<span class="btag${t==='Pre-aprobado'?' g':t==='Urgente'?' r':''}">${t}</span>`).join('')}</div>
+function renderDemo() {
+  const sorted = buyers
+    .map(b => ({ ...b, s: scoreC(b, dPrice, dZone) }))
+    .sort((a,b) => b.s - a.s);
+  document.getElementById('d-count').textContent = sorted.filter(b=>b.s>=50).length + ' encontrados';
+  document.getElementById('d-buyers').innerHTML = sorted.map(b => {
+    const { c, bg } = sColor(b.s);
+    const tagHtml = b.tags.map(t =>
+      `<span class="dtag ${t==='Pre-aprobado'?'dtag-g':t==='Urgente'?'dtag-r':'dtag-d'}">${t}</span>`
+    ).join('');
+    return `<div class="demo-b-row" onclick="toast('💬 Contactando a ${b.n}...')">
+      <div class="db-ava" style="background:${bg}">${b.f}</div>
+      <div class="db-info">
+        <div class="db-name">${b.n}</div>
+        <div class="db-from">${b.from} · ${b.purpose}</div>
+        <div class="db-tags">${tagHtml}</div>
       </div>
-      <div class="b-score-wrap">
-        <div class="b-score" style="color:${c};border-color:${c};background:${bg}">${b.score}%</div>
-        <div class="b-score-bar-wrap"><div class="b-score-bar" style="width:${b.score}%;background:${c}"></div></div>
-      </div>
+      <div class="db-score-ring" style="color:${c};border-color:${c};background:${bg}">${b.s}%</div>
     </div>`;
   }).join('');
 }
 
-function updateDemo(type, val) {
+function demoUpdate(type, val) {
   if (type === 'price') {
-    currentPrice = Number(val);
-    document.getElementById('ctrl-price').textContent = '$' + currentPrice + 'K';
-    document.getElementById('demo-price-tag').textContent = '$' + currentPrice.toLocaleString() + ',000';
+    dPrice = Number(val);
+    document.getElementById('d-price-val').textContent = '$' + dPrice + 'K';
+    document.getElementById('d-price-display').textContent = '$' + (dPrice * 1000).toLocaleString();
   }
-  if (type === 'zone') {
-    currentZone = val;
-    const labels = { puntacana:'Cap Cana · En Venta', sd:'Santo Domingo · En Venta', terrenas:'Las Terrenas · En Venta', romana:'La Romana · En Venta', cabarete:'Cabarete · En Venta' };
-    document.getElementById('demo-zone-tag').textContent = labels[val] || 'En Venta';
-  }
-  renderBuyers();
+  if (type === 'zone') { dZone = val; }
+  renderDemo();
+}
+renderDemo();
+
+// ═══ PROPERTIES ═══
+let activeZone = 'all';
+function filterZone(z, el) {
+  document.querySelectorAll('.zone-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  activeZone = z;
+  renderProps();
 }
 
-renderBuyers();
+function renderProps() {
+  const list = activeZone === 'all' ? props : props.filter(p => p.zone === activeZone);
+  document.getElementById('prop-list').innerHTML = list.length === 0
+    ? `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">No hay propiedades en esta zona todavía. <br>Pronto habrá más.</div>`
+    : list.map(p => {
+      const top3 = buyers
+        .map(b => ({ ...b, s: scoreC(b, parseInt(p.price.replace(/\D/g,'')) / 1000, p.zone) }))
+        .sort((a,b) => b.s - a.s).slice(0, 3);
+      return `<div class="prop-card">
+        <div class="prop-img" style="background:${p.grad}">
+          <div class="prop-img-overlay"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;opacity:0.13">${p.emoji}</div>
+          <div class="prop-flag">${p.flag}</div>
+          <div class="prop-price">${p.price}</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-zone">${p.zoneName}</div>
+          <div class="prop-name">${p.name}</div>
+          <div class="prop-loc">📍 ${p.zoneName}, República Dominicana</div>
+          <div class="prop-specs">${p.specs.map(s=>`<div class="prop-spec">${s}</div>`).join('')}</div>
+          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem">Top buyers compatibles</div>
+          ${top3.map(b => {
+            const { c } = sColor(b.s);
+            return `<div class="match-mini" onclick="toast('💬 Contactar a ${b.n} por WhatsApp')">
+              <div class="mm-left">
+                <div class="mm-ava">${b.f}</div>
+                <div><div class="mm-name">${b.n}</div><div class="mm-from">${b.from}</div></div>
+              </div>
+              <div class="mm-score" style="color:${c};background:${sColor(b.s).bg}">${b.s}%</div>
+            </div>`;
+          }).join('')}
+          <button class="see-all-btn" onclick="toast('Ver todos los buyers — acceso Pro')">Ver todos los buyers →</button>
+        </div>
+      </div>`;
+    }).join('');
+}
+renderProps();
 
-// ======= TABS =======
+// ═══ TABS ═══
 function switchTab(t, btn) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.tpill').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('steps-seller').style.display = t==='seller' ? 'block' : 'none';
-  document.getElementById('steps-buyer').style.display  = t==='buyer'  ? 'block' : 'none';
+  document.getElementById('tab-seller').style.display = t==='seller' ? 'block' : 'none';
+  document.getElementById('tab-buyer').style.display  = t==='buyer'  ? 'block' : 'none';
 }
 
-// ======= FAQ =======
-function toggleFaq(el) {
-  el.classList.toggle('open');
-}
-
-// ======= NAV =======
-function nav(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
-}
-function navBtn(id, btn) {
+// ═══ NAV ═══
+function go(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth' }); }
+function bNav(id, btn) {
   document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  nav(id);
+  btn.classList.add('on'); go(id);
 }
 
-// ======= TOAST =======
-let toastTimer;
+// ═══ TOAST ═══
+let tt;
 function toast(msg) {
-  const el = document.getElementById('toast-el');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+  const el = document.getElementById('t');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-// ======= FORM =======
-function submitForm() {
+// ═══ FORM ═══
+function formSubmit() {
   const name  = document.getElementById('f-name').value.trim();
   const phone = document.getElementById('f-phone').value.trim();
   const zone  = document.getElementById('f-zone').value;
-  if (!name) { toast('⚠️ Ingresa tu nombre'); return; }
+  if (!name)  { toast('⚠️ Ingresa tu nombre'); return; }
   if (!phone) { toast('⚠️ Ingresa tu WhatsApp'); return; }
-  if (!zone) { toast('⚠️ Selecciona una zona'); return; }
-  toast('✅ ¡Perfil creado, ' + name.split(' ')[0] + '! Te contactamos en 24h por WhatsApp 🎉');
+  if (!zone)  { toast('⚠️ Selecciona una zona'); return; }
+  toast('✅ ¡Perfil creado, ' + name.split(' ')[0] + '! Te contactamos en 24h 🎉');
 }
 
-// ======= COUNTERS =======
-function animateCount(el) {
+// ═══ COUNTERS ═══
+function animCount(el) {
   const target = parseFloat(el.dataset.target);
   const suffix = el.dataset.suffix || '';
-  const isDecimal = String(target).includes('.');
-  const duration = 1800, steps = 60, step = duration / steps;
-  let current = 0;
+  const prefix = el.dataset.prefix || '';
+  const dec = String(target).includes('.');
+  let cur = 0, steps = 60;
   const inc = target / steps;
-  const t = setInterval(() => {
-    current += inc;
-    if (current >= target) { current = target; clearInterval(t); }
-    el.textContent = (el.dataset.prefix || '') + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-  }, step);
+  const iv = setInterval(() => {
+    cur = Math.min(cur + inc, target);
+    el.textContent = prefix + (dec ? cur.toFixed(1) : Math.floor(cur)) + suffix;
+    if (cur >= target) clearInterval(iv);
+  }, 1800 / steps);
 }
 
-// ======= SCROLL REVEAL =======
-const io = new IntersectionObserver((entries) => {
+// ═══ REVEAL ═══
+const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('in');
-      // trigger counters
-      e.target.querySelectorAll('[data-target]').forEach(animateCount);
+      e.target.querySelectorAll('[data-target]').forEach(animCount);
       io.unobserve(e.target);
     }
   });
-}, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+}, { threshold:0.08, rootMargin:'0px 0px -24px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.rev').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
