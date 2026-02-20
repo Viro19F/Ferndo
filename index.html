@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CasaMatch AI — Bienes Raíces Inteligentes en RD</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1F3C;
+    --navy-mid: #1B3A6B;
+    --navy-light: #2A5298;
+    --gold: #D4A843;
+    --gold-light: #E8C46A;
+    --gold-pale: rgba(212,168,67,0.1);
+    --coral: #E8553E;
+    --coral-soft: rgba(232,85,62,0.1);
+    --white: #FFFFFF;
+    --cream: #FAF8F5;
+    --light: #F2EFE9;
+    --gray: #8A8A8A;
+    --gray-light: #E8E4DE;
+    --ink: #1A1A1A;
+    --success: #27AE60;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(13,31,60,0.08);
+    --shadow-lg: 0 12px 48px rgba(13,31,60,0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* =========== TOP BAR =========== */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(13,31,60,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 60px;
+    border-bottom: 1px solid rgba(212,168,67,0.15);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .logo-text span { color: var(--gold); }
+
+  .topbar-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .btn-ghost {
+    background: none;
+    border: 1px solid rgba(212,168,67,0.4);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { background: var(--gold-pale); }
+
+  .btn-gold {
+    background: var(--gold);
+    border: none;
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* =========== HERO =========== */
+  .hero {
+    min-height: 100svh;
+    background: linear-gradient(160deg, var(--navy) 0%, #0A2744 40%, #1B3A6B 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 1.5rem 3rem;
+    overflow: hidden;
+  }
+
+  .hero-map {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(212,168,67,0.6) 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(232,85,62,0.4) 0%, transparent 35%),
+      radial-gradient(circle at 60% 80%, rgba(42,82,152,0.8) 0%, transparent 45%);
+  }
+
+  /* Grid pattern */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,168,67,0.12);
+    border: 1px solid rgba(212,168,67,0.25);
+    border-radius: 100px;
+    padding: 7px 16px;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.7s ease-out 0.2s forwards;
+  }
+
+  .hero-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .hero-badge span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.65;
+    max-width: 340px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.6s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,67,0.35); }
+
+  .btn-outline-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-outline-white:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
+
+  /* Floating match card preview */
+  .hero-float {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease-out 1s forwards;
+  }
+
+  .match-preview-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .match-preview-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .match-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .match-row:last-child { border-bottom: none; }
+
+  .match-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .match-info { flex: 1; min-width: 0; }
+  .match-name { font-size: 0.8rem; font-weight: 600; color: var(--white); }
+  .match-detail { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 1px; }
+
+  .match-score {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .score-num {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-bar {
+    width: 48px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.5s ease;
+  }
+
+  /* =========== STATS =========== */
+  .stats-strip {
+    background: var(--navy);
+    padding: 2rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    border-bottom: 1px solid rgba(212,168,67,0.1);
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-lbl {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-top: 3px;
+  }
+
+  /* =========== HOW IT WORKS =========== */
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--coral);
+    border-radius: 1px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-desc {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+
+  /* Tabs */
+  .tab-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-light);
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .tab-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .step-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s;
+  }
+
+  .step-card:hover { transform: translateX(4px); box-shadow: var(--shadow-lg); }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-body { flex: 1; }
+
+  .step-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* =========== LIVE DEMO / MATCHING =========== */
+  .demo-section {
+    background: var(--navy);
+    padding: 4rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .demo-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(212,168,67,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .demo-section .section-title { color: var(--white); }
+  .demo-section .section-desc { color: rgba(255,255,255,0.45); }
+
+  /* Property card */
+  .property-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .property-visual {
+    height: 180px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+
+  .property-badge {
+    background: rgba(13,31,60,0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .property-price {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  .property-info {
+    padding: 1.2rem;
+  }
+
+  .property-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .property-loc {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .property-specs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .spec {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .spec-icon { font-size: 0.85rem; }
+
+  /* Buyer matches list */
+  .matches-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .buyer-match-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(255,255,255,0.04);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .buyer-match-row:hover {
+    background: rgba(212,168,67,0.08);
+    border-color: rgba(212,168,67,0.2);
+  }
+
+  .buyer-ava {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 2px solid rgba(212,168,67,0.3);
+  }
+
+  .buyer-info { flex: 1; min-width: 0; }
+  .buyer-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+  .buyer-detail { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .buyer-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+
+  .tag {
+    font-size: 0.58rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(212,168,67,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(212,168,67,0.2);
+  }
+
+  .tag.coral { background: rgba(232,85,62,0.1); color: #E8553E; border-color: rgba(232,85,62,0.2); }
+  .tag.green { background: rgba(39,174,96,0.1); color: #27AE60; border-color: rgba(39,174,96,0.2); }
+
+  .buyer-score { flex-shrink: 0; text-align: center; }
+
+  .score-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border: 2px solid;
+  }
+
+  .score-95 { color: var(--success); border-color: var(--success); background: rgba(39,174,96,0.08); }
+  .score-87 { color: var(--gold); border-color: var(--gold); background: rgba(212,168,67,0.08); }
+  .score-72 { color: #E8953E; border-color: #E8953E; background: rgba(232,149,62,0.08); }
+  .score-61 { color: var(--gray); border-color: var(--gray-light); background: rgba(138,138,138,0.08); }
+
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    transition: all 0.3s;
+  }
+  .wa-btn:hover { background: #1EBC59; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.3); }
+
+  /* =========== BUYER PROFILE FORM =========== */
+  .form-section {
+    background: var(--white);
+    padding: 4rem 1.5rem;
+  }
+
+  .form-card {
+    background: var(--cream);
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--navy-mid); }
+
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .form-range {
+    width: 100%;
+    accent-color: var(--navy-mid);
+    cursor: pointer;
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+
+  .checkbox-item.selected {
+    border-color: var(--navy);
+    background: rgba(27,58,107,0.05);
+  }
+
+  .checkbox-item input { display: none; }
+  .checkbox-item span { font-size: 0.78rem; font-weight: 500; color: var(--navy); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+
+  /* =========== PRICING =========== */
+  .pricing-section {
+    padding: 4rem 1.5rem;
+    background: var(--light);
+  }
+
+  .pricing-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.8rem 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gray-light);
+    margin-bottom: 1rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .pricing-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .pricing-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(to bottom right, var(--navy), #1B3A6B);
+  }
+
+  .pricing-card.featured .plan-name { color: var(--gold); }
+  .pricing-card.featured .plan-price { color: var(--white); }
+  .pricing-card.featured .plan-desc { color: rgba(255,255,255,0.5); }
+  .pricing-card.featured .feature-item { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.08); }
+  .pricing-card.featured .feature-item::before { color: var(--gold); }
+
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+  }
+
+  .plan-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy-mid);
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-price span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--gray);
+  }
+
+  .plan-desc {
+    font-size: 0.8rem;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .feature-item {
+    font-size: 0.8rem;
+    color: var(--ink);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .feature-item::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+  .feature-item.no::before { content: '✕'; color: var(--gray); }
+
+  /* =========== FOOTER =========== */
+  .footer {
+    background: var(--navy);
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-link {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--gold); }
+
+  .footer-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.3);
+    color: #25D366;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 2rem;
+  }
+  .footer-wa:hover { background: rgba(37,211,102,0.18); }
+
+  .footer-copy {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.2);
+    line-height: 1.6;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  /* =========== ANIMATIONS =========== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+
+  /* =========== TOAST =========== */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: 100px;
+    border: 1px solid rgba(212,168,67,0.3);
+    z-index: 999;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- =========== TOPBAR =========== -->
+<nav class="topbar">
+  <div class="logo">
+    <div class="logo-icon">🏠</div>
+    <div class="logo-text">Casa<span>Match</span> AI</div>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn-ghost" onclick="scrollTo('form-section')">Soy Comprador</button>
+    <button class="btn-gold" onclick="showToast('¡Próximamente! Únete a la lista de espera.')">Listar Propiedad</button>
+  </div>
+</nav>
+
+<!-- =========== HERO =========== -->
+<section class="hero" id="top">
+  <div class="hero-map"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    <div class="dot"></div>
+    <span>República Dominicana · AI-Powered</span>
+  </div>
+
+  <h1>El comprador<br><em>perfecto</em> para<br>tu propiedad.</h1>
+
+  <p class="hero-sub">
+    No más llamadas perdidas con curiosos. CasaMatch AI conecta tu propiedad con compradores reales y calificados — clasificados por compatibilidad.
+  </p>
+
+  <div class="hero-ctas">
+    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
+      Ver Cómo Funciona →
+    </button>
+    <button class="btn-outline-white" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
+      Crear Perfil de Comprador
+    </button>
+  </div>
+
+  <!-- Floating match preview -->
+  <div class="hero-float">
+    <div class="match-preview-card">
+      <div class="match-preview-label">
+        ⚡ Matches en tiempo real para "Villa Cap Cana · $850K"
+      </div>
+
+      <div class="match-row">
+        <div class="match-avatar" style="background:rgba(39,174,96,0.15)">🇺🇸</div>
+        <div class="match-info">
+          <div class="match-name">James & Sarah M.</div>
+          <div class="match-detail">Miami · Presupuesto $700K-$1.2M · Retiro</div>
+        </div>
+        <div class="match-score">
+          <div class="score-num" style="color:#27AE60">95%</div>
+          <div class="score-bar"><div class="score-fill" style="width:95%;background:#27AE60"></div></div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-avatar" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
+        <div class="match-info">
+          <div class="match-name">Carlos Familia</div>
+          <div class="match-detail">Santo Domingo · Presupuesto $600K-$900K</div>
+        </div>
+        <div class="match-score">
+          <div class="score-num" style="color:var(--gold)">87%</div>
+          <div class="score-bar"><div class="score-fill" style="width:87%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-avatar" style="background:rgba(42,82,152,0.2)">🇬🇧</div>
+        <div class="match-info">
+          <div class="match-name">Robert & Anne T.</div>
+          <div class="match-detail">London · Inversión · $500K-$800K</div>
+        </div>
+        <div class="match-score">
+          <div class="score-num" style="color:#E8953E">72%</div>
+          <div class="score-bar"><div class="score-fill" style="width:72%;background:#E8953E"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== STATS =========== -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">+10%</div>
+    <div class="stat-lbl">Crecimiento anual</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">40%</div>
+    <div class="stat-lbl">Compradores extranjeros</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$2.4B</div>
+    <div class="stat-lbl">Volumen mercado</div>
+  </div>
+</div>
+
+<!-- =========== HOW IT WORKS =========== -->
+<section class="section" id="how">
+  <div class="reveal">
+    <div class="section-eyebrow">Cómo Funciona</div>
+    <div class="section-title">Simple. <em>Inteligente.</em><br>Sin perder tiempo.</div>
+    <div class="section-desc">Olvídate de publicar en Facebook y esperar. CasaMatch trabaja para ti.</div>
+  </div>
+
+  <div class="tab-row reveal reveal-d1">
+    <button class="tab-btn active" onclick="switchTab('seller', this)">Soy Vendedor</button>
+    <button class="tab-btn" onclick="switchTab('buyer', this)">Soy Comprador</button>
+  </div>
+
+  <div id="seller-steps">
+    <div class="step-card reveal reveal-d1">
+      <div class="step-num" style="background:rgba(212,168,67,0.12);color:var(--gold)">1</div>
+      <div class="step-body">
+        <div class="step-title">Lista tu propiedad</div>
+        <div class="step-desc">Agrega fotos, precio y detalles en menos de 5 minutos. Sin complicaciones.</div>
+      </div>
+    </div>
+    <div class="step-card reveal reveal-d2">
+      <div class="step-num" style="background:rgba(27,58,107,0.1);color:var(--navy-mid)">2</div>
+      <div class="step-body">
+        <div class="step-title">Nuestro AI analiza el mercado</div>
+        <div class="step-desc">Comparamos tu propiedad con cientos de perfiles de compradores activos y calculamos compatibilidad.</div>
+      </div>
+    </div>
+    <div class="step-card reveal reveal-d3">
+      <div class="step-num" style="background:rgba(39,174,96,0.1);color:var(--success)">3</div>
+      <div class="step-body">
+        <div class="step-title">Ves tu ranking de buyers</div>
+        <div class="step-desc">Recibes una lista priorizada con score de compatibilidad, perfil del comprador y contacto por WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="buyer-steps" style="display:none">
+    <div class="step-card reveal reveal-d1">
+      <div class="step-num" style="background:rgba(232,85,62,0.1);color:var(--coral)">1</div>
+      <div class="step-body">
+        <div class="step-title">Crea tu perfil</div>
+        <div class="step-desc">Dinos qué buscas: zona, presupuesto, tipo de propiedad, estilo de vida. 3 minutos.</div>
+      </div>
+    </div>
+    <div class="step-card reveal reveal-d2">
+      <div class="step-num" style="background:rgba(212,168,67,0.12);color:var(--gold)">2</div>
+      <div class="step-body">
+        <div class="step-title">Recibe matches curados</div>
+        <div class="step-desc">Olvídate de buscar entre 500 propiedades. Solo ves las que realmente encajan contigo.</div>
+      </div>
+    </div>
+    <div class="step-card reveal reveal-d3">
+      <div class="step-num" style="background:rgba(39,174,96,0.1);color:var(--success)">3</div>
+      <div class="step-body">
+        <div class="step-title">Conecta por WhatsApp</div>
+        <div class="step-desc">Un click y hablas directamente con el vendedor. Sin intermediarios, sin esperas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== LIVE DEMO =========== -->
+<section class="demo-section" id="demo">
+  <div class="reveal">
+    <div class="section-eyebrow" style="color:var(--gold)">Demo en Vivo</div>
+    <div class="section-title">Así ve un vendedor<br><em>sus buyers</em></div>
+    <div class="section-desc">Esta propiedad en Punta Cana tiene 4 compradores altamente compatibles esperando.</div>
+  </div>
+
+  <div class="property-card reveal reveal-d1">
+    <div class="property-visual" style="background:linear-gradient(160deg,#0A2744 0%,#1B4B8A 100%);">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem;opacity:0.15">🏖️</div>
+      <div class="property-badge">Cap Cana · En Venta</div>
+      <div class="property-price">$850,000</div>
+    </div>
+    <div class="property-info">
+      <div class="property-name">Villa Palmera</div>
+      <div class="property-loc">📍 Cap Cana, Punta Cana</div>
+      <div class="property-specs">
+        <div class="spec"><span class="spec-icon">🛏</span> 4 hab.</div>
+        <div class="spec"><span class="spec-icon">🚿</span> 4 baños</div>
+        <div class="spec"><span class="spec-icon">📐</span> 420 m²</div>
+        <div class="spec"><span class="spec-icon">🏊</span> Piscina</div>
+      </div>
+
+      <div class="matches-label">
+        <span>🎯 Buyers Compatibles</span>
+        <span style="color:rgba(255,255,255,0.35);font-weight:400">ordenados por match</span>
+      </div>
+
+      <!-- Buyer matches -->
+      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
+        <div class="buyer-ava">🇺🇸</div>
+        <div class="buyer-info">
+          <div class="buyer-name">James & Sarah M.</div>
+          <div class="buyer-detail">Miami, FL · Jubilación · Pre-aprobado $1.2M</div>
+          <div class="buyer-tags">
+            <span class="tag green">Pre-aprobado</span>
+            <span class="tag">Vista al mar</span>
+            <span class="tag">Golf</span>
+          </div>
+        </div>
+        <div class="buyer-score">
+          <div class="score-circle score-95">95%</div>
+        </div>
+      </div>
+
+      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
+        <div class="buyer-ava">🇩🇴</div>
+        <div class="buyer-info">
+          <div class="buyer-name">Carlos Familia</div>
+          <div class="buyer-detail">Santo Domingo · Segunda residencia</div>
+          <div class="buyer-tags">
+            <span class="tag">Piscina</span>
+            <span class="tag coral">Urgente</span>
+            <span class="tag">4+ hab.</span>
+          </div>
+        </div>
+        <div class="buyer-score">
+          <div class="score-circle score-87">87%</div>
+        </div>
+      </div>
+
+      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
+        <div class="buyer-ava">🇬🇧</div>
+        <div class="buyer-info">
+          <div class="buyer-name">Robert & Anne T.</div>
+          <div class="buyer-detail">London · Inversión + vacacional</div>
+          <div class="buyer-tags">
+            <span class="tag">Renta vacacional</span>
+            <span class="tag">Lujo</span>
+          </div>
+        </div>
+        <div class="buyer-score">
+          <div class="score-circle score-72">72%</div>
+        </div>
+      </div>
+
+      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
+        <div class="buyer-ava">🇨🇦</div>
+        <div class="buyer-info">
+          <div class="buyer-name">Marc Dupont</div>
+          <div class="buyer-detail">Montreal · Retiro anticipado · Flexible</div>
+          <div class="buyer-tags">
+            <span class="tag">Piscina</span>
+            <span class="tag">Jardín</span>
+          </div>
+        </div>
+        <div class="buyer-score">
+          <div class="score-circle score-61">61%</div>
+        </div>
+      </div>
+
+      <button class="wa-btn" onclick="showToast('¡Abriendo WhatsApp!')">
+        <span>💬</span> Contactar el comprador #1 por WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =========== BUYER PROFILE FORM =========== -->
+<section class="form-section" id="form-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Para Compradores</div>
+    <div class="section-title">Crea tu perfil y<br><em>recibe matches</em></div>
+    <div class="section-desc">Dinos qué buscas. Nosotros encontramos las propiedades que encajan contigo — no las que pagan por aparecer.</div>
+  </div>
+
+  <div class="form-card reveal reveal-d1">
+    <div class="form-group">
+      <label class="form-label">Nombre completo</label>
+      <input class="form-input" type="text" placeholder="Ej. Juan Pérez">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">WhatsApp</label>
+      <input class="form-input" type="tel" placeholder="+1 809 000 0000">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">¿Dónde buscas?</label>
+      <select class="form-select">
+        <option>Punta Cana / Cap Cana</option>
+        <option>Santo Domingo</option>
+        <option>Las Terrenas / Samaná</option>
+        <option>La Romana / Casa de Campo</option>
+        <option>Santiago</option>
+        <option>Puerto Plata</option>
+        <option>Sosúa / Cabarete</option>
+        <option>Indiferente / Toda la RD</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Presupuesto máximo: <strong id="budget-val">$500,000</strong></label>
+      <input class="form-range" type="range" min="50000" max="3000000" step="50000" value="500000"
+        oninput="document.getElementById('budget-val').textContent='$'+Number(this.value).toLocaleString()">
+      <div class="range-labels"><span>$50K</span><span>$3M+</span></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Tipo de propiedad</label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🏡 Villa</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🏢 Apartamento</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🏖️ Beachfront</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🏗️ Proyecto</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">¿Para qué es?</label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🏠 Residencia</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>📈 Inversión</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>🌴 Vacacional</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox"> <span>✈️ Retiro</span>
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="handleSubmit()">
+      Crear mi perfil y recibir matches →
+    </button>
+  </div>
+</section>
+
+<!-- =========== PRICING =========== -->
+<section class="pricing-section" id="pricing">
+  <div class="reveal">
+    <div class="section-eyebrow">Planes</div>
+    <div class="section-title">Transparente.<br><em>Sin sorpresas.</em></div>
+    <div class="section-desc">Para compradores es gratis. Los vendedores pagan para acceder a sus buyers calificados.</div>
+  </div>
+
+  <div class="pricing-card reveal reveal-d1">
+    <div class="plan-name">Comprador</div>
+    <div class="plan-price">Gratis <span>siempre</span></div>
+    <div class="plan-desc">Crea tu perfil y recibe matches personalizados sin costo.</div>
+    <div class="feature-item">Perfil de comprador completo</div>
+    <div class="feature-item">Matches ilimitados</div>
+    <div class="feature-item">Notificaciones por WhatsApp</div>
+    <div class="feature-item">Contacto directo con vendedores</div>
+    <button class="submit-btn" style="margin-top:1.2rem" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
+      Crear perfil gratis
+    </button>
+  </div>
+
+  <div class="pricing-card featured reveal reveal-d2">
+    <div class="plan-badge">Más Popular</div>
+    <div class="plan-name">Vendedor Pro</div>
+    <div class="plan-price">$99 <span>/ propiedad / mes</span></div>
+    <div class="plan-desc">Accede a tu ranking completo de compradores calificados con información de contacto.</div>
+    <div class="feature-item">Lista hasta 3 propiedades</div>
+    <div class="feature-item">Ranking completo de buyers</div>
+    <div class="feature-item">Perfil completo + contacto WhatsApp</div>
+    <div class="feature-item">Score de compatibilidad detallado</div>
+    <div class="feature-item">Notificaciones de nuevos buyers</div>
+    <button class="wa-btn" style="margin-top:1.2rem" onclick="showToast('¡Te contactamos por WhatsApp!')">
+      💬 Hablar con nosotros
+    </button>
+  </div>
+
+  <div class="pricing-card reveal reveal-d3">
+    <div class="plan-name">Agencia / Desarrollador</div>
+    <div class="plan-price">Custom <span>/ acuerdo</span></div>
+    <div class="plan-desc">Para portfolios grandes o proyectos en pre-venta. Modelo de comisión negociable.</div>
+    <div class="feature-item">Propiedades ilimitadas</div>
+    <div class="feature-item">Dashboard de analytics</div>
+    <div class="feature-item">API de integración</div>
+    <div class="feature-item">Account manager dedicado</div>
+    <button class="submit-btn" style="margin-top:1.2rem" onclick="showToast('¡En contacto pronto!')">
+      Solicitar propuesta
+    </button>
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer class="footer">
+  <div class="footer-logo">Casa<span>Match</span> AI</div>
+  <div class="footer-tagline">El mercado inmobiliario de RD, con inteligencia.</div>
+
+  <button class="footer-wa" onclick="showToast('¡Abriendo WhatsApp!')">
+    💬 Contactar por WhatsApp
+  </button>
+
+  <div class="footer-links">
+    <span class="footer-link" onclick="showToast('Próximamente')">Cómo funciona</span>
+    <span class="footer-link" onclick="showToast('Próximamente')">Para agentes</span>
+    <span class="footer-link" onclick="showToast('Próximamente')">Blog</span>
+    <span class="footer-link" onclick="showToast('Próximamente')">Contacto</span>
+  </div>
+
+  <div class="footer-copy">
+    © 2026 CasaMatch AI · República Dominicana<br>
+    Conectando compradores y vendedores con inteligencia.
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===== TABS =====
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('seller-steps').style.display = tab === 'seller' ? 'block' : 'none';
+  document.getElementById('buyer-steps').style.display = tab === 'buyer' ? 'block' : 'none';
+}
+
+// ===== CHECKBOXES =====
+function toggleCheck(el) {
+  el.classList.toggle('selected');
+}
+
+// ===== TOAST =====
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== FORM SUBMIT =====
+function handleSubmit() {
+  const name = document.querySelector('.form-input[type="text"]').value;
+  const phone = document.querySelector('.form-input[type="tel"]').value;
+  if (!name || !phone) {
+    showToast('⚠️ Por favor completa nombre y WhatsApp');
+    return;
+  }
+  showToast('✅ ¡Perfil creado! Te contactamos en 24h por WhatsApp.');
+}
+
+// ===== NAV SCROLL =====
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
