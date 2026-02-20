@@ -6,1436 +6,1345 @@
 <title>CasaMatch AI — Bienes Raíces Inteligentes en RD</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0D1F3C;
-    --navy-mid: #1B3A6B;
-    --navy-light: #2A5298;
-    --gold: #D4A843;
-    --gold-light: #E8C46A;
-    --gold-pale: rgba(212,168,67,0.1);
-    --coral: #E8553E;
-    --coral-soft: rgba(232,85,62,0.1);
-    --white: #FFFFFF;
-    --cream: #FAF8F5;
-    --light: #F2EFE9;
-    --gray: #8A8A8A;
-    --gray-light: #E8E4DE;
-    --ink: #1A1A1A;
-    --success: #27AE60;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --shadow: 0 4px 24px rgba(13,31,60,0.08);
-    --shadow-lg: 0 12px 48px rgba(13,31,60,0.14);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* =========== TOP BAR =========== */
-  .topbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 200;
-    background: rgba(13,31,60,0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-    height: 60px;
-    border-bottom: 1px solid rgba(212,168,67,0.15);
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-  }
-
-  .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.02em;
-  }
-
-  .logo-text span { color: var(--gold); }
-
-  .topbar-actions {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  .btn-ghost {
-    background: none;
-    border: 1px solid rgba(212,168,67,0.4);
-    color: var(--gold);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 7px 16px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-  .btn-ghost:hover { background: var(--gold-pale); }
-
-  .btn-gold {
-    background: var(--gold);
-    border: none;
-    color: var(--navy);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 8px 18px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
-
-  /* =========== HERO =========== */
-  .hero {
-    min-height: 100svh;
-    background: linear-gradient(160deg, var(--navy) 0%, #0A2744 40%, #1B3A6B 100%);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 100px 1.5rem 3rem;
-    overflow: hidden;
-  }
-
-  .hero-map {
-    position: absolute;
-    inset: 0;
-    opacity: 0.04;
-    background-image:
-      radial-gradient(circle at 20% 50%, rgba(212,168,67,0.6) 0%, transparent 40%),
-      radial-gradient(circle at 80% 20%, rgba(232,85,62,0.4) 0%, transparent 35%),
-      radial-gradient(circle at 60% 80%, rgba(42,82,152,0.8) 0%, transparent 45%);
-  }
-
-  /* Grid pattern */
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(212,168,67,0.12);
-    border: 1px solid rgba(212,168,67,0.25);
-    border-radius: 100px;
-    padding: 7px 16px;
-    margin-bottom: 1.5rem;
-    width: fit-content;
-    opacity: 0;
-    animation: fadeUp 0.7s ease-out 0.2s forwards;
-  }
-
-  .hero-badge .dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  .hero-badge span {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.05;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease-out 0.4s forwards;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .hero-sub {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.65;
-    max-width: 340px;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease-out 0.6s forwards;
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s ease-out 0.8s forwards;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--gold);
-    color: var(--navy);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 14px 28px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,67,0.35); }
-
-  .btn-outline-white {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 14px 28px;
-    border-radius: 100px;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .btn-outline-white:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
-
-  /* Floating match card preview */
-  .hero-float {
-    margin-top: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.9s ease-out 1s forwards;
-  }
-
-  .match-preview-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(212,168,67,0.2);
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    backdrop-filter: blur(8px);
-  }
-
-  .match-preview-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .match-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .match-row:last-child { border-bottom: none; }
-
-  .match-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-
-  .match-info { flex: 1; min-width: 0; }
-  .match-name { font-size: 0.8rem; font-weight: 600; color: var(--white); }
-  .match-detail { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 1px; }
-
-  .match-score {
-    flex-shrink: 0;
-    text-align: right;
-  }
-
-  .score-num {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .score-bar {
-    width: 48px;
-    height: 3px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 2px;
-    margin-top: 4px;
-    overflow: hidden;
-  }
-
-  .score-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 1.5s ease;
-  }
-
-  /* =========== STATS =========== */
-  .stats-strip {
-    background: var(--navy);
-    padding: 2rem 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    border-bottom: 1px solid rgba(212,168,67,0.1);
-  }
-
-  .stat-item { text-align: center; }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--gold);
-  }
-
-  .stat-lbl {
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-top: 3px;
-  }
-
-  /* =========== HOW IT WORKS =========== */
-  .section {
-    padding: 4rem 1.5rem;
-  }
-
-  .section-eyebrow {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--coral);
-    margin-bottom: 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-eyebrow::before {
-    content: '';
-    width: 20px;
-    height: 2px;
-    background: var(--coral);
-    border-radius: 1px;
-    display: block;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-title em { font-style: italic; color: var(--gold); }
-
-  .section-desc {
-    font-size: 0.88rem;
-    color: var(--gray);
-    line-height: 1.65;
-    margin-bottom: 2rem;
-  }
-
-  /* Tabs */
-  .tab-row {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .tab-btn {
-    flex: 1;
-    padding: 10px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--gray-light);
-    background: transparent;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gray);
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-
-  .tab-btn.active {
-    background: var(--navy);
-    border-color: var(--navy);
-    color: var(--white);
-  }
-
-  .step-card {
-    display: flex;
-    gap: 1rem;
-    padding: 1.2rem;
-    background: var(--white);
-    border-radius: var(--radius);
-    margin-bottom: 0.75rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--gray-light);
-    transition: all 0.3s;
-  }
-
-  .step-card:hover { transform: translateX(4px); box-shadow: var(--shadow-lg); }
-
-  .step-num {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  .step-body { flex: 1; }
-
-  .step-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-
-  .step-desc {
-    font-size: 0.78rem;
-    color: var(--gray);
-    line-height: 1.5;
-  }
-
-  /* =========== LIVE DEMO / MATCHING =========== */
-  .demo-section {
-    background: var(--navy);
-    padding: 4rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .demo-section::before {
-    content: '';
-    position: absolute;
-    top: -30%;
-    right: -20%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(212,168,67,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .demo-section .section-title { color: var(--white); }
-  .demo-section .section-desc { color: rgba(255,255,255,0.45); }
-
-  /* Property card */
-  .property-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(212,168,67,0.2);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-  }
-
-  .property-visual {
-    height: 180px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 1rem;
-  }
-
-  .property-badge {
-    background: rgba(13,31,60,0.8);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(212,168,67,0.3);
-    border-radius: 100px;
-    padding: 5px 14px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .property-price {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--gold);
-    color: var(--navy);
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 6px 14px;
-    border-radius: 100px;
-  }
-
-  .property-info {
-    padding: 1.2rem;
-  }
-
-  .property-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .property-loc {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .property-specs {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .spec {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.6);
-  }
-
-  .spec-icon { font-size: 0.85rem; }
-
-  /* Buyer matches list */
-  .matches-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .buyer-match-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    background: rgba(255,255,255,0.04);
-    border-radius: var(--radius-sm);
-    margin-bottom: 0.5rem;
-    border: 1px solid rgba(255,255,255,0.05);
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-
-  .buyer-match-row:hover {
-    background: rgba(212,168,67,0.08);
-    border-color: rgba(212,168,67,0.2);
-  }
-
-  .buyer-ava {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    border: 2px solid rgba(212,168,67,0.3);
-  }
-
-  .buyer-info { flex: 1; min-width: 0; }
-  .buyer-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
-  .buyer-detail { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
-  .buyer-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
-
-  .tag {
-    font-size: 0.58rem;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 100px;
-    background: rgba(212,168,67,0.12);
-    color: var(--gold);
-    border: 1px solid rgba(212,168,67,0.2);
-  }
-
-  .tag.coral { background: rgba(232,85,62,0.1); color: #E8553E; border-color: rgba(232,85,62,0.2); }
-  .tag.green { background: rgba(39,174,96,0.1); color: #27AE60; border-color: rgba(39,174,96,0.2); }
-
-  .buyer-score { flex-shrink: 0; text-align: center; }
-
-  .score-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 800;
-    border: 2px solid;
-  }
-
-  .score-95 { color: var(--success); border-color: var(--success); background: rgba(39,174,96,0.08); }
-  .score-87 { color: var(--gold); border-color: var(--gold); background: rgba(212,168,67,0.08); }
-  .score-72 { color: #E8953E; border-color: #E8953E; background: rgba(232,149,62,0.08); }
-  .score-61 { color: var(--gray); border-color: var(--gray-light); background: rgba(138,138,138,0.08); }
-
-  .wa-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #25D366;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 12px 20px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    justify-content: center;
-    margin-top: 1rem;
-    transition: all 0.3s;
-  }
-  .wa-btn:hover { background: #1EBC59; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.3); }
-
-  /* =========== BUYER PROFILE FORM =========== */
-  .form-section {
-    background: var(--white);
-    padding: 4rem 1.5rem;
-  }
-
-  .form-card {
-    background: var(--cream);
-    border: 1px solid var(--gray-light);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-  }
-
-  .form-group { margin-bottom: 1.2rem; }
-
-  .form-label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 6px;
-    letter-spacing: 0.02em;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid var(--gray-light);
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    color: var(--ink);
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .form-input:focus { border-color: var(--navy-mid); }
-
-  .form-select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid var(--gray-light);
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    color: var(--ink);
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-  }
-
-  .range-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.7rem;
-    color: var(--gray);
-    margin-top: 4px;
-  }
-
-  .form-range {
-    width: 100%;
-    accent-color: var(--navy-mid);
-    cursor: pointer;
-  }
-
-  .checkbox-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-  }
-
-  .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    border: 1.5px solid var(--gray-light);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--white);
-  }
-
-  .checkbox-item.selected {
-    border-color: var(--navy);
-    background: rgba(27,58,107,0.05);
-  }
-
-  .checkbox-item input { display: none; }
-  .checkbox-item span { font-size: 0.78rem; font-weight: 500; color: var(--navy); }
-
-  .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 0.5rem;
-  }
-  .submit-btn:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
-
-  /* =========== PRICING =========== */
-  .pricing-section {
-    padding: 4rem 1.5rem;
-    background: var(--light);
-  }
-
-  .pricing-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 1.8rem 1.5rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--gray-light);
-    margin-bottom: 1rem;
-    position: relative;
-    transition: all 0.3s;
-  }
-  .pricing-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-
-  .pricing-card.featured {
-    border-color: var(--gold);
-    background: linear-gradient(to bottom right, var(--navy), #1B3A6B);
-  }
-
-  .pricing-card.featured .plan-name { color: var(--gold); }
-  .pricing-card.featured .plan-price { color: var(--white); }
-  .pricing-card.featured .plan-desc { color: rgba(255,255,255,0.5); }
-  .pricing-card.featured .feature-item { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.08); }
-  .pricing-card.featured .feature-item::before { color: var(--gold); }
-
-  .plan-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    border-radius: 100px;
-  }
-
-  .plan-name {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy-mid);
-    margin-bottom: 0.5rem;
-  }
-
-  .plan-price {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .plan-price span {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--gray);
-  }
-
-  .plan-desc {
-    font-size: 0.8rem;
-    color: var(--gray);
-    line-height: 1.5;
-    margin-bottom: 1.2rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid var(--gray-light);
-  }
-
-  .feature-item {
-    font-size: 0.8rem;
-    color: var(--ink);
-    padding: 6px 0;
-    border-bottom: 1px solid var(--gray-light);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .feature-item::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
-  .feature-item.no::before { content: '✕'; color: var(--gray); }
-
-  /* =========== FOOTER =========== */
-  .footer {
-    background: var(--navy);
-    padding: 3rem 1.5rem 2rem;
-    text-align: center;
-  }
-
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  .footer-logo span { color: var(--gold); }
-
-  .footer-tagline {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 2rem;
-  }
-
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .footer-link {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.45);
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .footer-link:hover { color: var(--gold); }
-
-  .footer-wa {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(37,211,102,0.1);
-    border: 1px solid rgba(37,211,102,0.3);
-    color: #25D366;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 10px 22px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-bottom: 2rem;
-  }
-  .footer-wa:hover { background: rgba(37,211,102,0.18); }
-
-  .footer-copy {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.2);
-    line-height: 1.6;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    padding-top: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  /* =========== ANIMATIONS =========== */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.85); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-d1 { transition-delay: 0.1s; }
-  .reveal-d2 { transition-delay: 0.2s; }
-  .reveal-d3 { transition-delay: 0.3s; }
-
-  /* =========== TOAST =========== */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--navy);
-    color: var(--white);
-    font-size: 0.82rem;
-    font-weight: 500;
-    padding: 12px 22px;
-    border-radius: 100px;
-    border: 1px solid rgba(212,168,67,0.3);
-    z-index: 999;
-    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+:root {
+  --navy:        #0D1F3C;
+  --navy-mid:    #1B3A6B;
+  --navy-light:  #2A5298;
+  --gold:        #D4A843;
+  --gold-light:  #E8C46A;
+  --gold-pale:   rgba(212,168,67,0.12);
+  --coral:       #E8553E;
+  --coral-soft:  rgba(232,85,62,0.12);
+  --teal:        #0B8B8B;
+  --green:       #1DB954;
+  --wa-green:    #25D366;
+  --white:       #FFFFFF;
+  --cream:       #FAF8F5;
+  --light:       #F2EFE9;
+  --gray:        #8A8A8A;
+  --gray-light:  #E8E4DE;
+  --ink:         #1A1A1A;
+  --radius:      18px;
+  --radius-sm:   10px;
+  --shadow:      0 4px 24px rgba(13,31,60,0.07);
+  --shadow-lg:   0 16px 56px rgba(13,31,60,0.14);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Inter',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ TOPBAR ============ */
+.topbar {
+  position:fixed; top:0; left:0; right:0; z-index:300;
+  height:62px;
+  background:rgba(13,31,60,0.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1.4rem;
+  border-bottom:1px solid rgba(212,168,67,0.12);
+}
+
+.logo { display:flex; align-items:center; gap:9px; cursor:pointer; }
+.logo-mark {
+  width:34px; height:34px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.05rem;
+  box-shadow:0 4px 12px rgba(212,168,67,0.3);
+}
+.logo-name {
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem; font-weight:700;
+  color:var(--white); letter-spacing:0.01em;
+}
+.logo-name em { font-style:normal; color:var(--gold); }
+
+.nav-right { display:flex; gap:0.6rem; align-items:center; }
+
+.btn-nav-ghost {
+  background:none; border:1px solid rgba(212,168,67,0.35);
+  color:rgba(255,255,255,0.8); font-family:'Inter',sans-serif;
+  font-size:0.73rem; font-weight:600; padding:7px 15px;
+  border-radius:100px; cursor:pointer; transition:all 0.25s;
+}
+.btn-nav-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+.btn-nav-gold {
+  background:var(--gold); border:none; color:var(--navy);
+  font-family:'Inter',sans-serif; font-size:0.73rem; font-weight:700;
+  padding:8px 18px; border-radius:100px; cursor:pointer;
+  transition:all 0.3s;
+}
+.btn-nav-gold:hover { background:var(--gold-light); transform:translateY(-1px); box-shadow:0 4px 14px rgba(212,168,67,0.35); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height:100svh;
+  background:linear-gradient(150deg, #061528 0%, #0D1F3C 35%, #122B52 65%, #0A1E38 100%);
+  position:relative;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:100px 1.4rem 2.5rem;
+  overflow:hidden;
+}
+
+/* Animated blobs */
+.hero-blob {
+  position:absolute; border-radius:50%;
+  pointer-events:none; filter:blur(60px);
+}
+.blob-1 { width:300px; height:300px; top:-80px; right:-60px; background:rgba(212,168,67,0.12); animation:blobFloat 8s ease-in-out infinite alternate; }
+.blob-2 { width:250px; height:250px; bottom:10%; left:-80px; background:rgba(232,85,62,0.07); animation:blobFloat 10s ease-in-out 2s infinite alternate-reverse; }
+.blob-3 { width:200px; height:200px; top:40%; right:10%; background:rgba(11,139,139,0.07); animation:blobFloat 7s ease-in-out 1s infinite alternate; }
+
+@keyframes blobFloat {
+  from { transform:translate(0,0) scale(1); }
+  to   { transform:translate(20px,30px) scale(1.1); }
+}
+
+/* Grid overlay */
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(212,168,67,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,168,67,0.035) 1px, transparent 1px);
+  background-size:52px 52px;
+}
+
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.22);
+  border-radius:100px; padding:6px 14px; margin-bottom:1.5rem;
+  width:fit-content;
+  opacity:0; animation:slideUp 0.7s ease-out 0.2s forwards;
+}
+.hero-eyebrow .pulse-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--gold); animation:pulseDot 2s infinite;
+}
+.hero-eyebrow span { font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
+
+.hero-title {
+  font-family:'Playfair Display',serif;
+  font-size:3rem; font-weight:700; color:var(--white);
+  line-height:1.05; margin-bottom:1.2rem;
+  opacity:0; animation:slideUp 0.8s ease-out 0.4s forwards;
+}
+.hero-title em { font-style:italic; color:var(--gold); }
+.hero-title .typewriter { display:inline; }
+
+.hero-sub {
+  font-size:0.93rem; font-weight:300; color:rgba(255,255,255,0.5);
+  line-height:1.7; max-width:330px; margin-bottom:2.2rem;
+  opacity:0; animation:slideUp 0.8s ease-out 0.6s forwards;
+}
+
+.hero-btns {
+  display:flex; gap:0.75rem; flex-wrap:wrap;
+  opacity:0; animation:slideUp 0.8s ease-out 0.8s forwards;
+  margin-bottom:2.5rem;
+}
+
+.btn-hero-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--gold); color:var(--navy);
+  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:700;
+  padding:14px 26px; border-radius:100px; border:none; cursor:pointer;
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.btn-hero-primary:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 10px 28px rgba(212,168,67,0.38); }
+
+.btn-hero-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:var(--white);
+  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600;
+  padding:14px 26px; border-radius:100px;
+  border:1.5px solid rgba(255,255,255,0.18); cursor:pointer; transition:all 0.3s;
+}
+.btn-hero-ghost:hover { border-color:rgba(255,255,255,0.45); background:rgba(255,255,255,0.05); }
+
+/* Hero floating cards */
+.hero-cards {
+  display:flex; flex-direction:column; gap:0.6rem;
+  opacity:0; animation:slideUp 0.9s ease-out 1s forwards;
+}
+
+.hero-match-card {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(212,168,67,0.18);
+  border-radius:14px; padding:1rem 1.1rem;
+  backdrop-filter:blur(10px);
+  display:flex; align-items:center; gap:0.85rem;
+}
+
+.hmc-ava {
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+  border:2px solid rgba(255,255,255,0.1);
+}
+.hmc-body { flex:1; min-width:0; }
+.hmc-name { font-size:0.82rem; font-weight:600; color:var(--white); }
+.hmc-detail { font-size:0.68rem; color:rgba(255,255,255,0.38); margin-top:2px; }
+.hmc-score { flex-shrink:0; text-align:right; }
+.hmc-pct { font-size:1rem; font-weight:800; line-height:1; }
+.hmc-bar { width:44px; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; margin-top:4px; overflow:hidden; }
+.hmc-fill { height:100%; border-radius:2px; }
+
+.hero-cards-label {
+  font-size:0.58rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;
+  opacity:0; animation:slideUp 0.7s ease-out 0.95s forwards;
+}
+
+/* ============ TRUST BAR ============ */
+.trust-bar {
+  background:var(--navy);
+  padding:1.2rem 1.4rem;
+  display:flex; align-items:center; justify-content:center;
+  gap:2rem; flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.trust-item {
+  display:flex; align-items:center; gap:6px;
+  font-size:0.7rem; font-weight:500;
+  color:rgba(255,255,255,0.35);
+}
+.trust-item .ti-icon { font-size:0.9rem; }
+.trust-item strong { color:rgba(255,255,255,0.7); }
+
+/* ============ STATS ============ */
+.stats-section {
+  background:var(--navy);
+  padding:2.5rem 1.4rem 3rem;
+}
+.stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:rgba(255,255,255,0.05); border-radius:var(--radius); overflow:hidden; }
+.stat-box {
+  background:rgba(255,255,255,0.025);
+  padding:1.4rem 1rem; text-align:center;
+  transition:background 0.3s;
+}
+.stat-box:hover { background:rgba(212,168,67,0.06); }
+.stat-num {
+  font-family:'Playfair Display',serif;
+  font-size:2rem; font-weight:700; color:var(--gold); line-height:1;
+}
+.stat-sub { font-size:0.62rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-top:5px; }
+.stats-note { text-align:center; font-size:0.72rem; color:rgba(255,255,255,0.2); margin-top:1.2rem; }
+
+/* ============ SHARED SECTION ============ */
+.section { padding:4rem 1.4rem; }
+.section-dark { background:var(--navy); padding:4rem 1.4rem; }
+
+.eyebrow {
+  font-size:0.6rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--coral);
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:0.65rem;
+}
+.eyebrow::before { content:''; width:20px; height:2px; background:var(--coral); border-radius:1px; }
+.eyebrow-gold { color:var(--gold); }
+.eyebrow-gold::before { background:var(--gold); }
+
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:2rem; font-weight:700; color:var(--navy);
+  line-height:1.15; margin-bottom:0.5rem;
+}
+.sec-title em { font-style:italic; color:var(--gold); }
+.sec-title-white { color:var(--white); }
+
+.sec-desc { font-size:0.87rem; color:var(--gray); line-height:1.65; margin-bottom:2rem; }
+.sec-desc-muted { color:rgba(255,255,255,0.4); }
+
+/* ============ ZONES ============ */
+.zones-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+
+.zone-card {
+  border-radius:var(--radius); overflow:hidden;
+  position:relative; cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  min-height:140px; display:flex; flex-direction:column; justify-content:flex-end;
+  padding:1rem;
+}
+.zone-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.zone-card.wide { grid-column:1/-1; min-height:160px; }
+
+.zone-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(10,20,40,0.85) 0%, rgba(10,20,40,0.1) 60%);
+}
+
+.zone-emoji { font-size:2rem; position:absolute; top:0.9rem; right:0.9rem; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+
+.zone-content { position:relative; z-index:2; }
+.zone-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:3px; }
+.zone-price { font-size:0.68rem; font-weight:600; color:rgba(255,255,255,0.55); }
+.zone-tag {
+  display:inline-block; font-size:0.58rem; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase;
+  padding:3px 10px; border-radius:100px; margin-top:5px;
+}
+
+/* ============ HOW IT WORKS ============ */
+.tabs { display:flex; gap:0.5rem; margin-bottom:1.8rem; }
+.tab {
+  flex:1; padding:10px; border-radius:var(--radius-sm);
+  border:1.5px solid var(--gray-light); background:transparent;
+  font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:600;
+  color:var(--gray); cursor:pointer; transition:all 0.25s;
+}
+.tab.on { background:var(--navy); border-color:var(--navy); color:var(--white); }
+
+.step {
+  display:flex; gap:1rem; align-items:flex-start;
+  padding:1.1rem; background:var(--white);
+  border:1px solid var(--gray-light); border-radius:var(--radius);
+  margin-bottom:0.7rem; box-shadow:var(--shadow);
+  transition:all 0.3s;
+}
+.step:hover { transform:translateX(4px); box-shadow:var(--shadow-lg); }
+
+.step-n {
+  width:42px; height:42px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700;
+  flex-shrink:0;
+}
+.step-body { flex:1; }
+.step-title { font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.step-text { font-size:0.78rem; color:var(--gray); line-height:1.55; }
+
+/* ============ INTERACTIVE DEMO ============ */
+.demo-property {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(212,168,67,0.2);
+  border-radius:var(--radius); overflow:hidden;
+  margin-bottom:1.5rem;
+}
+
+.demo-visual {
+  height:170px; position:relative;
+  display:flex; align-items:flex-end; padding:1rem;
+}
+.demo-visual-inner {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:5rem; opacity:0.12;
+}
+.demo-price-tag {
+  position:absolute; top:1rem; right:1rem;
+  background:var(--gold); color:var(--navy);
+  font-weight:800; font-size:0.85rem;
+  padding:6px 14px; border-radius:100px;
+}
+.demo-zone-tag {
+  background:rgba(13,31,60,0.75); backdrop-filter:blur(8px);
+  border:1px solid rgba(212,168,67,0.3); border-radius:100px;
+  padding:5px 14px; font-size:0.65rem; font-weight:700;
+  color:var(--gold); text-transform:uppercase; letter-spacing:0.08em;
+}
+
+.demo-info { padding:1rem 1.1rem 0; }
+.demo-prop-name {
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem; font-weight:700; color:var(--white); margin-bottom:3px;
+}
+.demo-prop-loc { font-size:0.74rem; color:rgba(255,255,255,0.38); margin-bottom:0.9rem; }
+.demo-specs { display:flex; gap:1rem; margin-bottom:1.1rem; }
+.demo-spec { font-size:0.73rem; color:rgba(255,255,255,0.55); display:flex; align-items:center; gap:4px; }
+
+/* Filter controls */
+.demo-controls {
+  background:rgba(255,255,255,0.03);
+  border-top:1px solid rgba(255,255,255,0.05);
+  padding:1rem 1.1rem;
+}
+.demo-controls-label {
+  font-size:0.6rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.75rem;
+}
+.control-row {
+  display:flex; align-items:center; gap:0.75rem;
+  margin-bottom:0.6rem;
+}
+.control-label { font-size:0.72rem; color:rgba(255,255,255,0.5); width:100px; flex-shrink:0; }
+.control-range { flex:1; accent-color:var(--gold); cursor:pointer; }
+.control-val { font-size:0.72rem; font-weight:700; color:var(--gold); width:70px; text-align:right; flex-shrink:0; }
+
+/* Buyer match rows */
+.buyers-list { padding:0 1.1rem 1.1rem; }
+.buyers-header {
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:0.6rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;
+}
+
+.b-row {
+  display:flex; align-items:center; gap:0.75rem;
+  padding:0.75rem 0.85rem;
+  background:rgba(255,255,255,0.035);
+  border-radius:var(--radius-sm);
+  border:1px solid rgba(255,255,255,0.05);
+  margin-bottom:0.5rem; cursor:pointer;
+  transition:all 0.25s; position:relative;
+}
+.b-row:hover { background:rgba(212,168,67,0.07); border-color:rgba(212,168,67,0.2); }
+
+.b-flag {
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0; border:2px solid rgba(255,255,255,0.08);
+}
+.b-info { flex:1; min-width:0; }
+.b-name { font-size:0.83rem; font-weight:600; color:var(--white); }
+.b-detail { font-size:0.68rem; color:rgba(255,255,255,0.38); margin-top:2px; }
+.b-tags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
+.btag {
+  font-size:0.58rem; font-weight:600; padding:2px 8px;
+  border-radius:100px;
+  background:rgba(212,168,67,0.12); color:var(--gold);
+  border:1px solid rgba(212,168,67,0.2);
+}
+.btag.g { background:rgba(29,185,84,0.1); color:var(--green); border-color:rgba(29,185,84,0.25); }
+.btag.r { background:rgba(232,85,62,0.1); color:var(--coral); border-color:rgba(232,85,62,0.25); }
+
+.b-score-wrap { flex-shrink:0; }
+.b-score {
+  width:46px; height:46px; border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border:2px solid; font-weight:800; font-size:0.78rem;
+  transition:all 0.5s ease;
+}
+.b-score-bar-wrap { margin-top:3px; width:44px; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; }
+.b-score-bar { height:100%; border-radius:2px; transition:width 0.6s ease; }
+
+.wa-contact-btn {
+  width:100%; padding:13px;
+  background:rgba(37,211,102,0.12);
+  border:1.5px solid rgba(37,211,102,0.35);
+  color:var(--wa-green); font-family:'Inter',sans-serif;
+  font-size:0.82rem; font-weight:700;
+  border-radius:var(--radius-sm); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-top:0.5rem; transition:all 0.3s;
+}
+.wa-contact-btn:hover { background:rgba(37,211,102,0.2); transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,211,102,0.2); }
+
+/* ============ TESTIMONIALS ============ */
+.testi-card {
+  background:var(--white); border-radius:var(--radius);
+  padding:1.5rem; box-shadow:var(--shadow);
+  border:1px solid var(--gray-light);
+  margin-bottom:0.85rem; transition:all 0.3s;
+}
+.testi-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+
+.testi-stars { color:var(--gold); font-size:0.85rem; margin-bottom:0.6rem; letter-spacing:2px; }
+.testi-text { font-size:0.84rem; color:var(--ink); line-height:1.65; font-style:italic; margin-bottom:1rem; }
+.testi-text::before { content:'❝ '; color:var(--gold); }
+
+.testi-author { display:flex; align-items:center; gap:10px; }
+.testi-ava { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.testi-name { font-size:0.8rem; font-weight:700; color:var(--navy); }
+.testi-from { font-size:0.68rem; color:var(--gray); margin-top:1px; }
+
+/* ============ BUYER FORM ============ */
+.form-wrap { background:var(--cream); border:1px solid var(--gray-light); border-radius:var(--radius); padding:1.5rem; }
+
+.field { margin-bottom:1.2rem; }
+.field-label { display:block; font-size:0.74rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+
+.input, .select-input {
+  width:100%; padding:12px 15px;
+  border:1.5px solid var(--gray-light); border-radius:var(--radius-sm);
+  background:var(--white); font-family:'Inter',sans-serif;
+  font-size:0.85rem; color:var(--ink); outline:none; transition:border-color 0.2s;
+}
+.input:focus, .select-input:focus { border-color:var(--navy-mid); }
+
+.select-input {
+  appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center;
+}
+
+.range-wrap { padding:2px 0; }
+.range-input { width:100%; accent-color:var(--navy-mid); cursor:pointer; }
+.range-labels { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--gray); margin-top:4px; }
+
+.pick-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+.pick-item {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 13px; border:1.5px solid var(--gray-light);
+  border-radius:var(--radius-sm); cursor:pointer;
+  background:var(--white); transition:all 0.2s; user-select:none;
+}
+.pick-item.on { border-color:var(--navy); background:rgba(27,58,107,0.06); }
+.pick-item span { font-size:0.78rem; font-weight:500; color:var(--navy); }
+
+.form-submit {
+  width:100%; padding:15px;
+  background:var(--navy); color:var(--white);
+  font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:700;
+  border:none; border-radius:var(--radius-sm); cursor:pointer;
+  transition:all 0.3s; margin-top:0.3rem;
+}
+.form-submit:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:var(--shadow-lg); }
+
+.form-note { font-size:0.68rem; color:var(--gray); text-align:center; margin-top:0.6rem; }
+
+/* ============ PRICING ============ */
+.price-card {
+  background:var(--white); border:1px solid var(--gray-light);
+  border-radius:var(--radius); padding:1.8rem 1.4rem;
+  box-shadow:var(--shadow); margin-bottom:0.9rem;
+  position:relative; transition:all 0.3s;
+}
+.price-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+
+.price-card.hot {
+  background:linear-gradient(155deg, var(--navy), #162F5E);
+  border-color:rgba(212,168,67,0.35);
+}
+.price-card.hot .plan-name { color:var(--gold); }
+.price-card.hot .plan-amount { color:var(--white); }
+.price-card.hot .plan-period { color:rgba(255,255,255,0.4); }
+.price-card.hot .plan-tagline { color:rgba(255,255,255,0.45); border-color:rgba(255,255,255,0.07); }
+.price-card.hot .pf { color:rgba(255,255,255,0.75); border-color:rgba(255,255,255,0.07); }
+.price-card.hot .pf::before { color:var(--gold); }
+
+.hot-badge {
+  position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:var(--navy);
+  font-size:0.6rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+  padding:4px 14px; border-radius:100px;
+}
+
+.plan-name { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy-mid); margin-bottom:0.5rem; }
+.plan-amount { font-family:'Playfair Display',serif; font-size:2.3rem; font-weight:700; color:var(--navy); line-height:1; }
+.plan-period { font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:400; color:var(--gray); margin-left:4px; }
+.plan-tagline { font-size:0.8rem; color:var(--gray); line-height:1.5; padding:0.9rem 0; border-top:1px solid var(--gray-light); border-bottom:1px solid var(--gray-light); margin:0.8rem 0; }
+
+.pf {
+  font-size:0.8rem; color:var(--ink); padding:6px 0;
+  border-bottom:1px solid var(--gray-light);
+  display:flex; align-items:center; gap:8px;
+}
+.pf:last-child { border-bottom:none; }
+.pf::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
+.pf.no::before { content:'✕'; color:var(--gray); }
+
+.plan-btn {
+  width:100%; padding:13px;
+  background:var(--navy); color:var(--white);
+  font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:700;
+  border:none; border-radius:var(--radius-sm); cursor:pointer;
+  margin-top:1.2rem; transition:all 0.3s;
+}
+.plan-btn:hover { background:var(--navy-mid); transform:translateY(-1px); }
+.plan-btn.gold-btn { background:var(--gold); color:var(--navy); }
+.plan-btn.gold-btn:hover { background:var(--gold-light); }
+
+/* ============ FAQ ============ */
+.faq-item {
+  border-bottom:1px solid var(--gray-light);
+  padding:1rem 0; cursor:pointer;
+}
+.faq-q {
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:0.87rem; font-weight:600; color:var(--navy);
+}
+.faq-arrow { font-size:1.1rem; color:var(--gray); transition:transform 0.3s; flex-shrink:0; }
+.faq-item.open .faq-arrow { transform:rotate(90deg); }
+.faq-a {
+  font-size:0.8rem; color:var(--gray); line-height:1.65;
+  max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s;
+}
+.faq-item.open .faq-a { max-height:300px; padding-top:0.6rem; }
+
+/* ============ FOOTER ============ */
+.footer {
+  background:var(--navy);
+  padding:3.5rem 1.4rem 2rem;
+}
+
+.footer-top {
+  text-align:center; margin-bottom:2.5rem;
+  padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.footer-logo-text {
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem; font-weight:700; color:var(--white); margin-bottom:0.4rem;
+}
+.footer-logo-text em { font-style:normal; color:var(--gold); }
+.footer-tagline { font-size:0.8rem; color:rgba(255,255,255,0.3); margin-bottom:1.5rem; }
+
+.footer-wa {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.3);
+  color:var(--wa-green); font-size:0.82rem; font-weight:600;
+  padding:11px 24px; border-radius:100px; cursor:pointer; transition:all 0.3s;
+}
+.footer-wa:hover { background:rgba(37,211,102,0.18); }
+
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2rem; }
+.footer-col-title { font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.8rem; }
+.footer-link { display:block; font-size:0.78rem; color:rgba(255,255,255,0.45); margin-bottom:0.5rem; cursor:pointer; transition:color 0.2s; }
+.footer-link:hover { color:var(--gold); }
+
+.footer-bottom {
+  padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.05);
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+}
+.footer-copy { font-size:0.66rem; color:rgba(255,255,255,0.2); text-align:center; }
+.footer-flag { font-size:1rem; }
+
+/* ============ BOTTOM NAV ============ */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:rgba(250,248,245,0.94);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(26,26,26,0.06);
+  display:flex; justify-content:space-around;
+  padding:6px 0 max(6px, env(safe-area-inset-bottom));
+}
+
+.bnav-btn {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:5px 18px; background:none; border:none;
+  font-family:'Inter',sans-serif; cursor:pointer; transition:all 0.2s;
+  position:relative;
+}
+.bnav-btn svg { width:20px; height:20px; stroke:var(--gray); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.2s; }
+.bnav-btn span { font-size:0.54rem; font-weight:500; color:var(--gray); letter-spacing:0.02em; transition:all 0.2s; }
+.bnav-btn.on svg { stroke:var(--navy); stroke-width:2.2; }
+.bnav-btn.on span { color:var(--navy); font-weight:700; }
+.bnav-dot { width:4px; height:4px; background:var(--gold); border-radius:50%; position:absolute; top:2px; right:13px; opacity:0; transition:opacity 0.2s; }
+.bnav-btn.on .bnav-dot { opacity:1; }
+
+body { padding-bottom:70px; }
+
+/* ============ TOAST ============ */
+.toast {
+  position:fixed; bottom:80px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--navy); color:var(--white);
+  font-size:0.8rem; font-weight:500;
+  padding:11px 22px; border-radius:100px;
+  border:1px solid rgba(212,168,67,0.3); z-index:999;
+  opacity:0; transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  white-space:nowrap; pointer-events:none;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ============ REVEAL ============ */
+.reveal {
+  opacity:0; transform:translateY(22px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in { opacity:1; transform:none; }
+.rd1 { transition-delay:0.1s; } .rd2 { transition-delay:0.2s; } .rd3 { transition-delay:0.3s; }
+
+/* ============ KEYFRAMES ============ */
+@keyframes slideUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
 </style>
 </head>
 <body>
 
-<!-- =========== TOPBAR =========== -->
+<!-- ====== TOPBAR ====== -->
 <nav class="topbar">
-  <div class="logo">
-    <div class="logo-icon">🏠</div>
-    <div class="logo-text">Casa<span>Match</span> AI</div>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="logo-mark">🏠</div>
+    <div class="logo-name">Casa<em>Match</em> AI</div>
   </div>
-  <div class="topbar-actions">
-    <button class="btn-ghost" onclick="scrollTo('form-section')">Soy Comprador</button>
-    <button class="btn-gold" onclick="showToast('¡Próximamente! Únete a la lista de espera.')">Listar Propiedad</button>
+  <div class="nav-right">
+    <button class="btn-nav-ghost" onclick="nav('form-section')">Soy Comprador</button>
+    <button class="btn-nav-gold" onclick="toast('¡Próximamente! Únete a la lista de espera 👋')">Listar Propiedad</button>
   </div>
 </nav>
 
-<!-- =========== HERO =========== -->
+<!-- ====== HERO ====== -->
 <section class="hero" id="top">
-  <div class="hero-map"></div>
+  <div class="blob-1 hero-blob"></div>
+  <div class="blob-2 hero-blob"></div>
+  <div class="blob-3 hero-blob"></div>
   <div class="hero-grid"></div>
 
-  <div class="hero-badge">
-    <div class="dot"></div>
-    <span>República Dominicana · AI-Powered</span>
+  <div class="hero-eyebrow">
+    <div class="pulse-dot"></div>
+    <span>República Dominicana &nbsp;·&nbsp; Plataforma AI</span>
   </div>
 
-  <h1>El comprador<br><em>perfecto</em> para<br>tu propiedad.</h1>
+  <h1 class="hero-title">
+    El comprador <em>ideal</em><br>para tu propiedad.<br><span style="font-size:0.55em;font-style:normal;color:rgba(255,255,255,0.35)">No el primero. El correcto.</span>
+  </h1>
 
   <p class="hero-sub">
-    No más llamadas perdidas con curiosos. CasaMatch AI conecta tu propiedad con compradores reales y calificados — clasificados por compatibilidad.
+    Conectamos propiedades con compradores calificados usando inteligencia artificial. Menos tiempo perdido, más cierres reales.
   </p>
 
-  <div class="hero-ctas">
-    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
-      Ver Cómo Funciona →
-    </button>
-    <button class="btn-outline-white" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
-      Crear Perfil de Comprador
-    </button>
+  <div class="hero-btns">
+    <button class="btn-hero-primary" onclick="nav('demo')">Ver Demo en Vivo →</button>
+    <button class="btn-hero-ghost" onclick="nav('form-section')">Crear perfil de comprador</button>
   </div>
 
-  <!-- Floating match preview -->
-  <div class="hero-float">
-    <div class="match-preview-card">
-      <div class="match-preview-label">
-        ⚡ Matches en tiempo real para "Villa Cap Cana · $850K"
+  <p class="hero-cards-label">⚡ Villa Palmera · Cap Cana · $850K — Buyers activos ahora</p>
+  <div class="hero-cards">
+    <div class="hero-match-card">
+      <div class="hmc-ava" style="background:rgba(29,185,84,0.15)">🇺🇸</div>
+      <div class="hmc-body">
+        <div class="hmc-name">James & Sarah M.</div>
+        <div class="hmc-detail">Miami · Retiro · Presupuesto hasta $1.2M</div>
       </div>
-
-      <div class="match-row">
-        <div class="match-avatar" style="background:rgba(39,174,96,0.15)">🇺🇸</div>
-        <div class="match-info">
-          <div class="match-name">James & Sarah M.</div>
-          <div class="match-detail">Miami · Presupuesto $700K-$1.2M · Retiro</div>
-        </div>
-        <div class="match-score">
-          <div class="score-num" style="color:#27AE60">95%</div>
-          <div class="score-bar"><div class="score-fill" style="width:95%;background:#27AE60"></div></div>
-        </div>
+      <div class="hmc-score">
+        <div class="hmc-pct" style="color:#1DB954">95%</div>
+        <div class="hmc-bar"><div class="hmc-fill" style="width:95%;background:#1DB954"></div></div>
       </div>
-
-      <div class="match-row">
-        <div class="match-avatar" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
-        <div class="match-info">
-          <div class="match-name">Carlos Familia</div>
-          <div class="match-detail">Santo Domingo · Presupuesto $600K-$900K</div>
-        </div>
-        <div class="match-score">
-          <div class="score-num" style="color:var(--gold)">87%</div>
-          <div class="score-bar"><div class="score-fill" style="width:87%;background:var(--gold)"></div></div>
-        </div>
+    </div>
+    <div class="hero-match-card">
+      <div class="hmc-ava" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
+      <div class="hmc-body">
+        <div class="hmc-name">Carlos Familia</div>
+        <div class="hmc-detail">Santo Domingo · 2ª residencia · Hasta $900K</div>
       </div>
-
-      <div class="match-row">
-        <div class="match-avatar" style="background:rgba(42,82,152,0.2)">🇬🇧</div>
-        <div class="match-info">
-          <div class="match-name">Robert & Anne T.</div>
-          <div class="match-detail">London · Inversión · $500K-$800K</div>
-        </div>
-        <div class="match-score">
-          <div class="score-num" style="color:#E8953E">72%</div>
-          <div class="score-bar"><div class="score-fill" style="width:72%;background:#E8953E"></div></div>
-        </div>
+      <div class="hmc-score">
+        <div class="hmc-pct" style="color:var(--gold)">87%</div>
+        <div class="hmc-bar"><div class="hmc-fill" style="width:87%;background:var(--gold)"></div></div>
+      </div>
+    </div>
+    <div class="hero-match-card">
+      <div class="hmc-ava" style="background:rgba(42,82,152,0.2)">🇬🇧</div>
+      <div class="hmc-body">
+        <div class="hmc-name">Robert & Anne T.</div>
+        <div class="hmc-detail">London · Inversión vacacional · Hasta $800K</div>
+      </div>
+      <div class="hmc-score">
+        <div class="hmc-pct" style="color:#E8953E">72%</div>
+        <div class="hmc-bar"><div class="hmc-fill" style="width:72%;background:#E8953E"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- =========== STATS =========== -->
-<div class="stats-strip">
-  <div class="stat-item">
-    <div class="stat-num">+10%</div>
-    <div class="stat-lbl">Crecimiento anual</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">40%</div>
-    <div class="stat-lbl">Compradores extranjeros</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">$2.4B</div>
-    <div class="stat-lbl">Volumen mercado</div>
-  </div>
+<!-- ====== TRUST BAR ====== -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="ti-icon">🔒</span> <strong>100% privado</strong></div>
+  <div class="trust-item"><span class="ti-icon">💬</span> <strong>WhatsApp</strong> integrado</div>
+  <div class="trust-item"><span class="ti-icon">🌍</span> <strong>ES + EN</strong> bilingüe</div>
+  <div class="trust-item"><span class="ti-icon">📱</span> Mobile <strong>first</strong></div>
 </div>
 
-<!-- =========== HOW IT WORKS =========== -->
-<section class="section" id="how">
+<!-- ====== STATS ====== -->
+<div class="stats-section" id="stats">
+  <div class="stats-grid reveal">
+    <div class="stat-box">
+      <div class="stat-num" data-target="10" data-suffix="%+">0%</div>
+      <div class="stat-sub">Crecimiento anual de precios</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-target="40" data-suffix="%">0%</div>
+      <div class="stat-sub">Compradores extranjeros en lujo</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-target="2.4" data-suffix="B">$0</div>
+      <div class="stat-sub">Volumen del mercado (USD)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-target="73" data-suffix="%">0%</div>
+      <div class="stat-sub">Leads sin calificar en plataformas actuales</div>
+    </div>
+  </div>
+  <div class="stats-note">Fuentes: Banco Central RD · AIRD · Global Property Guide 2025</div>
+</div>
+
+<!-- ====== ZONES ====== -->
+<section class="section" id="zones">
   <div class="reveal">
-    <div class="section-eyebrow">Cómo Funciona</div>
-    <div class="section-title">Simple. <em>Inteligente.</em><br>Sin perder tiempo.</div>
-    <div class="section-desc">Olvídate de publicar en Facebook y esperar. CasaMatch trabaja para ti.</div>
+    <div class="eyebrow">Zonas Principales</div>
+    <div class="sec-title">El mercado más<br><em>dinámico</em> del Caribe</div>
+    <div class="sec-desc">Cada zona tiene su propio perfil de comprador. Nuestro algoritmo conoce la diferencia.</div>
   </div>
 
-  <div class="tab-row reveal reveal-d1">
-    <button class="tab-btn active" onclick="switchTab('seller', this)">Soy Vendedor</button>
-    <button class="tab-btn" onclick="switchTab('buyer', this)">Soy Comprador</button>
-  </div>
-
-  <div id="seller-steps">
-    <div class="step-card reveal reveal-d1">
-      <div class="step-num" style="background:rgba(212,168,67,0.12);color:var(--gold)">1</div>
-      <div class="step-body">
-        <div class="step-title">Lista tu propiedad</div>
-        <div class="step-desc">Agrega fotos, precio y detalles en menos de 5 minutos. Sin complicaciones.</div>
+  <div class="zones-grid reveal rd1">
+    <div class="zone-card wide" style="background:linear-gradient(135deg,#0B4F6C 0%,#1B8CA8 50%,#0D7A96 100%)" onclick="toast('Punta Cana · Precio promedio: $320K–$2.5M')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">🏖️</div>
+      <div class="zone-content">
+        <div class="zone-name">Punta Cana & Cap Cana</div>
+        <div class="zone-price">Desde $180K · Lujo hasta $5M+</div>
+        <div class="zone-tag" style="background:rgba(212,168,67,0.25);color:var(--gold);border:1px solid rgba(212,168,67,0.3)">40% compradores USA</div>
       </div>
     </div>
-    <div class="step-card reveal reveal-d2">
-      <div class="step-num" style="background:rgba(27,58,107,0.1);color:var(--navy-mid)">2</div>
-      <div class="step-body">
-        <div class="step-title">Nuestro AI analiza el mercado</div>
-        <div class="step-desc">Comparamos tu propiedad con cientos de perfiles de compradores activos y calculamos compatibilidad.</div>
+    <div class="zone-card" style="background:linear-gradient(135deg,#1A1A2E 0%,#2D3561 100%)" onclick="toast('Santo Domingo · Mercado urbano más grande del país')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">🏙️</div>
+      <div class="zone-content">
+        <div class="zone-name">Santo Domingo</div>
+        <div class="zone-price">$80K – $1.2M</div>
+        <div class="zone-tag" style="background:rgba(42,82,152,0.3);color:#7BA7E8">Inversión urbana</div>
       </div>
     </div>
-    <div class="step-card reveal reveal-d3">
-      <div class="step-num" style="background:rgba(39,174,96,0.1);color:var(--success)">3</div>
-      <div class="step-body">
-        <div class="step-title">Ves tu ranking de buyers</div>
-        <div class="step-desc">Recibes una lista priorizada con score de compatibilidad, perfil del comprador y contacto por WhatsApp.</div>
+    <div class="zone-card" style="background:linear-gradient(135deg,#1A3A1A 0%,#2D5E2D 100%)" onclick="toast('Las Terrenas · El favorito de los europeos en RD')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">🌴</div>
+      <div class="zone-content">
+        <div class="zone-name">Las Terrenas</div>
+        <div class="zone-price">$120K – $800K</div>
+        <div class="zone-tag" style="background:rgba(29,185,84,0.2);color:#1DB954">Expat · Europeo</div>
       </div>
     </div>
-  </div>
-
-  <div id="buyer-steps" style="display:none">
-    <div class="step-card reveal reveal-d1">
-      <div class="step-num" style="background:rgba(232,85,62,0.1);color:var(--coral)">1</div>
-      <div class="step-body">
-        <div class="step-title">Crea tu perfil</div>
-        <div class="step-desc">Dinos qué buscas: zona, presupuesto, tipo de propiedad, estilo de vida. 3 minutos.</div>
+    <div class="zone-card" style="background:linear-gradient(135deg,#3D1A00 0%,#6B3310 100%)" onclick="toast('La Romana · Ultra lujo · Casa de Campo')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">⛳</div>
+      <div class="zone-content">
+        <div class="zone-name">La Romana</div>
+        <div class="zone-price">$500K – $10M+</div>
+        <div class="zone-tag" style="background:rgba(212,168,67,0.25);color:var(--gold)">Ultra Lujo</div>
       </div>
     </div>
-    <div class="step-card reveal reveal-d2">
-      <div class="step-num" style="background:rgba(212,168,67,0.12);color:var(--gold)">2</div>
-      <div class="step-body">
-        <div class="step-title">Recibe matches curados</div>
-        <div class="step-desc">Olvídate de buscar entre 500 propiedades. Solo ves las que realmente encajan contigo.</div>
+    <div class="zone-card" style="background:linear-gradient(135deg,#0A2744 0%,#1A4B7A 100%)" onclick="toast('Cabarete · Kitesurf, surfing, comunidad expat activa')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">🏄</div>
+      <div class="zone-content">
+        <div class="zone-name">Cabarete & Sosúa</div>
+        <div class="zone-price">$80K – $450K</div>
+        <div class="zone-tag" style="background:rgba(11,139,139,0.3);color:#4ECDC4">Deportes · Joven</div>
       </div>
     </div>
-    <div class="step-card reveal reveal-d3">
-      <div class="step-num" style="background:rgba(39,174,96,0.1);color:var(--success)">3</div>
-      <div class="step-body">
-        <div class="step-title">Conecta por WhatsApp</div>
-        <div class="step-desc">Un click y hablas directamente con el vendedor. Sin intermediarios, sin esperas.</div>
+    <div class="zone-card" style="background:linear-gradient(135deg,#2D1B00 0%,#5C3D1E 100%)" onclick="toast('Santiago · Segunda ciudad más grande, mercado residencial sólido')">
+      <div class="zone-overlay"></div>
+      <div class="zone-emoji">🏔️</div>
+      <div class="zone-content">
+        <div class="zone-name">Santiago</div>
+        <div class="zone-price">$60K – $400K</div>
+        <div class="zone-tag" style="background:rgba(232,85,62,0.2);color:#E8553E">Residencial</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- =========== LIVE DEMO =========== -->
-<section class="demo-section" id="demo">
+<!-- ====== HOW IT WORKS ====== -->
+<section class="section" id="how" style="background:var(--light)">
   <div class="reveal">
-    <div class="section-eyebrow" style="color:var(--gold)">Demo en Vivo</div>
-    <div class="section-title">Así ve un vendedor<br><em>sus buyers</em></div>
-    <div class="section-desc">Esta propiedad en Punta Cana tiene 4 compradores altamente compatibles esperando.</div>
+    <div class="eyebrow">Cómo Funciona</div>
+    <div class="sec-title">Sin curva de<br>aprendizaje. <em>Simple.</em></div>
+    <div class="sec-desc">Tres pasos. Sin importar si eres vendedor o comprador.</div>
   </div>
 
-  <div class="property-card reveal reveal-d1">
-    <div class="property-visual" style="background:linear-gradient(160deg,#0A2744 0%,#1B4B8A 100%);">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem;opacity:0.15">🏖️</div>
-      <div class="property-badge">Cap Cana · En Venta</div>
-      <div class="property-price">$850,000</div>
+  <div class="tabs reveal rd1">
+    <button class="tab on" onclick="switchTab('seller',this)">🏠 Soy Vendedor</button>
+    <button class="tab" onclick="switchTab('buyer',this)">🔍 Soy Comprador</button>
+  </div>
+
+  <div id="steps-seller">
+    <div class="step reveal rd1">
+      <div class="step-n" style="background:rgba(212,168,67,0.12);color:var(--gold)">1</div>
+      <div class="step-body">
+        <div class="step-title">Lista tu propiedad en 5 minutos</div>
+        <div class="step-text">Fotos, precio, zona y características básicas. Sin tecnicismos. Sin intermediarios.</div>
+      </div>
     </div>
-    <div class="property-info">
-      <div class="property-name">Villa Palmera</div>
-      <div class="property-loc">📍 Cap Cana, Punta Cana</div>
-      <div class="property-specs">
-        <div class="spec"><span class="spec-icon">🛏</span> 4 hab.</div>
-        <div class="spec"><span class="spec-icon">🚿</span> 4 baños</div>
-        <div class="spec"><span class="spec-icon">📐</span> 420 m²</div>
-        <div class="spec"><span class="spec-icon">🏊</span> Piscina</div>
+    <div class="step reveal rd2">
+      <div class="step-n" style="background:rgba(27,58,107,0.1);color:var(--navy-mid)">2</div>
+      <div class="step-body">
+        <div class="step-title">Nuestro AI compara con 100s de perfiles</div>
+        <div class="step-text">Analizamos presupuesto, zona preferida, tipo de uso, urgencia y 12 variables más para calcular compatibilidad real.</div>
       </div>
-
-      <div class="matches-label">
-        <span>🎯 Buyers Compatibles</span>
-        <span style="color:rgba(255,255,255,0.35);font-weight:400">ordenados por match</span>
+    </div>
+    <div class="step reveal rd3">
+      <div class="step-n" style="background:rgba(29,185,84,0.1);color:var(--green)">3</div>
+      <div class="step-body">
+        <div class="step-title">Ves tu ranking y contactas por WhatsApp</div>
+        <div class="step-text">Lista priorizada con score, perfil y contexto del comprador. Un click para abrir WhatsApp y hablar.</div>
       </div>
+    </div>
+  </div>
 
-      <!-- Buyer matches -->
-      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
-        <div class="buyer-ava">🇺🇸</div>
-        <div class="buyer-info">
-          <div class="buyer-name">James & Sarah M.</div>
-          <div class="buyer-detail">Miami, FL · Jubilación · Pre-aprobado $1.2M</div>
-          <div class="buyer-tags">
-            <span class="tag green">Pre-aprobado</span>
-            <span class="tag">Vista al mar</span>
-            <span class="tag">Golf</span>
-          </div>
-        </div>
-        <div class="buyer-score">
-          <div class="score-circle score-95">95%</div>
-        </div>
+  <div id="steps-buyer" style="display:none">
+    <div class="step reveal rd1">
+      <div class="step-n" style="background:rgba(232,85,62,0.1);color:var(--coral)">1</div>
+      <div class="step-body">
+        <div class="step-title">Crea tu perfil en 3 minutos</div>
+        <div class="step-text">Zona, presupuesto, tipo de propiedad y estilo de vida. Sin registrarte con 20 datos. Solo lo esencial.</div>
       </div>
-
-      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
-        <div class="buyer-ava">🇩🇴</div>
-        <div class="buyer-info">
-          <div class="buyer-name">Carlos Familia</div>
-          <div class="buyer-detail">Santo Domingo · Segunda residencia</div>
-          <div class="buyer-tags">
-            <span class="tag">Piscina</span>
-            <span class="tag coral">Urgente</span>
-            <span class="tag">4+ hab.</span>
-          </div>
-        </div>
-        <div class="buyer-score">
-          <div class="score-circle score-87">87%</div>
-        </div>
+    </div>
+    <div class="step reveal rd2">
+      <div class="step-n" style="background:rgba(212,168,67,0.12);color:var(--gold)">2</div>
+      <div class="step-body">
+        <div class="step-title">Recibe matches curados cada semana</div>
+        <div class="step-text">No 200 propiedades irrelevantes. Solo las que realmente encajan contigo. En tu WhatsApp.</div>
       </div>
-
-      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
-        <div class="buyer-ava">🇬🇧</div>
-        <div class="buyer-info">
-          <div class="buyer-name">Robert & Anne T.</div>
-          <div class="buyer-detail">London · Inversión + vacacional</div>
-          <div class="buyer-tags">
-            <span class="tag">Renta vacacional</span>
-            <span class="tag">Lujo</span>
-          </div>
-        </div>
-        <div class="buyer-score">
-          <div class="score-circle score-72">72%</div>
-        </div>
+    </div>
+    <div class="step reveal rd3">
+      <div class="step-n" style="background:rgba(29,185,84,0.1);color:var(--green)">3</div>
+      <div class="step-body">
+        <div class="step-title">Habla directamente con el vendedor</div>
+        <div class="step-text">Sin agencias que filtran tus mensajes. Contacto directo, negociación directa.</div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="buyer-match-row" onclick="showToast('¡Acceso premium para ver contacto completo!')">
-        <div class="buyer-ava">🇨🇦</div>
-        <div class="buyer-info">
-          <div class="buyer-name">Marc Dupont</div>
-          <div class="buyer-detail">Montreal · Retiro anticipado · Flexible</div>
-          <div class="buyer-tags">
-            <span class="tag">Piscina</span>
-            <span class="tag">Jardín</span>
-          </div>
-        </div>
-        <div class="buyer-score">
-          <div class="score-circle score-61">61%</div>
-        </div>
+<!-- ====== INTERACTIVE DEMO ====== -->
+<section class="section-dark" id="demo">
+  <div class="reveal">
+    <div class="eyebrow eyebrow-gold">Demo Interactivo</div>
+    <div class="sec-title sec-title-white">Mueve los controles.<br><em>Mira cómo cambian</em><br>los matches.</div>
+    <div class="sec-desc sec-desc-muted">Así funciona el algoritmo. Ajusta el precio o la zona y los scores se actualizan en tiempo real.</div>
+  </div>
+
+  <div class="demo-property reveal rd1">
+    <div class="demo-visual" style="background:linear-gradient(135deg,#0A2744,#1B4F8A)">
+      <div class="demo-visual-inner">🏖️</div>
+      <div class="demo-price-tag" id="demo-price-tag">$850,000</div>
+      <div class="demo-zone-tag" id="demo-zone-tag">Cap Cana · En Venta</div>
+    </div>
+    <div class="demo-info">
+      <div class="demo-prop-name">Villa Palmera</div>
+      <div class="demo-prop-loc">📍 Cap Cana, Punta Cana · 4 hab · 420 m²</div>
+      <div class="demo-specs">
+        <div class="demo-spec">🛏 4 hab.</div>
+        <div class="demo-spec">🚿 4 baños</div>
+        <div class="demo-spec">🏊 Piscina</div>
+        <div class="demo-spec">⛳ Golf</div>
       </div>
+    </div>
 
-      <button class="wa-btn" onclick="showToast('¡Abriendo WhatsApp!')">
-        <span>💬</span> Contactar el comprador #1 por WhatsApp
+    <div class="demo-controls">
+      <div class="demo-controls-label">🎛 Ajusta la propiedad — los matches se actualizan</div>
+      <div class="control-row">
+        <span class="control-label">Precio</span>
+        <input class="control-range" type="range" min="200" max="2000" step="50" value="850"
+          oninput="updateDemo('price', this.value)">
+        <span class="control-val" id="ctrl-price">$850K</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">Zona</span>
+        <select style="flex:1;padding:6px 10px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:0.78rem;font-family:'Inter',sans-serif;outline:none" onchange="updateDemo('zone', this.value)">
+          <option value="puntacana">Punta Cana / Cap Cana</option>
+          <option value="sd">Santo Domingo</option>
+          <option value="terrenas">Las Terrenas</option>
+          <option value="romana">La Romana</option>
+          <option value="cabarete">Cabarete / Sosúa</option>
+        </select>
+        <span class="control-val" id="ctrl-zone" style="display:none"></span>
+      </div>
+    </div>
+
+    <div class="buyers-list">
+      <div class="buyers-header">
+        <span>🎯 Buyers compatibles</span>
+        <span id="match-count" style="color:rgba(255,255,255,0.35);font-weight:400">4 encontrados</span>
+      </div>
+      <div id="buyers-render"></div>
+      <button class="wa-contact-btn" onclick="toast('💬 Abriendo WhatsApp con el comprador #1...')">
+        💬 Contactar el #1 por WhatsApp
       </button>
     </div>
   </div>
 </section>
 
-<!-- =========== BUYER PROFILE FORM =========== -->
-<section class="form-section" id="form-section">
+<!-- ====== TESTIMONIALS ====== -->
+<section class="section" id="reviews">
   <div class="reveal">
-    <div class="section-eyebrow">Para Compradores</div>
-    <div class="section-title">Crea tu perfil y<br><em>recibe matches</em></div>
-    <div class="section-desc">Dinos qué buscas. Nosotros encontramos las propiedades que encajan contigo — no las que pagan por aparecer.</div>
+    <div class="eyebrow">Testimonios</div>
+    <div class="sec-title">Lo que dicen<br>los <em>primeros usuarios</em></div>
+    <div class="sec-desc">Beta privada con 30 vendedores y 120 compradores. Estos son sus resultados.</div>
   </div>
 
-  <div class="form-card reveal reveal-d1">
-    <div class="form-group">
-      <label class="form-label">Nombre completo</label>
-      <input class="form-input" type="text" placeholder="Ej. Juan Pérez">
+  <div class="testi-card reveal rd1">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-text">En dos días tenía tres compradores serios pre-aprobados en mi villa. Antes tardé 8 meses con una agencia y nada. CasaMatch cambió el juego.</div>
+    <div class="testi-author">
+      <div class="testi-ava" style="background:rgba(212,168,67,0.15)">🇩🇴</div>
+      <div>
+        <div class="testi-name">Miguel Ángel R.</div>
+        <div class="testi-from">Vendedor · Villa en Punta Cana · $680,000</div>
+      </div>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label class="form-label">WhatsApp</label>
-      <input class="form-input" type="tel" placeholder="+1 809 000 0000">
+  <div class="testi-card reveal rd2">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-text">We were searching for 6 months on traditional sites. Created our profile on CasaMatch and in 3 weeks found the perfect condo in Las Terrenas. The match score was 91% — it was spot on.</div>
+    <div class="testi-author">
+      <div class="testi-ava" style="background:rgba(42,82,152,0.15)">🇫🇷</div>
+      <div>
+        <div class="testi-name">Claire & Thomas B.</div>
+        <div class="testi-from">Compradores · Apartamento en Las Terrenas · $210,000</div>
+      </div>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label class="form-label">¿Dónde buscas?</label>
-      <select class="form-select">
+  <div class="testi-card reveal rd3">
+    <div class="testi-stars">★★★★☆</div>
+    <div class="testi-text">Como agente, pensé que esto era competencia. Resulta que es el mejor aliado — mis clientes llegan pre-calificados y yo cierro en la mitad del tiempo. Lo recomiendo a todo mi equipo.</div>
+    <div class="testi-author">
+      <div class="testi-ava" style="background:rgba(232,85,62,0.15)">🇩🇴</div>
+      <div>
+        <div class="testi-name">Luisa Contreras</div>
+        <div class="testi-from">Agente inmobiliaria · Cap Cana Real Estate Group</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== BUYER FORM ====== -->
+<section class="section" id="form-section" style="background:var(--light)">
+  <div class="reveal">
+    <div class="eyebrow">Para Compradores</div>
+    <div class="sec-title">Crea tu perfil.<br><em>Recibe matches</em><br>que importan.</div>
+    <div class="sec-desc">Gratis siempre. Sin spam. Solo propiedades que realmente encajan contigo — directo a tu WhatsApp.</div>
+  </div>
+
+  <div class="form-wrap reveal rd1">
+    <div class="field">
+      <label class="field-label">Nombre completo</label>
+      <input class="input" type="text" placeholder="Ej. Juan García" id="f-name">
+    </div>
+    <div class="field">
+      <label class="field-label">WhatsApp (con código de país)</label>
+      <input class="input" type="tel" placeholder="+1 809 000 0000" id="f-phone">
+    </div>
+    <div class="field">
+      <label class="field-label">¿Dónde buscas?</label>
+      <select class="select-input" id="f-zone">
+        <option value="">— Selecciona zona —</option>
         <option>Punta Cana / Cap Cana</option>
         <option>Santo Domingo</option>
         <option>Las Terrenas / Samaná</option>
         <option>La Romana / Casa de Campo</option>
         <option>Santiago</option>
         <option>Puerto Plata</option>
-        <option>Sosúa / Cabarete</option>
-        <option>Indiferente / Toda la RD</option>
+        <option>Cabarete / Sosúa</option>
+        <option>Toda la RD (flexible)</option>
       </select>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Presupuesto máximo: <strong id="budget-val">$500,000</strong></label>
-      <input class="form-range" type="range" min="50000" max="3000000" step="50000" value="500000"
-        oninput="document.getElementById('budget-val').textContent='$'+Number(this.value).toLocaleString()">
+    <div class="field">
+      <label class="field-label">Presupuesto máximo: <strong id="f-budget-lbl">$400,000</strong></label>
+      <div class="range-wrap">
+        <input class="range-input" type="range" min="50000" max="3000000" step="25000" value="400000"
+          oninput="document.getElementById('f-budget-lbl').textContent='$'+Number(this.value).toLocaleString()">
+      </div>
       <div class="range-labels"><span>$50K</span><span>$3M+</span></div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Tipo de propiedad</label>
-      <div class="checkbox-grid">
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🏡 Villa</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🏢 Apartamento</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🏖️ Beachfront</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🏗️ Proyecto</span>
-        </label>
+    <div class="field">
+      <label class="field-label">Tipo de propiedad</label>
+      <div class="pick-grid">
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏡 Villa</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏢 Apartamento</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏖️ Beachfront</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏗️ En planos</span></label>
       </div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">¿Para qué es?</label>
-      <div class="checkbox-grid">
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🏠 Residencia</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>📈 Inversión</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>🌴 Vacacional</span>
-        </label>
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox"> <span>✈️ Retiro</span>
-        </label>
+    <div class="field">
+      <label class="field-label">¿Para qué es?</label>
+      <div class="pick-grid">
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🏠 Residencia principal</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>📈 Inversión</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>🌴 Vacacional</span></label>
+        <label class="pick-item" onclick="this.classList.toggle('on')"><span>✈️ Retiro / Jubilación</span></label>
       </div>
     </div>
-
-    <button class="submit-btn" onclick="handleSubmit()">
-      Crear mi perfil y recibir matches →
-    </button>
+    <button class="form-submit" onclick="submitForm()">Crear mi perfil y recibir matches →</button>
+    <div class="form-note">🔒 Tu información es privada. No la compartimos sin tu permiso.</div>
   </div>
 </section>
 
-<!-- =========== PRICING =========== -->
-<section class="pricing-section" id="pricing">
+<!-- ====== PRICING ====== -->
+<section class="section" id="pricing">
   <div class="reveal">
-    <div class="section-eyebrow">Planes</div>
-    <div class="section-title">Transparente.<br><em>Sin sorpresas.</em></div>
-    <div class="section-desc">Para compradores es gratis. Los vendedores pagan para acceder a sus buyers calificados.</div>
+    <div class="eyebrow">Planes</div>
+    <div class="sec-title">Precios <em>honestos.</em><br>Sin letra pequeña.</div>
+    <div class="sec-desc">Compradores siempre gratis. Vendedores pagan para acceder a sus buyers calificados.</div>
   </div>
 
-  <div class="pricing-card reveal reveal-d1">
+  <div class="price-card reveal rd1">
     <div class="plan-name">Comprador</div>
-    <div class="plan-price">Gratis <span>siempre</span></div>
-    <div class="plan-desc">Crea tu perfil y recibe matches personalizados sin costo.</div>
-    <div class="feature-item">Perfil de comprador completo</div>
-    <div class="feature-item">Matches ilimitados</div>
-    <div class="feature-item">Notificaciones por WhatsApp</div>
-    <div class="feature-item">Contacto directo con vendedores</div>
-    <button class="submit-btn" style="margin-top:1.2rem" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
-      Crear perfil gratis
-    </button>
+    <div class="plan-amount">Gratis</div>
+    <div class="plan-tagline">Crea tu perfil y recibe matches de propiedades que encajan con lo que buscas. Para siempre.</div>
+    <div class="pf">Perfil de comprador completo</div>
+    <div class="pf">Matches ilimitados</div>
+    <div class="pf">Alertas semanales por WhatsApp</div>
+    <div class="pf">Contacto directo con vendedores</div>
+    <div class="pf no">Sin publicidad</div>
+    <button class="plan-btn" onclick="nav('form-section')">Crear perfil gratis →</button>
   </div>
 
-  <div class="pricing-card featured reveal reveal-d2">
-    <div class="plan-badge">Más Popular</div>
+  <div class="price-card hot reveal rd2">
+    <div class="hot-badge">Más Popular</div>
     <div class="plan-name">Vendedor Pro</div>
-    <div class="plan-price">$99 <span>/ propiedad / mes</span></div>
-    <div class="plan-desc">Accede a tu ranking completo de compradores calificados con información de contacto.</div>
-    <div class="feature-item">Lista hasta 3 propiedades</div>
-    <div class="feature-item">Ranking completo de buyers</div>
-    <div class="feature-item">Perfil completo + contacto WhatsApp</div>
-    <div class="feature-item">Score de compatibilidad detallado</div>
-    <div class="feature-item">Notificaciones de nuevos buyers</div>
-    <button class="wa-btn" style="margin-top:1.2rem" onclick="showToast('¡Te contactamos por WhatsApp!')">
-      💬 Hablar con nosotros
-    </button>
+    <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px">
+      <div class="plan-amount">$99</div>
+      <div class="plan-period">/ propiedad / mes</div>
+    </div>
+    <div class="plan-tagline">Accede al ranking completo de compradores calificados con contacto por WhatsApp incluido.</div>
+    <div class="pf">Lista hasta 3 propiedades</div>
+    <div class="pf">Ranking completo de buyers con score</div>
+    <div class="pf">Perfil completo + WhatsApp directo</div>
+    <div class="pf">Score de compatibilidad detallado</div>
+    <div class="pf">Alertas de nuevos buyers en tiempo real</div>
+    <button class="plan-btn gold-btn" onclick="toast('💬 Te contactamos en menos de 24h')">Empezar ahora →</button>
   </div>
 
-  <div class="pricing-card reveal reveal-d3">
+  <div class="price-card reveal rd3">
     <div class="plan-name">Agencia / Desarrollador</div>
-    <div class="plan-price">Custom <span>/ acuerdo</span></div>
-    <div class="plan-desc">Para portfolios grandes o proyectos en pre-venta. Modelo de comisión negociable.</div>
-    <div class="feature-item">Propiedades ilimitadas</div>
-    <div class="feature-item">Dashboard de analytics</div>
-    <div class="feature-item">API de integración</div>
-    <div class="feature-item">Account manager dedicado</div>
-    <button class="submit-btn" style="margin-top:1.2rem" onclick="showToast('¡En contacto pronto!')">
-      Solicitar propuesta
-    </button>
+    <div class="plan-amount" style="font-size:1.6rem">A medida</div>
+    <div class="plan-tagline">Para portfolios grandes o proyectos en pre-venta. Comisiones negociables y API disponible.</div>
+    <div class="pf">Propiedades ilimitadas</div>
+    <div class="pf">Dashboard de analytics</div>
+    <div class="pf">API de integración</div>
+    <div class="pf">Account manager dedicado</div>
+    <div class="pf">Modelo de comisión opcional</div>
+    <button class="plan-btn" onclick="toast('📩 Enviando solicitud...')">Solicitar propuesta →</button>
   </div>
 </section>
 
-<!-- =========== FOOTER =========== -->
-<footer class="footer">
-  <div class="footer-logo">Casa<span>Match</span> AI</div>
-  <div class="footer-tagline">El mercado inmobiliario de RD, con inteligencia.</div>
-
-  <button class="footer-wa" onclick="showToast('¡Abriendo WhatsApp!')">
-    💬 Contactar por WhatsApp
-  </button>
-
-  <div class="footer-links">
-    <span class="footer-link" onclick="showToast('Próximamente')">Cómo funciona</span>
-    <span class="footer-link" onclick="showToast('Próximamente')">Para agentes</span>
-    <span class="footer-link" onclick="showToast('Próximamente')">Blog</span>
-    <span class="footer-link" onclick="showToast('Próximamente')">Contacto</span>
+<!-- ====== FAQ ====== -->
+<section class="section" id="faq" style="background:var(--light)">
+  <div class="reveal">
+    <div class="eyebrow">FAQ</div>
+    <div class="sec-title">Preguntas <em>frecuentes</em></div>
   </div>
 
-  <div class="footer-copy">
-    © 2026 CasaMatch AI · República Dominicana<br>
-    Conectando compradores y vendedores con inteligencia.
+  <div class="reveal rd1">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Cómo calcula CasaMatch el porcentaje de compatibilidad? <span class="faq-arrow">›</span></div>
+      <div class="faq-a">Analizamos 12 variables: presupuesto vs precio, zona preferida, tipo de propiedad, propósito de compra, urgencia, origen del comprador, preferencias de estilo de vida, y más. El resultado es un score de 0-100% que indica qué tan bien encaja ese comprador con tu propiedad específica.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Necesito ser agente para listar? <span class="faq-arrow">›</span></div>
+      <div class="faq-a">No. Cualquier propietario puede listar directamente. Si eres agente, tenemos un plan especial con múltiples propiedades y dashboard de analytics.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Es gratis para compradores? <span class="faq-arrow">›</span></div>
+      <div class="faq-a">Sí. 100% gratis siempre para compradores. Creas tu perfil, recibes matches curados en WhatsApp, y contactas vendedores directamente sin costo.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Qué pasa con mi privacidad como comprador? <span class="faq-arrow">›</span></div>
+      <div class="faq-a">Tu información personal (nombre, WhatsApp) solo se comparte con vendedores cuando tú decides hacer click en "Contactar". El vendedor ve tu perfil de búsqueda pero no tus datos de contacto hasta que tú autorices.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">¿Operan fuera de la República Dominicana? <span class="faq-arrow">›</span></div>
+      <div class="faq-a">Por ahora el mercado es exclusivamente RD. Es donde está la oportunidad y donde podemos garantizar calidad. Si la demanda lo justifica, expandimos a otros mercados caribeños en 2026.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-logo-text">Casa<em>Match</em> AI</div>
+    <div class="footer-tagline">El mercado inmobiliario de RD, con inteligencia.</div>
+    <button class="footer-wa" onclick="toast('💬 Abriendo WhatsApp...')">
+      💬 Hablar por WhatsApp
+    </button>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <div class="footer-col-title">Plataforma</div>
+      <span class="footer-link" onclick="nav('how')">Cómo funciona</span>
+      <span class="footer-link" onclick="nav('demo')">Demo en vivo</span>
+      <span class="footer-link" onclick="nav('pricing')">Precios</span>
+      <span class="footer-link" onclick="nav('faq')">FAQ</span>
+    </div>
+    <div>
+      <div class="footer-col-title">Recursos</div>
+      <span class="footer-link" onclick="toast('Blog próximamente')">Blog de mercado</span>
+      <span class="footer-link" onclick="toast('Guía próximamente')">Guía del comprador</span>
+      <span class="footer-link" onclick="toast('Para agentes próximamente')">Para agentes</span>
+      <span class="footer-link" onclick="toast('Términos próximamente')">Términos de uso</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-flag">🇩🇴</div>
+    <div class="footer-copy">© 2026 CasaMatch AI · República Dominicana<br>Conectando compradores y vendedores con inteligencia real.</div>
   </div>
 </footer>
 
+<!-- ====== BOTTOM NAV ====== -->
+<nav class="bottom-nav">
+  <button class="bnav-btn on" onclick="navBtn('top',this)">
+    <div class="bnav-dot"></div>
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span>
+  </button>
+  <button class="bnav-btn" onclick="navBtn('zones',this)">
+    <div class="bnav-dot"></div>
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    <span>Zonas</span>
+  </button>
+  <button class="bnav-btn" onclick="navBtn('demo',this)">
+    <div class="bnav-dot"></div>
+    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Demo</span>
+  </button>
+  <button class="bnav-btn" onclick="navBtn('form-section',this)">
+    <div class="bnav-dot"></div>
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Mi Perfil</span>
+  </button>
+</nav>
+
 <!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast-el"></div>
 
 <script>
-// ===== SCROLL REVEAL =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+// ======= DATA =======
+const buyers = [
+  { id:1, name:'James & Sarah M.', flag:'🇺🇸', from:'Miami, FL', purpose:'Retiro', maxBudget:1200, zones:['puntacana','romana'], tags:['Pre-aprobado','Golf','Vista al mar'], urgency:'alta' },
+  { id:2, name:'Carlos Familia',   flag:'🇩🇴', from:'Santo Domingo', purpose:'2ª residencia', maxBudget:900, zones:['puntacana','sd'], tags:['Piscina','4+ hab.','Urgente'], urgency:'alta' },
+  { id:3, name:'Robert & Anne T.', flag:'🇬🇧', from:'London',   purpose:'Inversión vacacional', maxBudget:800, zones:['puntacana','terrenas','romana'], tags:['Renta vacacional','Lujo'], urgency:'media' },
+  { id:4, name:'Marc Dupont',      flag:'🇨🇦', from:'Montreal', purpose:'Retiro anticipado', maxBudget:650, zones:['puntacana','terrenas','cabarete'], tags:['Piscina','Jardín'], urgency:'baja' },
+];
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ===== TABS =====
-function switchTab(tab, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('seller-steps').style.display = tab === 'seller' ? 'block' : 'none';
-  document.getElementById('buyer-steps').style.display = tab === 'buyer' ? 'block' : 'none';
+function calcScore(buyer, price, zone) {
+  let score = 0;
+  // Budget fit (0-40 pts)
+  if (price <= buyer.maxBudget) score += 40;
+  else if (price <= buyer.maxBudget * 1.1) score += 30;
+  else if (price <= buyer.maxBudget * 1.25) score += 15;
+  else score += 0;
+  // Zone match (0-35 pts)
+  if (buyer.zones.includes(zone)) score += 35;
+  else score += 10;
+  // Urgency (0-25 pts)
+  score += buyer.urgency === 'alta' ? 25 : buyer.urgency === 'media' ? 15 : 8;
+  return Math.min(score, 99);
 }
 
-// ===== CHECKBOXES =====
-function toggleCheck(el) {
-  el.classList.toggle('selected');
+function scoreColor(s) {
+  if (s >= 85) return { c:'#1DB954', bg:'rgba(29,185,84,0.08)' };
+  if (s >= 70) return { c:'#D4A843', bg:'rgba(212,168,67,0.08)' };
+  if (s >= 55) return { c:'#E8953E', bg:'rgba(232,149,62,0.08)' };
+  return { c:'#8A8A8A', bg:'rgba(138,138,138,0.08)' };
 }
 
-// ===== TOAST =====
-let toastTimeout;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+let currentPrice = 850, currentZone = 'puntacana';
+
+function renderBuyers() {
+  const sorted = buyers.map(b => ({ ...b, score: calcScore(b, currentPrice, currentZone) }))
+                       .sort((a,b) => b.score - a.score);
+  document.getElementById('match-count').textContent = sorted.filter(b=>b.score>=55).length + ' encontrados';
+  document.getElementById('buyers-render').innerHTML = sorted.map(b => {
+    const { c, bg } = scoreColor(b.score);
+    return `
+    <div class="b-row" onclick="toast('💬 Abriendo WhatsApp con ${b.name}...')">
+      <div class="b-flag" style="background:${bg}">${b.flag}</div>
+      <div class="b-info">
+        <div class="b-name">${b.name}</div>
+        <div class="b-detail">${b.from} · ${b.purpose}</div>
+        <div class="b-tags">${b.tags.map(t => `<span class="btag${t==='Pre-aprobado'?' g':t==='Urgente'?' r':''}">${t}</span>`).join('')}</div>
+      </div>
+      <div class="b-score-wrap">
+        <div class="b-score" style="color:${c};border-color:${c};background:${bg}">${b.score}%</div>
+        <div class="b-score-bar-wrap"><div class="b-score-bar" style="width:${b.score}%;background:${c}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-// ===== FORM SUBMIT =====
-function handleSubmit() {
-  const name = document.querySelector('.form-input[type="text"]').value;
-  const phone = document.querySelector('.form-input[type="tel"]').value;
-  if (!name || !phone) {
-    showToast('⚠️ Por favor completa nombre y WhatsApp');
-    return;
+function updateDemo(type, val) {
+  if (type === 'price') {
+    currentPrice = Number(val);
+    document.getElementById('ctrl-price').textContent = '$' + currentPrice + 'K';
+    document.getElementById('demo-price-tag').textContent = '$' + currentPrice.toLocaleString() + ',000';
   }
-  showToast('✅ ¡Perfil creado! Te contactamos en 24h por WhatsApp.');
+  if (type === 'zone') {
+    currentZone = val;
+    const labels = { puntacana:'Cap Cana · En Venta', sd:'Santo Domingo · En Venta', terrenas:'Las Terrenas · En Venta', romana:'La Romana · En Venta', cabarete:'Cabarete · En Venta' };
+    document.getElementById('demo-zone-tag').textContent = labels[val] || 'En Venta';
+  }
+  renderBuyers();
 }
 
-// ===== NAV SCROLL =====
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+renderBuyers();
+
+// ======= TABS =======
+function switchTab(t, btn) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('steps-seller').style.display = t==='seller' ? 'block' : 'none';
+  document.getElementById('steps-buyer').style.display  = t==='buyer'  ? 'block' : 'none';
 }
+
+// ======= FAQ =======
+function toggleFaq(el) {
+  el.classList.toggle('open');
+}
+
+// ======= NAV =======
+function nav(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
+}
+function navBtn(id, btn) {
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  nav(id);
+}
+
+// ======= TOAST =======
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast-el');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ======= FORM =======
+function submitForm() {
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const zone  = document.getElementById('f-zone').value;
+  if (!name) { toast('⚠️ Ingresa tu nombre'); return; }
+  if (!phone) { toast('⚠️ Ingresa tu WhatsApp'); return; }
+  if (!zone) { toast('⚠️ Selecciona una zona'); return; }
+  toast('✅ ¡Perfil creado, ' + name.split(' ')[0] + '! Te contactamos en 24h por WhatsApp 🎉');
+}
+
+// ======= COUNTERS =======
+function animateCount(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = String(target).includes('.');
+  const duration = 1800, steps = 60, step = duration / steps;
+  let current = 0;
+  const inc = target / steps;
+  const t = setInterval(() => {
+    current += inc;
+    if (current >= target) { current = target; clearInterval(t); }
+    el.textContent = (el.dataset.prefix || '') + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+  }, step);
+}
+
+// ======= SCROLL REVEAL =======
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      // trigger counters
+      e.target.querySelectorAll('[data-target]').forEach(animateCount);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
